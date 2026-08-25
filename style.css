@@ -1,0 +1,1692 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #fff8fb;
+    color: #333;
+}
+
+
+/* =========================
+   HEADER RONA CREATION
+========================= */
+
+.header {
+    background: #ffffff;
+    text-align: center;
+    padding: 24px 15px 22px;
+    border-bottom: 1px solid #f1dede;
+    box-shadow: 0 3px 15px rgba(198, 40, 40, 0.07);
+    position: relative;
+}
+
+/* Aksen merah bagian atas */
+.header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: #c62828;
+    border-radius: 0 0 10px 10px;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    color: #b71c1c;
+    line-height: 1.1;
+}
+
+.logo span {
+    color: #333;
+}
+
+.tagline {
+    margin-top: 8px;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    color: #888;
+}
+
+/* Aksen kecil di bawah tagline */
+.header::after {
+    content: "";
+    display: block;
+    width: 35px;
+    height: 2px;
+    margin: 13px auto 0;
+    background: #c62828;
+    border-radius: 5px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    margin: 18px auto;
+    width: calc(100% - 30px);
+    max-width: 1100px;
+    min-height: 230px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd6e8,
+            #fff0f6
+        );
+
+    display: flex;
+    align-items: center;
+    padding: 30px;
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.hero h1 {
+    font-size: 34px;
+    line-height: 1.15;
+    color: #c62828;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #555;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-section {
+    width: calc(100% - 30px);
+    max-width: 1100px;
+    margin: 20px auto 12px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 14px 18px;
+
+    border: 1px solid #eee;
+    border-radius: 50px;
+
+    outline: none;
+
+    font-size: 14px;
+
+    background: white;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+}
+
+#searchInput:focus {
+    border-color: #c62828;
+}
+
+
+/* =========================
+   KATEGORI
+========================= */
+
+.category-section {
+    width: calc(100% - 30px);
+    max-width: 1100px;
+
+    margin: 0 auto 25px;
+
+    display: flex;
+    gap: 8px;
+
+    overflow-x: auto;
+
+    padding-bottom: 5px;
+}
+
+.category-section::-webkit-scrollbar {
+    display: none;
+}
+
+.category {
+    border: none;
+    background: white;
+
+    padding: 9px 16px;
+
+    border-radius: 30px;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    color: #555;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.category.active {
+    background: #c62828;
+    color: white;
+}
+
+
+/* =========================
+   PRODUK
+========================= */
+
+.product-section {
+    width: calc(100% - 30px);
+    max-width: 1100px;
+
+    margin: 0 auto 40px;
+}
+
+/* =========================
+   JUDUL KATALOG
+========================= */
+
+.product-section h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: #333;
+    text-align: center;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+}
+
+.product-section h2::after {
+    content: "";
+    display: block;
+    width: 45px;
+    height: 3px;
+    background: #c62828;
+    border-radius: 10px;
+    margin: 10px auto 18px;
+}
+
+.product-container {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 14px;
+}
+
+
+/* =========================
+   CARD PRODUK
+========================= */
+
+.product-card {
+    background: white;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+
+    transition: 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-3px);
+}
+
+.product-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.product-info {
+    padding: 12px;
+}
+
+.product-name {
+    font-size: 14px;
+    font-weight: bold;
+
+    margin-bottom: 6px;
+
+    line-height: 1.4;
+}
+
+.product-category {
+    font-size: 11px;
+    color: #c62828;
+
+    margin-bottom: 6px;
+}
+
+.product-price {
+    font-size: 14px;
+    font-weight: bold;
+    color: #c62828;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    background: #333;
+    color: white;
+
+    text-align: center;
+
+    padding: 30px 15px;
+}
+
+.footer h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.footer p {
+    font-size: 13px;
+    color: #ddd;
+}
+
+.copyright {
+    margin-top: 15px;
+    font-size: 11px !important;
+    color: #aaa !important;
+}
+
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 768px) {
+
+    .hero {
+        min-height: 300px;
+        padding: 50px;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    .product-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    .product-name {
+        font-size: 15px;
+    }
+
+}
+
+/* =========================
+   DETAIL PRODUK
+========================= */
+
+.detail-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px;
+
+    z-index: 9999;
+}
+
+.detail-modal {
+    position: relative;
+
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 20px;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+
+    animation: munculDetail 0.2s ease;
+}
+
+@keyframes munculDetail {
+
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+.close-detail {
+    position: absolute;
+
+    top: 12px;
+    right: 12px;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: #555;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+
+    z-index: 2;
+}
+
+.detail-image {
+    width: 100%;
+
+    max-height: 450px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.detail-content {
+    padding: 22px;
+}
+
+.detail-category {
+    font-size: 12px;
+
+    color: #c62828;
+
+    font-weight: bold;
+
+    margin-bottom: 6px;
+
+    text-transform: uppercase;
+}
+
+.detail-content h2 {
+    font-size: 23px;
+
+    margin-bottom: 8px;
+
+    color: #333;
+}
+
+.detail-price {
+    font-size: 18px;
+
+    font-weight: bold;
+
+    color: #c62828;
+
+    margin-bottom: 15px;
+}
+
+.detail-content p {
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    color: #666;
+
+    margin-bottom: 20px;
+}
+
+.whatsapp-button {
+    width: 100%;
+
+    border: none;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    background: #25d366;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.whatsapp-button:hover {
+    transform: translateY(-2px);
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.admin-container {
+    width: calc(100% - 30px);
+    max-width: 900px;
+    margin: 25px auto 50px;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.admin-header h1 {
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.admin-header p {
+    font-size: 13px;
+    color: #777;
+}
+
+.back-button {
+    text-decoration: none;
+    background: white;
+    color: #c62828;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    white-space: nowrap;
+}
+
+.admin-card {
+    background: white;
+    border-radius: 18px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+.admin-card h2 {
+    font-size: 19px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group {
+    margin-top: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 7px;
+    color: #444;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 13px 14px;
+
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    background: #fff;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #c62828;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.upload-box {
+    border: 2px dashed #e7b4cc;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    background: #fff8fb;
+}
+
+.upload-box input {
+    border: none;
+    padding: 5px;
+}
+
+.upload-box p {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #888;
+}
+
+#imagePreview {
+    margin-top: 12px;
+}
+
+#imagePreview img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+}
+
+.save-product-button {
+    width: 100%;
+    margin-top: 22px;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #c62828;
+    color: white;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.save-product-button:hover {
+    opacity: 0.9;
+}
+
+.product-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.product-list-header p {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #888;
+}
+
+.product-count {
+    background: #fff0f6;
+    color: #c62828;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.admin-product-list {
+    margin-top: 20px;
+}
+
+.empty-product {
+    text-align: center;
+    padding: 30px 10px;
+    color: #999;
+    font-size: 13px;
+}
+
+
+/* =========================
+   ADMIN MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .admin-container {
+        width: calc(100% - 20px);
+        margin-top: 18px;
+    }
+
+    .admin-header {
+        display: block;
+    }
+
+    .admin-header h1 {
+        font-size: 23px;
+    }
+
+    .back-button {
+        display: inline-block;
+        margin-top: 12px;
+    }
+
+    .admin-card {
+        padding: 17px;
+        border-radius: 15px;
+    }
+
+    .product-list-header {
+        align-items: flex-start;
+    }
+
+    .product-list-header h2 {
+        font-size: 17px;
+    }
+
+}
+
+/* =========================
+   ADMIN PRODUCT LIST
+========================= */
+
+.admin-product-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 12px;
+
+    margin-bottom: 10px;
+
+    background: #fff8fb;
+
+    border-radius: 12px;
+}
+
+.admin-product-item img {
+    width: 70px;
+    height: 70px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    flex-shrink: 0;
+}
+
+.admin-product-info {
+    min-width: 0;
+}
+
+.admin-product-category {
+    font-size: 11px;
+
+    color: #c62828;
+
+    font-weight: bold;
+
+    margin-bottom: 3px;
+}
+
+.admin-product-info h3 {
+    font-size: 14px;
+
+    margin-bottom: 4px;
+
+    color: #333;
+}
+
+.admin-product-info p {
+    font-size: 13px;
+
+    color: #c62828;
+
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+
+    .admin-product-item img {
+        width: 60px;
+        height: 60px;
+    }
+
+}
+
+/* =========================
+   TOMBOL HAPUS PRODUK
+   ========================= */
+
+.delete-product-button {
+    border: none;
+    background: #dc3545;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.delete-product-button:hover {
+    background: #b02a37;
+    transform: scale(1.03);
+}
+
+/* =========================
+   AKSI PRODUK ADMIN
+   ========================= */
+
+.admin-product-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.edit-product-button,
+.delete-product-button {
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.edit-product-button {
+    background: #198754;
+}
+
+.edit-product-button:hover {
+    background: #146c43;
+    transform: scale(1.03);
+}
+
+.delete-product-button {
+    background: #dc3545;
+}
+
+.delete-product-button:hover {
+    background: #b02a37;
+    transform: scale(1.03);
+}
+
+/* =========================
+   TOMBOL BATAL EDIT
+   ========================= */
+
+#cancelEditButton {
+    border: none;
+    background: #6c757d;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 6px;
+    transition: 0.2s;
+}
+
+#cancelEditButton:hover {
+    background: #5c636a;
+}
+
+/* =========================
+   3.17.3 - WARNA MERAH RONA
+========================= */
+
+/* Header / Logo */
+.logo {
+    color: #c62828;
+}
+
+.logo span {
+    color: #333;
+}
+
+/* Tombol kategori aktif */
+.category.active {
+    background: #c62828;
+}
+
+/* Pencarian */
+#searchInput:focus {
+    border-color: #c62828;
+}
+
+/* Produk */
+.product-category {
+    color: #c62828;
+}
+
+.product-price {
+    color: #b71c1c;
+}
+
+/* Detail produk */
+.detail-category {
+    color: #c62828;
+}
+
+.detail-price {
+    color: #b71c1c;
+}
+
+/* Admin */
+.admin-header h1 {
+    color: #b71c1c;
+}
+
+.back-button {
+    color: #c62828;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #c62828;
+}
+
+.upload-box {
+    border-color: #e0a0a0;
+    background: #fffafa;
+}
+
+.save-product-button {
+    background: #c62828;
+}
+
+/* Jumlah produk */
+.product-count {
+    background: #ffebee;
+    color: #c62828;
+}
+
+/* Daftar produk admin */
+.admin-product-item {
+    background: #fffafa;
+}
+
+
+.admin-product-info p {
+    color: #b71c1c;
+}
+
+/* =========================
+   3.17.3 - KATALOG MERAH RONA
+========================= */
+
+/* HEADER */
+.logo {
+    color: #c62828;
+}
+
+.logo span {
+    color: #333;
+}
+
+/* HERO */
+.hero {
+    background:
+        linear-gradient(
+            135deg,
+            #f8d7da,
+            #fff5f5
+        );
+}
+
+.hero h1 {
+    color: #b71c1c;
+}
+
+/* SEARCH */
+#searchInput:focus {
+    border-color: #c62828;
+}
+
+/* KATEGORI */
+.category.active {
+    background: #c62828;
+}
+
+/* PRODUK */
+.product-category {
+    color: #c62828;
+}
+
+.product-price {
+    color: #b71c1c;
+}
+
+/* DETAIL PRODUK */
+.detail-category {
+    color: #c62828;
+}
+
+.detail-price {
+    color: #b71c1c;
+}
+
+/* =========================
+   TOMBOL LIHAT DETAIL
+========================= */
+
+.product-card a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 5px;
+
+    padding: 5px 10px;
+
+    background: #c62828;
+    color: white;
+
+    border-radius: 6px;
+
+    text-decoration: none;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    transition: all 0.2s ease;
+}
+
+.product-card a:hover {
+    background: #a91f1f;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
+}
+
+/* =========================
+   TOMBOL LIHAT DETAIL
+========================= */
+
+.detail-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 6px;
+    padding: 6px 12px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #c62828;
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.detail-button:hover {
+    background: #a91f1f;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.detail-button:active {
+    transform: scale(0.97);
+}
+
+/* =========================
+   JUDUL KATALOG RONA
+========================= */
+
+.catalog-heading {
+    text-align: center;
+    margin: 10px auto 25px;
+    padding: 0 15px;
+}
+
+.catalog-heading h1 {
+    font-size: 27px;
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 8px;
+    line-height: 1.25;
+}
+
+.catalog-heading h1::after {
+    content: "";
+    display: block;
+    width: 45px;
+    height: 3px;
+    background: #c62828;
+    border-radius: 10px;
+    margin: 10px auto 12px;
+}
+
+.catalog-heading p {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #888;
+}
+
+.logo img {
+    width: 180px;
+    max-width: 70%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* =========================
+   BRAND HEADER RONA
+========================= */
+
+.brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.brand img {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.brand-text {
+    text-align: left;
+}
+
+.brand-text .logo {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    line-height: 1.1;
+    color: #b71c1c;
+}
+
+.brand-text .logo span {
+    color: #333;
+}
+
+.brand-text .tagline {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #888;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 600px) {
+
+    .brand {
+        gap: 9px;
+    }
+
+    .brand img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .brand-text .logo {
+        font-size: 23px;
+        letter-spacing: 1.5px;
+    }
+
+    .brand-text .tagline {
+        font-size: 10px;
+    }
+
+}
+
+/* =========================
+   SUBKATEGORI
+========================= */
+
+.subcategory-section {
+    width: calc(100% - 30px);
+    max-width: 1100px;
+
+    margin: -12px auto 25px;
+
+    display: flex;
+    gap: 8px;
+
+    overflow-x: auto;
+
+    padding: 4px 2px 8px;
+}
+
+.subcategory-section::-webkit-scrollbar {
+    display: none;
+}
+
+.subcategory {
+    border: 1px solid #ead0d0;
+
+    background: #fffafa;
+
+    color: #777;
+
+    padding: 7px 13px;
+
+    border-radius: 20px;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    transition: 0.2s;
+}
+
+.subcategory:hover {
+    border-color: #c62828;
+    color: #c62828;
+}
+
+.subcategory.active {
+    background: #c62828;
+    border-color: #c62828;
+    color: white;
+}
+
+/* =========================
+   KATALOG - SUBKATEGORI
+========================= */
+
+.product-info .product-subcategory {
+    font-size: 12px;
+    color: #777;
+    margin-top: 4px;
+    margin-bottom: 6px;
+}
+
+
+/* =========================
+   KATALOG - TOMBOL DETAIL
+========================= */
+
+.product-info .detail-button {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    margin-top: 12px;
+
+    background: #c62828;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    text-align: center;
+}
+
+.product-info .detail-button:hover {
+    background: #a91f1f;
+}
+
+/* =========================================================
+   SUBKATEGORI
+========================================================= */
+
+.subcategory-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px 22px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.subcategory-button {
+    border: 1px solid #d9a0a8;
+    background: #fff;
+    color: #9f1d2f;
+    padding: 9px 18px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(120, 0, 20, 0.08);
+}
+
+.subcategory-button:hover {
+    background: #fff1f3;
+    border-color: #b21f35;
+    transform: translateY(-2px);
+}
+
+.subcategory-button.active {
+    background: #b21f35;
+    color: white;
+    border-color: #b21f35;
+    box-shadow: 0 4px 10px rgba(178, 31, 53, 0.22);
+}
+
+
+/* =========================================================
+   PRODUCT CARD
+========================================================= */
+
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(220px, 1fr)
+    );
+    gap: 22px;
+    padding: 10px 20px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* KARTU */
+
+.product-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #f0dfe2;
+    box-shadow:
+        0 4px 14px rgba(80, 0, 20, 0.08);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    cursor: pointer;
+}
+
+
+/* EFEK HOVER */
+
+.product-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 10px 25px rgba(80, 0, 20, 0.14);
+}
+
+
+/* =========================================================
+   FOTO PRODUK
+========================================================= */
+
+.product-image {
+    width: 100%;
+    height: 220px;
+
+    object-fit: cover;
+
+    display: block;
+
+    background: #fafafa;
+
+    transition:
+        transform 0.35s ease;
+}
+
+
+/* Zoom sedikit saat hover */
+
+.product-card:hover .product-image {
+    transform: scale(1.03);
+}
+
+
+/* =========================================================
+   INFO PRODUK
+========================================================= */
+
+.product-info {
+    padding: 15px 16px 17px;
+}
+
+
+/* KATEGORI */
+
+.product-category {
+    display: inline-block;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    color: #a51d31;
+    background: #fff0f2;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    margin-bottom: 8px;
+
+    text-transform: uppercase;
+}
+
+
+/* NAMA PRODUK */
+
+.product-name {
+    font-size: 17px;
+    font-weight: 700;
+
+    color: #333;
+
+    line-height: 1.35;
+
+    margin-bottom: 5px;
+}
+
+
+/* SUBKATEGORI */
+
+.product-subcategory {
+    font-size: 12px;
+    color: #888;
+
+    margin-bottom: 10px;
+}
+
+
+/* HARGA */
+
+.product-price {
+    font-size: 17px;
+    font-weight: 700;
+
+    color: #b21f35;
+
+    margin-bottom: 14px;
+}
+
+
+/* =========================================================
+   TOMBOL LIHAT DETAIL
+========================================================= */
+
+.detail-button {
+    width: 100%;
+
+    border: none;
+
+    background: #b21f35;
+    color: white;
+
+    padding: 10px 14px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.detail-button:hover {
+    background: #92182b;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 10px rgba(178, 31, 53, 0.25);
+}
+
+
+/* =========================================================
+   JUDUL PRODUK
+========================================================= */
+
+.product-section h2 {
+    text-align: center;
+
+    color: #8f1b2c;
+
+    font-size: 24px;
+
+    margin: 10px 0 18px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   RESPONSIVE HP
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .subcategory-section {
+        justify-content: flex-start;
+
+        overflow-x: auto;
+
+        flex-wrap: nowrap;
+
+        padding-left: 15px;
+        padding-right: 15px;
+
+        scrollbar-width: none;
+    }
+
+    .subcategory-section::-webkit-scrollbar {
+        display: none;
+    }
+
+    .subcategory-button {
+        flex: 0 0 auto;
+
+        font-size: 13px;
+
+        padding: 8px 15px;
+    }
+
+
+    .product-container {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 12px;
+
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+
+    .product-image {
+        height: 170px;
+    }
+
+
+    .product-info {
+        padding: 11px;
+    }
+
+
+    .product-name {
+        font-size: 14px;
+    }
+
+
+    .product-price {
+        font-size: 14px;
+    }
+
+
+    .detail-button {
+        font-size: 12px;
+
+        padding: 9px 8px;
+    }
+
+}
+
+/* =========================
+   TAMPILAN HP
+========================= */
+
+@media (max-width: 768px) {
+
+    .product-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 10px;
+    }
+
+    .product-card {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .product-info {
+        padding: 10px;
+    }
+
+    .product-name {
+        font-size: 14px;
+    }
+
+    .product-price {
+        font-size: 14px;
+    }
+
+    .detail-button {
+        width: 100%;
+        padding: 9px 5px;
+        font-size: 12px;
+    }
+
+    .category-section {
+        display: flex;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        gap: 8px;
+        padding: 10px 15px;
+    }
+
+    .category {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    .subcategory-section {
+        display: flex;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        gap: 8px;
+        padding: 5px 15px 15px;
+    }
+
+    .subcategory-button {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    .search-section {
+        padding: 15px;
+    }
+
+    #searchInput {
+        width: 100%;
+    }
+
+}
+
+/* =========================
+   TOMBOL BAGIKAN KATALOG
+========================= */
+
+.share-catalog-button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px 15px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #b5122b;
+    color: white;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.share-catalog-button:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+}
+
+.share-catalog-button:active {
+    transform: scale(0.98);
+}
+
+
+

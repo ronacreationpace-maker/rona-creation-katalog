@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin - RONA CREATION</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- HEADER ADMIN -->
+
+    <header class="header">
+
+        <div class="logo">
+            RONA <span>CREATION</span>
+        </div>
+
+        <p class="tagline">
+            Admin Katalog Produk
+        </p>
+
+    </header>
+
+
+    <!-- ADMIN -->
+
+    <main class="admin-container">
+
+        <div class="admin-header">
+
+            <div>
+
+                <h1>
+                    Kelola Produk
+                </h1>
+
+                <p>
+                    Tambahkan produk baru ke katalog RONA CREATION.
+                </p>
+
+            </div>
+
+            <a
+                href="index.html"
+                class="back-button"
+            >
+                ← Lihat Katalog
+            </a>
+
+        </div>
+
+
+        <!-- FORM TAMBAH PRODUK -->
+
+        <section class="admin-card">
+
+            <h2>
+                ➕ Tambah Produk
+            </h2>
+
+
+            <!-- FOTO -->
+
+            <div class="form-group">
+
+                <label>
+                    Foto Produk
+                </label>
+
+                <div class="upload-box">
+
+                    <input
+                        type="file"
+                        id="productImage"
+                        accept="image/*"
+                    >
+
+                    <p>
+                        Pilih foto produk
+                    </p>
+
+                </div>
+
+                <div id="imagePreview"></div>
+
+            </div>
+
+                <div
+                id="imageSizeInfo"
+                style="
+                margin-top: 8px;
+                font-size: 13px;
+                color: #777;
+                text-align: center;
+                "
+            ></div>
+
+
+            <!-- NAMA -->
+
+            <div class="form-group">
+
+                <label for="productName">
+                    Nama Produk
+                </label>
+
+                <input
+                    type="text"
+                    id="productName"
+                    placeholder="Contoh: Mahar Box Elegan"
+                >
+
+            </div>
+
+
+            <!-- =========================
+     KATEGORI
+========================= -->
+
+<div class="form-group">
+
+    <label for="productCategory">
+        Kategori
+    </label>
+
+    <select id="productCategory">
+
+        <option value="">
+            Pilih kategori
+        </option>
+
+        <option value="Mahar">
+            Mahar
+        </option>
+
+        <option value="Undangan">
+            Undangan
+        </option>
+
+        <option value="Hantaran">
+            Hantaran
+        </option>
+
+        <option value="Cetak Foto">
+            Cetak Foto
+        </option>
+
+        <option value="Yasin">
+            Yasin
+        </option>
+
+        <option value="Lainnya">
+            Lainnya
+        </option>
+
+    </select>
+
+</div>
+
+
+<!-- =========================
+     SUBKATEGORI
+========================= -->
+
+<div class="form-group">
+
+    <label for="productSubcategory">
+        Subkategori Produk
+    </label>
+
+    <select id="productSubcategory">
+
+        <option value="">
+            Pilih subkategori
+        </option>
+
+    </select>
+
+</div>
+
+<!-- LINK WEBSITE UNDANGAN -->
+
+<div class="form-group" id="websiteLinkGroup">
+
+    <label for="productWebsite">
+        Link Website Undangan
+    </label>
+
+    <input
+        type="url"
+        id="productWebsite"
+        placeholder="https://contoh-website-undangan.com"
+    >
+
+    <small>
+        Isi hanya untuk produk Undangan Website Online.
+    </small>
+
+</div>
+
+            <!-- HARGA -->
+
+            <div class="form-group">
+
+                <label for="productPrice">
+                    Harga
+                </label>
+
+                <input
+                    type="text"
+                    id="productPrice"
+                    placeholder="Contoh: Mulai Rp150.000"
+                >
+
+            </div>
+
+
+            <!-- DESKRIPSI -->
+
+            <div class="form-group">
+
+                <label for="productDescription">
+                    Deskripsi Produk
+                </label>
+
+                <textarea
+                    id="productDescription"
+                    rows="5"
+                    placeholder="Tuliskan deskripsi produk..."
+                ></textarea>
+
+            </div>
+
+
+            
+           <!-- BUTTON -->
+
+<button
+    type="button"
+    id="saveProductButton"
+    class="save-product-button"
+>
+    💾 Simpan Produk
+</button>
+
+
+<button
+    type="button"
+    id="backupProductButton"
+    class="admin-backup-button"
+>
+    💾 Backup Produk
+</button>
+
+
+<button
+    type="button"
+    id="restoreProductButton"
+    class="admin-restore-button"
+>
+    ♻️ Restore Produk
+</button>
+
+
+<input
+    type="file"
+    id="restoreProductInput"
+    accept=".json,application/json"
+    style="display: none;"
+>
+
+
+<button
+    type="button"
+    id="cancelEditButton"
+    style="display: none;"
+>
+    ❌ Batal
+</button>
+
+
+<button
+    type="button"
+    id="compressProductsButton"
+>
+    🗜️ Optimalkan Foto Produk
+</button>
+
+        </section>
+
+
+        <!-- DAFTAR PRODUK -->
+
+        <section class="admin-card">
+
+            <div class="product-list-header">
+
+                <div>
+
+                    <h2>
+                        📦 Produk Saya
+                    </h2>
+
+                    <p>
+                        Produk yang sudah ditambahkan.
+                    </p>
+
+                </div>
+
+                <span
+                    id="productCount"
+                    class="product-count"
+                >
+                    0 Produk
+                </span>
+
+            </div>
+
+            <div class="admin-search-box">
+
+            <input
+                type="text"
+                id="adminSearchInput"
+                placeholder="🔎 Cari produk..."
+                autocomplete="off"
+             >
+
+          </div>
+
+            <div
+                id="adminProductList"
+                class="admin-product-list">
+
+                <div class="admin-statistics">
+
+    <div class="admin-stat-card">
+
+        <div class="admin-stat-icon">
+            📦
+        </div>
+
+        <div class="admin-stat-info">
+
+            <span>
+                Total Produk
+            </span>
+
+            <strong id="statTotalProduk">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="admin-stat-card">
+
+        <div class="admin-stat-icon">
+            🖼️
+        </div>
+
+        <div class="admin-stat-info">
+
+            <span>
+                Produk dengan Foto
+            </span>
+
+            <strong id="statProdukFoto">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="admin-stat-card">
+
+        <div class="admin-stat-icon">
+            🏷️
+        </div>
+
+        <div class="admin-stat-info">
+
+            <span>
+                Kategori
+            </span>
+
+            <strong id="statKategori">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+                <div class="empty-product">
+                    Belum ada produk tambahan.
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <h3>
+            RONA CREATION
+        </h3>
+
+        <p>
+            Mahar • Undangan • Hantaran • Custom
+        </p>
+
+        <p class="copyright">
+            © 2026 RONA CREATION
+        </p>
+
+    </footer>
+
+    <script src="js/admin.js"></script>
+
+</body>
+
+</html>
