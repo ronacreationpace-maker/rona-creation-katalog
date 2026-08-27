@@ -70,7 +70,7 @@ let adminProducts =
 let products = [];
 
 async function loadProducts() {
-
+    console.log("LOAD PRODUCTS DIJALANKAN");
     try {
 
         const response =
