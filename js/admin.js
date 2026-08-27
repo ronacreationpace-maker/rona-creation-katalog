@@ -423,9 +423,14 @@ if (exportProductsButton) {
         "click",
         () => {
 
+            const dataExport =
+                JSON.parse(
+                    localStorage.getItem("ronaProducts")
+                ) || [];
+            
             const json =
                 JSON.stringify(
-                    adminProducts,
+                    dataExport,
                     null,
                     2
                 );
