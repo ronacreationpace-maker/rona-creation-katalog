@@ -409,6 +409,65 @@ backupProductButton.addEventListener(
 );
 
 // =========================
+// EXPORT PRODUCTS.JSON
+// =========================
+
+const exportProductsButton =
+    document.getElementById(
+        "exportProductsButton"
+    );
+
+if (exportProductsButton) {
+
+    exportProductsButton.addEventListener(
+        "click",
+        () => {
+
+            const json =
+                JSON.stringify(
+                    adminProducts,
+                    null,
+                    2
+                );
+
+            const blob =
+                new Blob(
+                    [json],
+                    {
+                        type:
+                            "application/json"
+                    }
+                );
+
+            const url =
+                URL.createObjectURL(blob);
+
+            const link =
+                document.createElement("a");
+
+            link.href = url;
+
+            link.download =
+                "products.json";
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            link.remove();
+
+            URL.revokeObjectURL(url);
+
+            alert(
+                "products.json berhasil dibuat dan siap di-upload ke GitHub."
+            );
+
+        }
+    );
+
+}
+
+// =========================
 // RESTORE PRODUK
 // =========================
 
