@@ -82,18 +82,16 @@ async function loadProducts() {
             );
         }
 
-        const data =
-            await response.json();
+const data =
+    await response.json();
 
-        products =
-            data.products || data;
+products =
+    data.products || data;
 
-        console.log(
-            "Produk berhasil dimuat:",
-            products
-        );
+console.log("JUMLAH PRODUK:", products.length);
+console.log("DATA PRODUK:", products);
 
-        tampilkanProduk(products);
+tampilkanProduk(products);
 
     } catch (error) {
 
