@@ -120,7 +120,7 @@ async function muatProdukAwalAdmin() {
             adminProducts
         );
 
-        tampilkanProdukAdmin();
+        EXPORT PRODUCTS.JSON();
         updateStatistikAdmin();
 
         return;
@@ -183,7 +183,7 @@ async function muatProdukAwalAdmin() {
         );
 
 
-        tampilkanProdukAdmin();
+        EXPORT PRODUCTS.JSON();
 
         updateStatistikAdmin();
 
@@ -196,7 +196,7 @@ async function muatProdukAwalAdmin() {
         );
 
 
-        tampilkanProdukAdmin();
+        EXPORT PRODUCTS.JSON();
 
         updateStatistikAdmin();
 
@@ -528,11 +528,24 @@ if (exportProductsButton) {
         "click",
         () => {
 
-            const dataExport =
-                JSON.parse(
-                    localStorage.getItem("ronaProducts")
-                ) || [];
-            
+            // Ambil data terbaru dari Admin
+            const produk =
+                adminProducts || [];
+
+            if (!produk.length) {
+
+                alert(
+                    "Belum ada produk di Admin untuk diekspor."
+                );
+
+                return;
+            }
+
+            // Format products.json
+            const dataExport = {
+                products: produk
+            };
+
             const json =
                 JSON.stringify(
                     dataExport,
@@ -569,14 +582,13 @@ if (exportProductsButton) {
             URL.revokeObjectURL(url);
 
             alert(
-                "products.json berhasil dibuat dan siap di-upload ke GitHub."
+                `products.json berhasil dibuat.\n\n${produk.length} produk siap di-upload ke GitHub.`
             );
 
         }
     );
 
 }
-
 // =========================
 // RESTORE PRODUK
 // =========================
@@ -677,7 +689,7 @@ restoreProductInput.addEventListener(
                     data.products;
 
 
-                tampilkanProdukAdmin();
+                EXPORT PRODUCTS.JSON();
 
 
                 window.dispatchEvent(
@@ -997,7 +1009,7 @@ localStorage.setItem(
             produkBaru;
 
 
-        tampilkanProdukAdmin();
+        EXPORT PRODUCTS.JSON();
 
 
         alert(
@@ -1516,7 +1528,7 @@ if (produkDuplikat) {
 
                 resetFormProduk();
 
-                tampilkanProdukAdmin();
+                EXPORT PRODUCTS.JSON();
 
 
                 alert(
@@ -1593,7 +1605,7 @@ localStorage.setItem(
 
         resetFormProduk();
 
-        tampilkanProdukAdmin();
+        EXPORT PRODUCTS.JSON();
 
 
         alert(
@@ -1691,7 +1703,7 @@ localStorage.setItem(
 
         resetFormProduk();
 
-        tampilkanProdukAdmin();
+        EXPORT PRODUCTS.JSON();
 
 
         alert(
@@ -1765,7 +1777,7 @@ function updateProduk(index, gambar) {
 
     // TAMPILKAN ULANG
 
-    tampilkanProdukAdmin();
+    EXPORT PRODUCTS.JSON();
 
 
     alert(
@@ -1834,7 +1846,7 @@ if (websiteLinkGroup) {
 // TAMPILKAN PRODUK ADMIN
 // =========================
 
-function tampilkanProdukAdmin(
+function EXPORT PRODUCTS.JSON(
     data = adminProducts
 ) {
 
@@ -2042,7 +2054,7 @@ tombolEdit.addEventListener(
                 );
 
 
-                tampilkanProdukAdmin();
+                EXPORT PRODUCTS.JSON();
 
 
                 alert(
@@ -2095,11 +2107,11 @@ adminSearchInput.addEventListener(
 
                         ||
 
-                        product.price
-                            .toLowerCase()
-                            .includes(
-                                keyword
-                            )
+                        String(product.price)
+                        .toLowerCase()
+                        .includes(
+                            keyword
+                        )
 
                     );
 
@@ -2107,7 +2119,7 @@ adminSearchInput.addEventListener(
             );
 
 
-        tampilkanProdukAdmin(
+        EXPORT PRODUCTS.JSON(
             hasil
         );
 
@@ -2207,7 +2219,7 @@ function hapusProduk(id) {
 window.dispatchEvent(
     new Event("produkBerubah")
 );
-    tampilkanProdukAdmin();
+    EXPORT PRODUCTS.JSON();
 
 
     alert(
@@ -2295,9 +2307,3 @@ function formatRupiah(angka) {
 
 }
 
-// =========================
-// TAMPILKAN SAAT HALAMAN DIBUKA
-// =========================
-
-tampilkanProdukAdmin();
-updateStatistikAdmin();
