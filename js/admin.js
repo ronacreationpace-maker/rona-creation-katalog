@@ -104,6 +104,16 @@ let adminProducts =
         localStorage.getItem("ronaProducts")
     ) || [];
 
+console.log(
+    "DATA ADMIN SAAT INI:",
+    adminProducts
+);
+
+console.log(
+    "JUMLAH PRODUK ADMIN:",
+    adminProducts.length
+);
+
 // =========================
 // DATA SUBKATEGORI ADMIN
 // =========================
