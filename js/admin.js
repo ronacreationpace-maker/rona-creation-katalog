@@ -94,7 +94,6 @@ const statKategori =
     );
 
 
-
 // =========================
 // DATA PRODUK ADMIN
 // =========================
@@ -104,15 +103,111 @@ let adminProducts =
         localStorage.getItem("ronaProducts")
     ) || [];
 
-console.log(
-    "DATA ADMIN SAAT INI:",
-    adminProducts
-);
 
-console.log(
-    "JUMLAH PRODUK ADMIN:",
-    adminProducts.length
-);
+// =========================
+// AMBIL PRODUK DARI GITHUB
+// JIKA ADMIN MASIH KOSONG
+// =========================
+
+async function muatProdukAwalAdmin() {
+
+    // Kalau sudah ada data Admin,
+    // gunakan data tersebut
+    if (adminProducts.length > 0) {
+
+        console.log(
+            "Produk Admin dari localStorage:",
+            adminProducts
+        );
+
+        tampilkanProdukAdmin();
+        updateStatistikAdmin();
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch("products.json");
+
+        if (!response.ok) {
+
+            throw new Error(
+                "products.json tidak ditemukan"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const produkDariGithub =
+            data.products || data;
+
+
+        if (
+            !Array.isArray(
+                produkDariGithub
+            )
+        ) {
+
+            throw new Error(
+                "Format products.json tidak valid"
+            );
+
+        }
+
+
+        // Masukkan produk GitHub
+        // ke data Admin
+
+        adminProducts =
+            produkDariGithub;
+
+
+        localStorage.setItem(
+            "ronaProducts",
+            JSON.stringify(
+                adminProducts
+            )
+        );
+
+
+        console.log(
+            "Produk dari GitHub berhasil dimuat ke Admin:",
+            adminProducts
+        );
+
+
+        tampilkanProdukAdmin();
+
+        updateStatistikAdmin();
+
+
+    } catch (error) {
+
+        console.error(
+            "Gagal memuat produk dari GitHub:",
+            error
+        );
+
+
+        tampilkanProdukAdmin();
+
+        updateStatistikAdmin();
+
+    }
+
+}
+
+
+// Jalankan saat Admin dibuka
+
+muatProdukAwalAdmin();
 
 // =========================
 // DATA SUBKATEGORI ADMIN
