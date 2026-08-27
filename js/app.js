@@ -67,10 +67,28 @@ let adminProducts =
 // SEMUA PRODUK
 // =========================
 
-let products = [
-    ...defaultProducts,
-    ...adminProducts
-];
+let products = [];
+
+async function loadProducts() {
+    try {
+        const response = await fetch("products.json");
+
+        if (!response.ok) {
+            throw new Error("products.json tidak ditemukan");
+        }
+
+        products = await response.json();
+
+        console.log("Produk berhasil dimuat:", products);
+
+        tampilkanProduk(products);
+
+    } catch (error) {
+        console.error("Gagal memuat produk:", error);
+    }
+}
+
+loadProducts();
 
 // =========================
 // STATUS FILTER KATALOG
