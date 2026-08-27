@@ -70,26 +70,41 @@ let adminProducts =
 let products = [];
 
 async function loadProducts() {
+
     try {
-        const response = await fetch("products.json");
+
+        const response =
+            await fetch("products.json");
 
         if (!response.ok) {
-            throw new Error("products.json tidak ditemukan");
+            throw new Error(
+                "products.json tidak ditemukan"
+            );
         }
 
-        products = await response.json();
+        const data =
+            await response.json();
 
-        console.log("Produk berhasil dimuat:", products);
+        products =
+            data.products || data;
+
+        console.log(
+            "Produk berhasil dimuat:",
+            products
+        );
 
         tampilkanProduk(products);
 
     } catch (error) {
-        console.error("Gagal memuat produk:", error);
+
+        console.error(
+            "Gagal memuat produk:",
+            error
+        );
     }
 }
 
 loadProducts();
-
 // =========================
 // STATUS FILTER KATALOG
 // =========================
