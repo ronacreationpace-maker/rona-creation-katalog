@@ -2,6 +2,16 @@
 // ADMIN KATALOG
 // =========================
 
+// =========================
+// CLOUDFLARE WORKER
+// =========================
+
+const API_URL =
+    "https://rona-katalog-api.ronacreation-pace.workers.dev";
+
+const ADMIN_KEY =
+    "ronaadmin080888";
+
 
 // =========================
 // ELEMENT
@@ -110,6 +120,82 @@ let adminProducts =
         localStorage.getItem("ronaProducts")
     ) || [];
 
+// =========================
+// SIMPAN PRODUK KE GITHUB
+// =========================
+
+async function simpanKeGitHub() {
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+
+                        "X-Admin-Key":
+                            ADMIN_KEY
+                    },
+
+                    body:
+                        JSON.stringify({
+                            products:
+                                adminProducts
+                        })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            console.error(
+                "Gagal simpan ke GitHub:",
+                data
+            );
+
+            throw new Error(
+                data.error ||
+                "Gagal menyimpan ke GitHub."
+            );
+
+        }
+
+
+        console.log(
+            "GitHub berhasil diperbarui:",
+            data
+        );
+
+
+        return true;
+
+
+    } catch (error) {
+
+        console.error(
+            "Error simpan GitHub:",
+            error
+        );
+
+        alert(
+            "Produk tersimpan di HP, tetapi gagal dikirim ke GitHub.\n\n" +
+            error.message
+        );
+
+        return false;
+
+    }
+
+}
 
 // =========================
 // AMBIL PRODUK DARI GITHUB
