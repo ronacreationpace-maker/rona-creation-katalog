@@ -1775,19 +1775,74 @@ localStorage.setItem(
          };
 
 
-        // =========================
-        // SIMPAN
-        // =========================
+       // =========================
+// TAMBAHKAN PRODUK
+// =========================
 
-        adminProducts.push(
-            produkBaru
-        );
+adminProducts.push(
+    produkBaru
+);
 
 
-        localStorage.setItem(
-            "ronaProducts",
-            JSON.stringify(adminProducts)
-        );
+// =========================
+// SIMPAN LOCAL
+// =========================
+
+const dataProduk =
+    JSON.stringify(adminProducts);
+
+if (!storageMasihAman(dataProduk)) {
+
+    // Batalkan jika storage penuh
+    adminProducts.pop();
+
+    return;
+}
+
+localStorage.setItem(
+    "ronaProducts",
+    dataProduk
+);
+
+
+// =========================
+// KIRIM KE GITHUB
+// =========================
+
+saveProductButton.textContent =
+    "☁️ Menyimpan ke GitHub...";
+
+const berhasilGitHub =
+    await simpanKeGitHub();
+
+
+// =========================
+// SELESAI
+// =========================
+
+if (berhasilGitHub) {
+
+    resetFormProduk();
+
+    tampilkanProdukAdmin();
+
+    window.dispatchEvent(
+        new Event("produkBerubah")
+    );
+
+    alert(
+        "✅ Produk berhasil ditambahkan!\n\n" +
+        "Produk juga sudah tersimpan ke GitHub."
+    );
+
+} else {
+
+    // Produk tetap ada di localStorage,
+    // tetapi GitHub gagal diperbarui.
+
+    tampilkanProdukAdmin();
+
+}
 
 
         // =========================
