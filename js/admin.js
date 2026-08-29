@@ -213,7 +213,7 @@ async function muatProdukAwalAdmin() {
             adminProducts
         );
 
-        EXPORT PRODUCTS.JSON();
+        tampilkanProdukAdmin();
         updateStatistikAdmin();
 
         return;
