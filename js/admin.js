@@ -93,6 +93,13 @@ const statKategori =
         "statKategori"
     );
 
+// =========================
+// KONEKSI CLOUDFLARE WORKER
+// =========================
+
+const WORKER_URL =
+    "https://rona-katalog-api.ronacreation-pace.workers.dev/";
+
 
 // =========================
 // DATA PRODUK ADMIN
