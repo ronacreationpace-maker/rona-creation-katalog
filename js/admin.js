@@ -724,21 +724,18 @@ function tampilkanFieldWebsite() {
 
 
 // ============================================================
-// PERUBAHAN KATEGORI
+// KATEGORI BERUBAH
 // ============================================================
 
 if (productCategory) {
 
-    productCategory.addEventListener(
-        "change",
-        function() {
+    productCategory.addEventListener("change", function() {
 
-            tampilkanSubkategoriAdmin();
+        tampilkanSubkategoriAdmin();
 
-            tampilkanFieldWebsite();
+        tampilkanFieldWebsite();
 
-        }
-    );
+    });
 
 }
 
@@ -2448,235 +2445,225 @@ function resetFormProduk() {
 
 }
 
-
 // ============================================================
 // TAMPILKAN PRODUK ADMIN
 // ============================================================
 
-function tampilkanProdukAdmin(
-    data
-) {
-
-    const daftarProduk =
-        Array.isArray(data)
-            ? data
-            : adminProducts;
-
-
-    if (productCount) {
-
-        productCount.textContent =
-            adminProducts.length +
-            " Produk";
-
-    }
-
+function tampilkanProdukAdmin(data = adminProducts) {
 
     if (!adminProductList) {
         return;
     }
 
-
-    if (!daftarProduk.length) {
-
-        adminProductList.innerHTML =
-            '<div class="empty-product">' +
-            'Belum ada produk tambahan.' +
-            '</div>';
-
-        return;
-
+    if (productCount) {
+        productCount.textContent =
+            `${adminProducts.length} Produk`;
     }
 
+    if (!data.length) {
 
-    adminProductList.innerHTML =
-        "";
+        adminProductList.innerHTML = `
+            <div class="empty-product">
+                Belum ada produk tambahan.
+            </div>
+        `;
 
+        return;
+    }
 
-    daftarProduk.forEach(
-        function(product) {
+    adminProductList.innerHTML = "";
 
-            const item =
-                document.createElement(
-                    "div"
-                );
+    data.forEach(function(product) {
 
+        const item = document.createElement("div");
 
-            item.className =
-                "admin-product-item";
+        item.className = "admin-product-item";
 
+        // FOTO
+        const foto = document.createElement("img");
 
-            // FOTO
+        foto.className = "admin-product-image";
 
-            const gambar =
-                document.createElement(
-                    "img"
-                );
+        foto.alt = product.name || "Foto Produk";
 
-            gambar.src =
-                product.image || "";
+        if (product.image) {
+            foto.src = product.image;
+        } else {
+            foto.style.display = "none";
+        }
 
-            gambar.alt =
-                product.name || "Produk";
+        // INFO
+        const info = document.createElement("div");
 
+        info.className = "admin-product-info";
 
-            // INFO
+        info.innerHTML = `
+            <div class="admin-product-category">
+                ${product.category || ""}
+            </div>
 
-            const info =
-                document.createElement(
-                    "div"
-                );
+            <h3>
+                ${product.name || ""}
+            </h3>
 
-            info.className =
-                "admin-product-info";
+            <p>
+                ${formatRupiah(product.price)}
+            </p>
 
+            <small>
+                ${product.subcategory || ""}
+            </small>
+        `;
 
-            const kategori =
-                document.createElement(
-                    "div"
-                );
+        // TOMBOL
+        const actions = document.createElement("div");
 
-            kategori.className =
-                "admin-product-category";
+        actions.className = "admin-product-actions";
 
-            kategori.textContent =
-                product.category || "";
+        actions.innerHTML = `
+            <button
+                type="button"
+                class="edit-product-button"
+            >
+                ✏️ Edit
+            </button>
 
+            <button
+                type="button"
+                class="delete-product-button"
+            >
+                🗑️ Hapus
+            </button>
+        `;
 
-            const nama =
-                document.createElement(
-                    "h3"
-                );
+        item.appendChild(foto);
+        item.appendChild(info);
+        item.appendChild(actions);
 
-            nama.textContent =
+        // ====================================================
+        // EDIT
+        // ====================================================
+
+        const tombolEdit =
+            actions.querySelector(".edit-product-button");
+
+        tombolEdit.addEventListener("click", function() {
+
+            productName.value =
                 product.name || "";
 
+            productCategory.value =
+                product.category || "";
 
-            const harga =
-                document.createElement(
-                    "p"
+            tampilkanSubkategoriAdmin(
+                product.subcategory || ""
+            );
+
+            if (productWebsite) {
+                productWebsite.value =
+                    product.website || "";
+            }
+
+            tampilkanFieldWebsite();
+
+            productPrice.value =
+                product.price || "";
+
+            productDescription.value =
+                product.description || "";
+
+            imagePreview.innerHTML = "";
+
+            if (product.image) {
+
+                imagePreview.innerHTML = `
+                    <img
+                        src="${product.image}"
+                        alt="${product.name || "Foto Produk"}"
+                    >
+                `;
+
+            }
+
+            window.editingProductId =
+                product.id;
+
+            saveProductButton.textContent =
+                "💾 Simpan Perubahan";
+
+            cancelEditButton.style.display =
+                "inline-block";
+
+            saveProductButton.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        });
+
+        // ====================================================
+        // HAPUS
+        // ====================================================
+
+        const tombolHapus =
+            actions.querySelector(".delete-product-button");
+
+        tombolHapus.addEventListener("click", async function() {
+
+            const yakin = confirm(
+                `Hapus produk "${product.name}"?`
+            );
+
+            if (!yakin) {
+                return;
+            }
+
+            adminProducts =
+                adminProducts.filter(function(item) {
+
+                    return item.id !== product.id;
+
+                });
+
+            const dataProduk =
+                JSON.stringify(adminProducts);
+
+            localStorage.setItem(
+                "ronaProducts",
+                dataProduk
+            );
+
+            tampilkanProdukAdmin();
+
+            updateStatistikAdmin();
+
+            tombolHapus.disabled = true;
+
+            const berhasil =
+                await simpanKeGitHub();
+
+            if (berhasil) {
+
+                alert(
+                    "✅ Produk berhasil dihapus dari katalog dan GitHub."
                 );
 
-            harga.textContent =
-                formatRupiah(
-                    product.price
+            } else {
+
+                alert(
+                    "⚠️ Produk terhapus dari perangkat,\n" +
+                    "tetapi gagal memperbarui GitHub."
                 );
 
+            }
 
-            info.appendChild(
-                kategori
-            );
+        });
 
-            info.appendChild(
-                nama
-            );
+        adminProductList.appendChild(item);
 
-            info.appendChild(
-                harga
-            );
-
-
-            // ACTION
-
-            const actions =
-                document.createElement(
-                    "div"
-                );
-
-
-            actions.className =
-                "admin-product-actions";
-
-
-            const tombolEdit =
-                document.createElement(
-                    "button"
-                );
-
-
-            tombolEdit.type =
-                "button";
-
-            tombolEdit.className =
-                "edit-product-button";
-
-            tombolEdit.textContent =
-                "✏️ Edit";
-
-
-            tombolEdit.addEventListener(
-                "click",
-                function() {
-
-                    mulaiEditProduk(
-                        product
-                    );
-
-                }
-            );
-
-
-            const tombolHapus =
-                document.createElement(
-                    "button"
-                );
-
-
-            tombolHapus.type =
-                "button";
-
-            tombolHapus.className =
-                "delete-product-button";
-
-            tombolHapus.textContent =
-                "🗑️ Hapus";
-
-
-            tombolHapus.addEventListener(
-                "click",
-                function() {
-
-                    hapusProduk(
-                        product,
-                        tombolHapus
-                    );
-
-                }
-            );
-
-
-            actions.appendChild(
-                tombolEdit
-            );
-
-            actions.appendChild(
-                tombolHapus
-            );
-
-
-            item.appendChild(
-                gambar
-            );
-
-            item.appendChild(
-                info
-            );
-
-            item.appendChild(
-                actions
-            );
-
-
-            adminProductList.appendChild(
-                item
-            );
-
-        }
-    );
+    });
 
 }
-
-
 // ============================================================
 // MULAI EDIT PRODUK
 // ============================================================
