@@ -164,6 +164,11 @@ const newSubcategory =
 const addCategoryButton =
     document.getElementById("addCategoryButton");
 
+    console.log(
+    "Tombol kategori:",
+    addCategoryButton
+    );
+
 const adminCategoryList =
     document.getElementById("adminCategoryList");
 
