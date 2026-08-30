@@ -637,70 +637,39 @@ function formatRupiah(angka) {
 // TAMPILKAN SUBKATEGORI
 // ============================================================
 
-function tampilkanSubkategoriAdmin(nilaiTerpilih) {
+function tampilkanSubkategoriAdmin(nilaiTerpilih = "") {
 
-    if (!productSubcategory) {
+    if (!productSubcategory || !productCategory) {
         return;
     }
 
-    const kategori =
-        productCategory
-            ? productCategory.value
-            : "";
-
+    const kategori = productCategory.value;
 
     productSubcategory.innerHTML = "";
 
+    const pilihanAwal = document.createElement("option");
 
-    const pilihanAwal =
-        document.createElement("option");
+    pilihanAwal.value = "";
+    pilihanAwal.textContent = "Pilih subkategori";
 
-    pilihanAwal.value =
-        "";
+    productSubcategory.appendChild(pilihanAwal);
 
-    pilihanAwal.textContent =
-        "Pilih subkategori";
+    const daftar = subkategoriAdmin[kategori] || [];
 
+    daftar.forEach(function(subkategori) {
 
-    productSubcategory.appendChild(
-        pilihanAwal
-    );
+        const option = document.createElement("option");
 
+        option.value = subkategori;
+        option.textContent = subkategori;
 
-    const daftar =
-        subkategoriAdmin[kategori] || [];
-
-
-    daftar.forEach(
-        function(subkategori) {
-
-            const option =
-                document.createElement("option");
-
-            option.value =
-                subkategori;
-
-            option.textContent =
-                subkategori;
-
-
-            if (
-                subkategori ===
-                nilaiTerpilih
-            ) {
-
-                option.selected =
-                    true;
-
-            }
-
-
-            productSubcategory.appendChild(
-                option
-            );
-
+        if (subkategori === nilaiTerpilih) {
+            option.selected = true;
         }
-    );
+
+        productSubcategory.appendChild(option);
+
+    });
 
 }
 
