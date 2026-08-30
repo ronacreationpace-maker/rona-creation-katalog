@@ -152,6 +152,375 @@ const subkategoriAdmin = {
 
 
 // ============================================================
+// KELOLA KATEGORI & SUBKATEGORI
+// ============================================================
+
+const newCategory =
+    document.getElementById("newCategory");
+
+const newSubcategory =
+    document.getElementById("newSubcategory");
+
+const addCategoryButton =
+    document.getElementById("addCategoryButton");
+
+const adminCategoryList =
+    document.getElementById("adminCategoryList");
+
+
+// ============================================================
+// MUAT KATEGORI TERSIMPAN
+// ============================================================
+
+const kategoriTersimpan =
+    JSON.parse(
+        localStorage.getItem(
+            "ronaKategori"
+        )
+    );
+
+
+if (
+    kategoriTersimpan &&
+    typeof kategoriTersimpan === "object"
+) {
+
+    Object.keys(kategoriTersimpan)
+        .forEach(kategori => {
+
+            subkategoriAdmin[kategori] =
+                kategoriTersimpan[kategori];
+
+        });
+
+}
+
+
+// ============================================================
+// SIMPAN KATEGORI
+// ============================================================
+
+function simpanKategori() {
+
+    localStorage.setItem(
+        "ronaKategori",
+        JSON.stringify(
+            subkategoriAdmin
+        )
+    );
+
+}
+
+
+// ============================================================
+// TAMPILKAN DAFTAR KATEGORI
+// ============================================================
+
+function tampilkanDaftarKategori() {
+
+    if (!adminCategoryList) {
+        return;
+    }
+
+    adminCategoryList.innerHTML = "";
+
+
+    Object.keys(
+        subkategoriAdmin
+    ).forEach(kategori => {
+
+        const box =
+            document.createElement(
+                "div"
+            );
+
+        box.className =
+            "admin-category-item";
+
+
+        const judul =
+            document.createElement(
+                "h3"
+            );
+
+        judul.textContent =
+            kategori;
+
+
+        box.appendChild(
+            judul
+        );
+
+
+        const daftar =
+            subkategoriAdmin[kategori];
+
+
+        daftar.forEach(
+            (subkategori, index) => {
+
+                const baris =
+                    document.createElement(
+                        "div"
+                    );
+
+                baris.className =
+                    "admin-subcategory-item";
+
+
+                baris.innerHTML = `
+
+                    <span>
+                        ${subkategori}
+                    </span>
+
+                    <div>
+
+                        <button
+                            type="button"
+                            class="edit-subcategory-button"
+                        >
+                            ✏️
+                        </button>
+
+                        <button
+                            type="button"
+                            class="delete-subcategory-button"
+                        >
+                            🗑️
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                // EDIT
+
+                baris
+                    .querySelector(
+                        ".edit-subcategory-button"
+                    )
+                    .addEventListener(
+                        "click",
+                        () => {
+
+                            const namaBaru =
+                                prompt(
+                                    "Edit subkategori:",
+                                    subkategori
+                                );
+
+                            if (
+                                namaBaru === null
+                            ) {
+                                return;
+                            }
+
+                            const hasil =
+                                namaBaru.trim();
+
+                            if (!hasil) {
+
+                                alert(
+                                    "Nama subkategori tidak boleh kosong."
+                                );
+
+                                return;
+
+                            }
+
+
+                            subkategoriAdmin[
+                                kategori
+                            ][index] =
+                                hasil;
+
+
+                            simpanKategori();
+
+                            tampilkanDaftarKategori();
+
+                            tampilkanSubkategoriAdmin();
+
+                        }
+                    );
+
+
+                // HAPUS
+
+                baris
+                    .querySelector(
+                        ".delete-subcategory-button"
+                    )
+                    .addEventListener(
+                        "click",
+                        () => {
+
+                            const yakin =
+                                confirm(
+                                    `Hapus subkategori "${subkategori}"?`
+                                );
+
+                            if (!yakin) {
+                                return;
+                            }
+
+
+                            subkategoriAdmin[
+                                kategori
+                            ].splice(
+                                index,
+                                1
+                            );
+
+
+                            simpanKategori();
+
+                            tampilkanDaftarKategori();
+
+                            tampilkanSubkategoriAdmin();
+
+                        }
+                    );
+
+
+                box.appendChild(
+                    baris
+                );
+
+            }
+        );
+
+
+        adminCategoryList.appendChild(
+            box
+        );
+
+    });
+
+}
+
+
+// ============================================================
+// TAMBAH SUBKATEGORI
+// ============================================================
+
+if (addCategoryButton) {
+
+    addCategoryButton.addEventListener(
+        "click",
+        () => {
+
+            const kategori =
+                newCategory.value.trim();
+
+            const subkategori =
+                newSubcategory.value.trim();
+
+
+            if (!kategori) {
+
+                alert(
+                    "Nama kategori belum diisi."
+                );
+
+                newCategory.focus();
+
+                return;
+
+            }
+
+
+            if (!subkategori) {
+
+                alert(
+                    "Nama subkategori belum diisi."
+                );
+
+                newSubcategory.focus();
+
+                return;
+
+            }
+
+
+            // Jika kategori belum ada,
+            // buat kategori baru
+
+            if (
+                !subkategoriAdmin[
+                    kategori
+                ]
+            ) {
+
+                subkategoriAdmin[
+                    kategori
+                ] = [];
+
+            }
+
+
+            // Cek subkategori duplikat
+
+            const sudahAda =
+                subkategoriAdmin[
+                    kategori
+                ].some(
+                    item =>
+                        item.toLowerCase() ===
+                        subkategori.toLowerCase()
+                );
+
+
+            if (sudahAda) {
+
+                alert(
+                    "Subkategori tersebut sudah ada."
+                );
+
+                return;
+
+            }
+
+
+            subkategoriAdmin[
+                kategori
+            ].push(
+                subkategori
+            );
+
+
+            simpanKategori();
+
+            tampilkanDaftarKategori();
+
+            tampilkanSubkategoriAdmin();
+
+
+            newSubcategory.value =
+                "";
+
+
+            alert(
+                "✅ Subkategori berhasil ditambahkan."
+            );
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// TAMPILKAN SAAT ADMIN DIBUKA
+// ============================================================
+
+tampilkanDaftarKategori();
+```
+
+
+// ============================================================
 // FORMAT RUPIAH
 // ============================================================
 
