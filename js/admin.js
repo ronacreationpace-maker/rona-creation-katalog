@@ -550,56 +550,52 @@ function formatRupiah(angka) {
 }
 
 
+```javascript
 // ============================================================
 // TAMPILKAN SUBKATEGORI
 // ============================================================
 
-function tampilkanSubkategoriAdmin(
-    nilaiTerpilih = ""
-) {
+function tampilkanSubkategoriAdmin(nilaiTerpilih = "") {
 
     if (!productSubcategory) {
         return;
     }
 
-    const kategori =
-        productCategory.value;
+    const kategori = productCategory.value;
 
-    productSubcategory.innerHTML = `
-        <option value="">
-            Pilih subkategori
-        </option>
-    `;
+    // Kosongkan pilihan lama
+    productSubcategory.innerHTML = "";
 
-    const daftar =
-        subkategoriAdmin[kategori] || [];
+    // Pilihan awal
+    const pilihanAwal = document.createElement("option");
 
-    daftar.forEach(subkategori => {
+    pilihanAwal.value = "";
+    pilihanAwal.textContent = "Pilih subkategori";
 
-        const option =
-            document.createElement("option");
+    productSubcategory.appendChild(pilihanAwal);
 
-        option.value =
-            subkategori;
+    // Ambil daftar subkategori
+    const daftar = subkategoriAdmin[kategori] || [];
 
-        option.textContent =
-            subkategori;
+    // Tampilkan subkategori
+    daftar.forEach(function(subkategori) {
 
-        if (
-            subkategori === nilaiTerpilih
-        ) {
+        const option = document.createElement("option");
 
+        option.value = subkategori;
+        option.textContent = subkategori;
+
+        if (subkategori === nilaiTerpilih) {
             option.selected = true;
-
         }
 
-        productSubcategory.appendChild(
-            option
-        );
+        productSubcategory.appendChild(option);
 
     });
 
 }
+```
+
 
 
 // ============================================================
