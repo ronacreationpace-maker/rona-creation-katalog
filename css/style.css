@@ -1688,5 +1688,380 @@ body {
     transform: scale(0.98);
 }
 
+/* =========================================================
+   KATEGORI & URUTKAN - RONA CREATION
+========================================================= */
+
+/* Pembungkus kategori */
+.category-wrapper {
+    width: calc(100% - 30px);
+    max-width: 1100px;
+    margin: 18px auto 8px;
+}
+
+/* Judul kategori */
+.section-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 10px;
+    padding-left: 3px;
+
+    font-size: 15px;
+    font-weight: 800;
+    color: #8f1b2c;
+}
+
+/* Kategori */
+.category-wrapper .category-section {
+    width: 100%;
+    margin: 0;
+    padding: 4px 2px 10px;
+
+    display: flex;
+    gap: 9px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+}
+
+/* Tombol kategori */
+.category-wrapper .category {
+    flex: 0 0 auto;
+
+    padding: 11px 18px;
+
+    border: 1px solid #ead0d0;
+    border-radius: 25px;
+
+    background: #ffffff;
+    color: #555;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    box-shadow: 0 3px 9px rgba(80, 0, 20, 0.07);
+
+    transition: all 0.2s ease;
+}
+
+/* Kategori saat disentuh */
+.category-wrapper .category:hover {
+    border-color: #b21f35;
+    color: #b21f35;
+    transform: translateY(-1px);
+}
+
+/* Kategori aktif */
+.category-wrapper .category.active {
+    background: #b21f35;
+    border-color: #b21f35;
+    color: #ffffff;
+
+    box-shadow:
+        0 5px 12px rgba(178, 31, 53, 0.22);
+}
+
+
+/* =========================================================
+   URUTKAN PRODUK
+========================================================= */
+
+.sort-section {
+    width: calc(100% - 30px);
+    max-width: 1100px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+}
+
+/* Label */
+.sort-section label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #666;
+}
+
+/* Select */
+#sortSelect {
+    min-width: 170px;
+
+    padding: 10px 14px;
+
+    border: 1px solid #e2c5c9;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #8f1b2c;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    outline: none;
+
+    cursor: pointer;
+
+    box-shadow: 0 2px 8px rgba(80, 0, 20, 0.06);
+}
+
+/* Saat dipilih */
+#sortSelect:focus {
+    border-color: #b21f35;
+
+    box-shadow:
+        0 0 0 3px rgba(178, 31, 53, 0.10);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .category-wrapper {
+        width: calc(100% - 20px);
+        margin-top: 12px;
+    }
+
+    .section-label {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .category-wrapper .category-section {
+        padding-left: 2px;
+        padding-right: 2px;
+        padding-bottom: 9px;
+    }
+
+    .category-wrapper .category {
+        padding: 10px 15px;
+        font-size: 12px;
+    }
+
+
+    /* Urutan di HP */
+    .sort-section {
+        width: calc(100% - 20px);
+
+        margin: 2px auto 18px;
+
+        justify-content: space-between;
+
+        gap: 8px;
+    }
+
+    .sort-section label {
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    #sortSelect {
+        min-width: 0;
+        flex: 1;
+
+        padding: 10px 11px;
+
+        font-size: 12px;
+    }
+
+}
+
+/* =========================
+   TOOLBAR KATALOG
+========================= */
+
+.catalog-toolbar {
+    width: 100%;
+    max-width: 1200px;
+    margin: 5px auto 15px;
+    padding: 0 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.catalog-toolbar h2 {
+    margin: 0;
+    color: #8f1b2c;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+/* =========================
+   URUTKAN PRODUK
+========================= */
+
+.sort-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sort-box label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    white-space: nowrap;
+}
+
+#sortSelect {
+    border: 1px solid #d9a0a8;
+    background: #fff;
+    color: #8f1b2c;
+
+    padding: 9px 12px;
+    border-radius: 10px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    outline: none;
+    cursor: pointer;
+
+    box-shadow: 0 2px 7px rgba(120, 0, 20, 0.08);
+}
+
+#sortSelect:focus {
+    border-color: #b21f35;
+    box-shadow: 0 0 0 3px rgba(178, 31, 53, 0.10);
+}
+
+
+/* =========================
+   HP
+========================= */
+
+@media (max-width: 600px) {
+
+    .catalog-toolbar {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+
+        padding: 0 12px;
+        margin-bottom: 12px;
+    }
+
+    .catalog-toolbar h2 {
+        text-align: left;
+        font-size: 21px;
+        margin: 0;
+    }
+
+    .sort-box {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .sort-box label {
+        font-size: 12px;
+    }
+
+    #sortSelect {
+        flex: 1;
+        max-width: 190px;
+        padding: 9px 10px;
+        font-size: 12px;
+    }
+
+}
+
+/* =========================
+   KATEGORI RONA - LEBIH MENONJOL
+========================= */
+
+.category-section {
+    background: #fff;
+    border-radius: 14px;
+    padding: 10px;
+    box-shadow: 0 3px 12px rgba(120, 0, 20, 0.06);
+    border: 1px solid #f0dfe2;
+}
+
+.category {
+    border: 1px solid #ead0d0;
+    background: #fffafa;
+    color: #8f1b2c;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.category:hover {
+    border-color: #b21f35;
+    color: #b21f35;
+    transform: translateY(-1px);
+}
+
+.category.active {
+    background: #b21f35;
+    border-color: #b21f35;
+    color: #fff;
+    box-shadow: 0 3px 8px rgba(178, 31, 53, 0.22);
+}
+
+
+/* =========================
+   SUBKATEGORI LEBIH JELAS
+========================= */
+
+.subcategory-section {
+    background: #fffafa;
+    border-radius: 12px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.subcategory-button {
+    background: #fff;
+    border: 1px solid #d9a0a8;
+    color: #9f1d2f;
+}
+
+.subcategory-button.active {
+    background: #b21f35;
+    border-color: #b21f35;
+    color: white;
+}
+
+
+/* =========================
+   HP
+========================= */
+
+@media (max-width: 600px) {
+
+    .category-section {
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 8px;
+        border-radius: 12px;
+    }
+
+    .category {
+        padding: 9px 14px;
+        font-size: 13px;
+    }
+
+    .subcategory-section {
+        margin-left: 10px;
+        margin-right: 10px;
+        padding: 8px;
+    }
+
+}
 
 
