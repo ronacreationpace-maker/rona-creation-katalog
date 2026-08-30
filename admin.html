@@ -248,7 +248,8 @@
 
 
             
-           <!-- BUTTON -->
+```html
+<!-- BUTTON -->
 
 <button
     type="button"
@@ -258,7 +259,6 @@
     💾 Simpan Produk
 </button>
 
-
 <button
     type="button"
     id="backupProductButton"
@@ -267,7 +267,7 @@
     💾 Backup Produk
 </button>
 
-            <button
+<button
     id="exportProductsButton"
     type="button"
 >
@@ -281,6 +281,70 @@
 >
     ♻️ Restore Produk
 </button>
+
+
+<!-- =========================================================
+     KELOLA KATEGORI & SUBKATEGORI
+========================================================= -->
+
+<section class="admin-category-panel">
+
+    <h2>⚙️ Kelola Kategori & Subkategori</h2>
+
+    <p class="admin-category-info">
+        Tambahkan, edit, atau hapus kategori dan subkategori produk.
+    </p>
+
+    <div class="category-form">
+
+        <div class="form-group">
+
+            <label for="newCategory">
+                Kategori
+            </label>
+
+            <input
+                type="text"
+                id="newCategory"
+                placeholder="Contoh: Mahar"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="newSubcategory">
+                Subkategori
+            </label>
+
+            <input
+                type="text"
+                id="newSubcategory"
+                placeholder="Contoh: Mahar Custom"
+            >
+
+        </div>
+
+
+        <button
+            type="button"
+            id="addCategoryButton"
+        >
+            ➕ Tambah
+        </button>
+
+    </div>
+
+
+    <div
+        id="adminCategoryList"
+        class="admin-category-list"
+    ></div>
+
+</section>
+```
+
 
 
 <input
