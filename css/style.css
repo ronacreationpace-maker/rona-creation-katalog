@@ -5747,8 +5747,9 @@ textarea {
     }
 
 }
+
 /* =========================================================
-   PROMO HARIAN - HORIZONTAL ELEGANT
+   PROMO HARIAN - MENGIKUTI AREA KATALOG
    ========================================================= */
 
 .daily-promo {
@@ -5756,8 +5757,10 @@ textarea {
     top: 0;
     z-index: 9999;
 
-    width: calc(100% - 24px);
-    margin: 6px 12px 0;
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 6px auto 0;
 
     background: #b21f35;
 
