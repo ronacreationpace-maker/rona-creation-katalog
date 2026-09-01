@@ -1,21 +1,27 @@
 // ============================================================
 // RONA CREATION - ADMIN KATALOG
 // ============================================================
+// VERSI FINAL
+//
 // Fitur:
 // - Tambah produk
 // - Edit produk
 // - Hapus produk
-// - Foto otomatis dikompres
+// - 3 foto produk
+// - 1 video produk
+// - Kompres foto otomatis
 // - Subkategori
-// - Kelola kategori & subkategori
+// - Kategori custom
 // - Backup
 // - Restore
 // - Export products.json
 // - Optimalkan foto lama
 // - Pencarian
 // - Statistik
-// - Load products.json
+// - Load products.json dari GitHub
 // - Simpan ke GitHub melalui Cloudflare Worker
+// - Anti duplikat produk
+// - Aman jika elemen tertentu tidak ada di admin.html
 // ============================================================
 
 
@@ -31,14 +37,32 @@ const ADMIN_KEY =
 
 
 // ============================================================
-// AMBIL ELEMENT HTML
+// ELEMENT HTML
 // ============================================================
 
 const productImage =
     document.getElementById("productImage");
 
+const productImage2 =
+    document.getElementById("productImage2");
+
+const productImage3 =
+    document.getElementById("productImage3");
+
+const productVideo =
+    document.getElementById("productVideo");
+
 const imagePreview =
     document.getElementById("imagePreview");
+
+const imagePreview2 =
+    document.getElementById("imagePreview2");
+
+const imagePreview3 =
+    document.getElementById("imagePreview3");
+
+const videoPreview =
+    document.getElementById("videoPreview");
 
 const imageSizeInfo =
     document.getElementById("imageSizeInfo");
@@ -60,6 +84,9 @@ const websiteLinkGroup =
 
 const productPrice =
     document.getElementById("productPrice");
+
+const productPricePromo =
+    document.getElementById("productPricePromo");
 
 const productDescription =
     document.getElementById("productDescription");
@@ -105,7 +132,8 @@ const exportProductsButton =
 
 
 // ============================================================
-// ELEMENT KATEGORI
+// ELEMENT KELOLA KATEGORI
+// Jika belum ada di HTML, tidak akan menyebabkan error
 // ============================================================
 
 const newCategory =
@@ -122,6 +150,22 @@ const adminCategoryList =
 
 
 // ============================================================
+// BATAS VIDEO
+// ============================================================
+
+const MAX_VIDEO_SIZE =
+    2 * 1024 * 1024;
+
+
+// ============================================================
+// BATAS STORAGE
+// ============================================================
+
+const MAX_STORAGE_MB =
+    4.0;
+
+
+// ============================================================
 // DATA PRODUK
 // ============================================================
 
@@ -135,7 +179,10 @@ try {
         );
 
     if (Array.isArray(dataLocal)) {
-        adminProducts = dataLocal;
+
+        adminProducts =
+            dataLocal;
+
     }
 
 } catch (error) {
@@ -275,7 +322,7 @@ function simpanKategori() {
 
 
 // ============================================================
-// PASTIKAN KATEGORI ADA DI SELECT
+// UPDATE PILIHAN KATEGORI
 // ============================================================
 
 function perbaruiPilihanKategori() {
@@ -293,7 +340,8 @@ function perbaruiPilihanKategori() {
         document.createElement("option");
 
     optionAwal.value = "";
-    optionAwal.textContent = "Pilih kategori";
+    optionAwal.textContent =
+        "Pilih kategori";
 
     productCategory.appendChild(
         optionAwal
@@ -305,11 +353,17 @@ function perbaruiPilihanKategori() {
             const option =
                 document.createElement("option");
 
-            option.value = kategori;
-            option.textContent = kategori;
+            option.value =
+                kategori;
+
+            option.textContent =
+                kategori;
 
             if (kategori === nilaiLama) {
-                option.selected = true;
+
+                option.selected =
+                    true;
+
             }
 
             productCategory.appendChild(
@@ -334,7 +388,9 @@ function tampilkanDaftarKategori() {
     adminCategoryList.innerHTML = "";
 
     const semuaKategori =
-        Object.keys(subkategoriAdmin);
+        Object.keys(
+            subkategoriAdmin
+        );
 
     if (!semuaKategori.length) {
 
@@ -347,193 +403,234 @@ function tampilkanDaftarKategori() {
         return;
     }
 
-    semuaKategori.forEach(function(kategori) {
+    semuaKategori.forEach(
+        function(kategori) {
 
-        const box =
-            document.createElement("div");
-
-        box.className =
-            "admin-category-item";
-
-        const judul =
-            document.createElement("h3");
-
-        judul.textContent =
-            kategori;
-
-        box.appendChild(judul);
-
-        const daftar =
-            Array.isArray(
-                subkategoriAdmin[kategori]
-            )
-                ? subkategoriAdmin[kategori]
-                : [];
-
-        if (!daftar.length) {
-
-            const kosong =
-                document.createElement("p");
-
-            kosong.textContent =
-                "Belum ada subkategori.";
-
-            box.appendChild(kosong);
-
-        }
-
-        daftar.forEach(function(
-            subkategori,
-            index
-        ) {
-
-            const baris =
+            const box =
                 document.createElement("div");
 
-            baris.className =
-                "admin-subcategory-item";
+            box.className =
+                "admin-category-item";
 
-            const nama =
-                document.createElement("span");
+            const judul =
+                document.createElement("h3");
 
-            nama.textContent =
-                subkategori;
+            judul.textContent =
+                kategori;
 
-            const tombolBox =
-                document.createElement("div");
-
-            const tombolEdit =
-                document.createElement("button");
-
-            tombolEdit.type = "button";
-            tombolEdit.textContent = "✏️";
-            tombolEdit.className =
-                "edit-subcategory-button";
-
-            const tombolHapus =
-                document.createElement("button");
-
-            tombolHapus.type = "button";
-            tombolHapus.textContent = "🗑️";
-            tombolHapus.className =
-                "delete-subcategory-button";
-
-            tombolBox.appendChild(
-                tombolEdit
+            box.appendChild(
+                judul
             );
 
-            tombolBox.appendChild(
-                tombolHapus
-            );
+            const daftar =
+                Array.isArray(
+                    subkategoriAdmin[kategori]
+                )
+                    ? subkategoriAdmin[kategori]
+                    : [];
 
-            baris.appendChild(
-                nama
-            );
+            if (!daftar.length) {
 
-            baris.appendChild(
-                tombolBox
-            );
+                const kosong =
+                    document.createElement("p");
 
-            // EDIT SUBKATEGORI
+                kosong.textContent =
+                    "Belum ada subkategori.";
 
-            tombolEdit.addEventListener(
-                "click",
-                function() {
+                box.appendChild(
+                    kosong
+                );
 
-                    const namaBaru =
-                        prompt(
-                            "Edit subkategori:",
-                            subkategori
-                        );
+            }
 
-                    if (namaBaru === null) {
-                        return;
-                    }
+            daftar.forEach(
+                function(
+                    subkategori,
+                    index
+                ) {
 
-                    const hasil =
-                        namaBaru.trim();
+                    const baris =
+                        document.createElement("div");
 
-                    if (!hasil) {
+                    baris.className =
+                        "admin-subcategory-item";
 
-                        alert(
-                            "Nama subkategori tidak boleh kosong."
-                        );
+                    const nama =
+                        document.createElement("span");
 
-                        return;
-                    }
+                    nama.textContent =
+                        subkategori;
 
-                    const duplikat =
-                        subkategoriAdmin[kategori]
-                            .some(
-                                function(item, i) {
+                    const tombolBox =
+                        document.createElement("div");
 
-                                    return (
-                                        i !== index &&
-                                        item.toLowerCase() ===
-                                        hasil.toLowerCase()
-                                    );
+                    const tombolEdit =
+                        document.createElement("button");
 
-                                }
+                    tombolEdit.type =
+                        "button";
+
+                    tombolEdit.textContent =
+                        "✏️";
+
+                    tombolEdit.className =
+                        "edit-subcategory-button";
+
+                    const tombolHapus =
+                        document.createElement("button");
+
+                    tombolHapus.type =
+                        "button";
+
+                    tombolHapus.textContent =
+                        "🗑️";
+
+                    tombolHapus.className =
+                        "delete-subcategory-button";
+
+                    tombolBox.appendChild(
+                        tombolEdit
+                    );
+
+                    tombolBox.appendChild(
+                        tombolHapus
+                    );
+
+                    baris.appendChild(
+                        nama
+                    );
+
+                    baris.appendChild(
+                        tombolBox
+                    );
+
+
+                    // EDIT SUBKATEGORI
+
+                    tombolEdit.addEventListener(
+                        "click",
+                        function() {
+
+                            const namaBaru =
+                                prompt(
+                                    "Edit subkategori:",
+                                    subkategori
+                                );
+
+                            if (
+                                namaBaru ===
+                                null
+                            ) {
+
+                                return;
+
+                            }
+
+                            const hasil =
+                                namaBaru.trim();
+
+                            if (!hasil) {
+
+                                alert(
+                                    "Nama subkategori tidak boleh kosong."
+                                );
+
+                                return;
+
+                            }
+
+                            const duplikat =
+                                subkategoriAdmin[
+                                    kategori
+                                ].some(
+                                    function(
+                                        item,
+                                        i
+                                    ) {
+
+                                        return (
+                                            i !== index &&
+                                            item
+                                                .toLowerCase() ===
+                                            hasil
+                                                .toLowerCase()
+                                        );
+
+                                    }
+                                );
+
+                            if (duplikat) {
+
+                                alert(
+                                    "Subkategori tersebut sudah ada."
+                                );
+
+                                return;
+
+                            }
+
+                            subkategoriAdmin[
+                                kategori
+                            ][index] =
+                                hasil;
+
+                            simpanKategori();
+
+                            tampilkanDaftarKategori();
+
+                            tampilkanSubkategoriAdmin();
+
+                        }
+                    );
+
+
+                    // HAPUS SUBKATEGORI
+
+                    tombolHapus.addEventListener(
+                        "click",
+                        function() {
+
+                            const yakin =
+                                confirm(
+                                    'Hapus subkategori "' +
+                                    subkategori +
+                                    '"?'
+                                );
+
+                            if (!yakin) {
+                                return;
+                            }
+
+                            subkategoriAdmin[
+                                kategori
+                            ].splice(
+                                index,
+                                1
                             );
 
-                    if (duplikat) {
+                            simpanKategori();
 
-                        alert(
-                            "Subkategori tersebut sudah ada."
-                        );
+                            tampilkanDaftarKategori();
 
-                        return;
-                    }
+                            tampilkanSubkategoriAdmin();
 
-                    subkategoriAdmin[kategori][index] =
-                        hasil;
+                        }
+                    );
 
-                    simpanKategori();
 
-                    tampilkanDaftarKategori();
-
-                    tampilkanSubkategoriAdmin();
+                    box.appendChild(
+                        baris
+                    );
 
                 }
             );
 
-
-            // HAPUS SUBKATEGORI
-
-            tombolHapus.addEventListener(
-                "click",
-                function() {
-
-                    const yakin =
-                        confirm(
-                            'Hapus subkategori "' +
-                            subkategori +
-                            '"?'
-                        );
-
-                    if (!yakin) {
-                        return;
-                    }
-
-                    subkategoriAdmin[kategori]
-                        .splice(index, 1);
-
-                    simpanKategori();
-
-                    tampilkanDaftarKategori();
-
-                    tampilkanSubkategoriAdmin();
-
-                }
+            adminCategoryList.appendChild(
+                box
             );
 
-            box.appendChild(baris);
-
-        });
-
-        adminCategoryList.appendChild(box);
-
-    });
+        }
+    );
 
 }
 
@@ -569,6 +666,7 @@ if (addCategoryButton) {
                 }
 
                 return;
+
             }
 
             if (!subkategori) {
@@ -582,20 +680,22 @@ if (addCategoryButton) {
                 }
 
                 return;
+
             }
 
-            // Cari kategori tanpa membedakan huruf besar kecil
-
             let namaKategoriAsli =
-                Object.keys(subkategoriAdmin)
-                    .find(function(item) {
+                Object.keys(
+                    subkategoriAdmin
+                ).find(
+                    function(item) {
 
                         return (
                             item.toLowerCase() ===
                             kategori.toLowerCase()
                         );
 
-                    });
+                    }
+                );
 
             if (!namaKategoriAsli) {
 
@@ -609,15 +709,18 @@ if (addCategoryButton) {
             }
 
             const sudahAda =
-                subkategoriAdmin[namaKategoriAsli]
-                    .some(function(item) {
+                subkategoriAdmin[
+                    namaKategoriAsli
+                ].some(
+                    function(item) {
 
                         return (
                             item.toLowerCase() ===
                             subkategori.toLowerCase()
                         );
 
-                    });
+                    }
+                );
 
             if (sudahAda) {
 
@@ -626,11 +729,14 @@ if (addCategoryButton) {
                 );
 
                 return;
+
             }
 
             subkategoriAdmin[
                 namaKategoriAsli
-            ].push(subkategori);
+            ].push(
+                subkategori
+            );
 
             simpanKategori();
 
@@ -666,22 +772,31 @@ function formatRupiah(angka) {
 
     const nilai =
         Number(
-            String(angka ?? "")
-                .replace(/[^\d]/g, "")
+            String(
+                angka ?? ""
+            ).replace(
+                /[^\d]/g,
+                ""
+            )
         );
 
-    if (
-        !Number.isFinite(nilai)
-    ) {
+    if (!Number.isFinite(nilai)) {
+
         return "Rp0";
+
     }
 
     return nilai.toLocaleString(
         "id-ID",
         {
-            style: "currency",
-            currency: "IDR",
-            minimumFractionDigits: 0
+            style:
+                "currency",
+
+            currency:
+                "IDR",
+
+            minimumFractionDigits:
+                0
         }
     );
 
@@ -705,24 +820,20 @@ function tampilkanSubkategoriAdmin(
             ? productCategory.value
             : "";
 
-    // Kosongkan
-
     productSubcategory.innerHTML = "";
-
-    // Pilihan awal
 
     const pilihanAwal =
         document.createElement("option");
 
-    pilihanAwal.value = "";
+    pilihanAwal.value =
+        "";
+
     pilihanAwal.textContent =
         "Pilih subkategori";
 
     productSubcategory.appendChild(
         pilihanAwal
     );
-
-    // Ambil daftar
 
     const daftar =
         Array.isArray(
@@ -731,34 +842,36 @@ function tampilkanSubkategoriAdmin(
             ? subkategoriAdmin[kategori]
             : [];
 
-    daftar.forEach(function(
-        subkategori
-    ) {
+    daftar.forEach(
+        function(subkategori) {
 
-        const option =
-            document.createElement("option");
+            const option =
+                document.createElement(
+                    "option"
+                );
 
-        option.value =
-            subkategori;
+            option.value =
+                subkategori;
 
-        option.textContent =
-            subkategori;
+            option.textContent =
+                subkategori;
 
-        if (
-            subkategori ===
-            nilaiTerpilih
-        ) {
+            if (
+                subkategori ===
+                nilaiTerpilih
+            ) {
 
-            option.selected =
-                true;
+                option.selected =
+                    true;
+
+            }
+
+            productSubcategory.appendChild(
+                option
+            );
 
         }
-
-        productSubcategory.appendChild(
-            option
-        );
-
-    });
+    );
 
 }
 
@@ -786,7 +899,7 @@ function tampilkanFieldWebsite() {
     const tampil =
         kategori === "Undangan" &&
         subkategori ===
-            "Undangan Website Online";
+        "Undangan Website Online";
 
     if (tampil) {
 
@@ -799,7 +912,10 @@ function tampilkanFieldWebsite() {
             "none";
 
         if (productWebsite) {
-            productWebsite.value = "";
+
+            productWebsite.value =
+                "";
+
         }
 
     }
@@ -846,7 +962,7 @@ if (productSubcategory) {
 
 
 // ============================================================
-// FORMAT HARGA SAAT DIKETIK
+// FORMAT HARGA
 // ============================================================
 
 if (productPrice) {
@@ -863,30 +979,72 @@ if (productPrice) {
 
             if (!angka) {
 
-                this.value = "";
+                this.value =
+                    "";
 
                 return;
+
             }
 
             this.value =
                 Number(
                     angka
-                ).toLocaleString("id-ID");
+                ).toLocaleString(
+                    "id-ID"
+                );
 
         }
     );
 
 }
 
+// ============================================================
+// FORMAT HARGA PROMO
+// ============================================================
+
+if (productPricePromo) {
+
+    productPricePromo.addEventListener(
+        "input",
+        function() {
+
+            const angka =
+                this.value.replace(
+                    /[^\d]/g,
+                    ""
+                );
+
+            if (!angka) {
+
+                this.value =
+                    "";
+
+                return;
+
+            }
+
+            this.value =
+                Number(
+                    angka
+                ).toLocaleString(
+                    "id-ID"
+                );
+
+        }
+    );
+
+}
 
 // ============================================================
-// CEK UKURAN DATA
+// UKURAN DATA
 // ============================================================
 
 function ukuranDataMB(data) {
 
     return (
-        new Blob([data]).size /
+        new Blob(
+            [data]
+        ).size /
         1024 /
         1024
     );
@@ -909,22 +1067,24 @@ function storageMasihAman(data) {
         "MB"
     );
 
-    // Batas aman localStorage
-
-    const batasAman =
-        4.0;
-
-    if (ukuran > batasAman) {
+    if (
+        ukuran >
+        MAX_STORAGE_MB
+    ) {
 
         alert(
             "⚠️ Data katalog terlalu besar.\n\n" +
             "Ukuran saat ini: " +
             ukuran.toFixed(2) +
             " MB\n\n" +
-            "Silakan optimalkan foto produk terlebih dahulu."
+            "Maksimal aman: " +
+            MAX_STORAGE_MB +
+            " MB\n\n" +
+            "Silakan optimalkan foto atau kurangi ukuran media."
         );
 
         return false;
+
     }
 
     return true;
@@ -950,6 +1110,7 @@ function kompresFoto(file) {
                 );
 
                 return;
+
             }
 
             const reader =
@@ -987,6 +1148,7 @@ function kompresFoto(file) {
                                     Math.min(
                                         maxWidth /
                                             width,
+
                                         maxHeight /
                                             height
                                     );
@@ -1030,6 +1192,7 @@ function kompresFoto(file) {
                                 );
 
                                 return;
+
                             }
 
                             ctx.drawImage(
@@ -1052,9 +1215,12 @@ function kompresFoto(file) {
 
                             } catch (error) {
 
-                                reject(error);
+                                reject(
+                                    error
+                                );
 
                                 return;
+
                             }
 
                             resolve(
@@ -1090,7 +1256,59 @@ function kompresFoto(file) {
 
                 };
 
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// BACA FILE DATA URL
+// ============================================================
+
+function bacaFileDataURL(file) {
+
+    return new Promise(
+        function(resolve, reject) {
+
+            if (!file) {
+
+                resolve("");
+
+                return;
+
+            }
+
+            const reader =
+                new FileReader();
+
+            reader.onload =
+                function(event) {
+
+                    resolve(
+                        event.target.result
+                    );
+
+                };
+
+            reader.onerror =
+                function() {
+
+                    reject(
+                        new Error(
+                            "Gagal membaca file."
+                        )
+                    );
+
+                };
+
+            reader.readAsDataURL(
+                file
+            );
 
         }
     );
@@ -1102,123 +1320,143 @@ function kompresFoto(file) {
 // PREVIEW FOTO
 // ============================================================
 
+function previewFoto(
+    file,
+    previewElement
+) {
+
+    if (!previewElement) {
+        return;
+    }
+
+    previewElement.innerHTML =
+        "";
+
+    if (!file) {
+        return;
+    }
+
+    if (
+        !file.type.startsWith(
+            "image/"
+        )
+    ) {
+
+        alert(
+            "Silakan pilih file gambar."
+        );
+
+        return;
+
+    }
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function(event) {
+
+            previewElement.innerHTML = `
+                <img
+                    src="${event.target.result}"
+                    alt="Preview Produk"
+                >
+            `;
+
+        };
+
+    reader.readAsDataURL(
+        file
+    );
+
+}
+
+
+// ============================================================
+// EVENT FOTO 1
+// ============================================================
+
 if (productImage) {
 
     productImage.addEventListener(
         "change",
-        function() {
-
-            if (imagePreview) {
-                imagePreview.innerHTML = "";
-            }
-
-            if (imageSizeInfo) {
-                imageSizeInfo.textContent = "";
-            }
+        async function() {
 
             const file =
                 productImage.files[0];
+
+            previewFoto(
+                file,
+                imagePreview
+            );
 
             if (!file) {
                 return;
             }
 
-            if (
-                !file.type.startsWith(
-                    "image/"
-                )
-            ) {
+            if (imageSizeInfo) {
 
-                alert(
-                    "Silakan pilih file gambar."
-                );
+                imageSizeInfo.innerHTML =
+                    "⏳ Mengoptimalkan foto...";
 
-                productImage.value = "";
-
-                return;
             }
 
-            const reader =
-                new FileReader();
+            try {
 
-            reader.onload =
-                async function(event) {
+                const hasilKompres =
+                    await kompresFoto(
+                        file
+                    );
 
-                    if (imagePreview) {
+                const ukuranAsli =
+                    (
+                        file.size /
+                        1024 /
+                        1024
+                    ).toFixed(2);
 
-                        imagePreview.innerHTML = `
-                            <img
-                                src="${event.target.result}"
-                                alt="Preview Produk"
-                            >
+                const ukuranKompres =
+                    (
+                        new Blob(
+                            [hasilKompres]
+                        ).size /
+                        1024 /
+                        1024
+                    ).toFixed(2);
+
+                if (imageSizeInfo) {
+
+                    imageSizeInfo.innerHTML =
+                        `
+                        Foto 1 —
+                        Ukuran asli:
+                        <strong>
+                            ${ukuranAsli} MB
+                        </strong>
+                        &nbsp;→&nbsp;
+                        Setelah kompres:
+                        <strong>
+                            ±${ukuranKompres} MB
+                        </strong>
                         `;
 
-                    }
+                }
 
-                    if (imageSizeInfo) {
+            } catch (error) {
 
-                        imageSizeInfo.innerHTML =
-                            "⏳ Mengoptimalkan foto...";
+                console.error(
+                    "Preview kompres gagal:",
+                    error
+                );
 
-                    }
+                if (imageSizeInfo) {
 
-                    try {
+                    imageSizeInfo.textContent =
+                        "Foto siap digunakan.";
 
-                        const hasilKompres =
-                            await kompresFoto(file);
+                }
 
-                        const ukuranAsli =
-                            (
-                                file.size /
-                                1024 /
-                                1024
-                            ).toFixed(2);
-
-                        const ukuranKompres =
-                            (
-                                new Blob(
-                                    [hasilKompres]
-                                ).size /
-                                1024 /
-                                1024
-                            ).toFixed(2);
-
-                        if (imageSizeInfo) {
-
-                            imageSizeInfo.innerHTML =
-                                `
-                                Ukuran asli:
-                                <strong>
-                                    ${ukuranAsli} MB
-                                </strong>
-                                &nbsp;→&nbsp;
-                                Setelah kompres:
-                                <strong>
-                                    ±${ukuranKompres} MB
-                                </strong>
-                                `;
-
-                        }
-
-                    } catch (error) {
-
-                        console.error(
-                            "Preview kompres gagal:",
-                            error
-                        );
-
-                        if (imageSizeInfo) {
-
-                            imageSizeInfo.textContent =
-                                "Foto siap digunakan.";
-
-                        }
-
-                    }
-
-                };
-
-            reader.readAsDataURL(file);
+            }
 
         }
     );
@@ -1227,7 +1465,156 @@ if (productImage) {
 
 
 // ============================================================
-// SIMPAN KE GITHUB MELALUI CLOUDFLARE WORKER
+// EVENT FOTO 2
+// ============================================================
+
+if (productImage2) {
+
+    productImage2.addEventListener(
+        "change",
+        function() {
+
+            previewFoto(
+                productImage2.files[0],
+                imagePreview2
+            );
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// EVENT FOTO 3
+// ============================================================
+
+if (productImage3) {
+
+    productImage3.addEventListener(
+        "change",
+        function() {
+
+            previewFoto(
+                productImage3.files[0],
+                imagePreview3
+            );
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// EVENT VIDEO
+// ============================================================
+
+if (productVideo) {
+
+    productVideo.addEventListener(
+        "change",
+        function() {
+
+            if (videoPreview) {
+
+                videoPreview.innerHTML =
+                    "";
+
+            }
+
+            const file =
+                productVideo.files[0];
+
+            if (!file) {
+                return;
+            }
+
+            if (
+                !file.type.startsWith(
+                    "video/"
+                )
+            ) {
+
+                alert(
+                    "Silakan pilih file video."
+                );
+
+                productVideo.value =
+                    "";
+
+                return;
+
+            }
+
+            const ukuran =
+                file.size /
+                1024 /
+                1024;
+
+            if (
+                file.size >
+                MAX_VIDEO_SIZE
+            ) {
+
+                alert(
+                    "⚠️ Ukuran video terlalu besar.\n\n" +
+                    "Maksimal video: 2 MB\n" +
+                    "Ukuran video Anda: " +
+                    ukuran.toFixed(2) +
+                    " MB"
+                );
+
+                productVideo.value =
+                    "";
+
+                return;
+
+            }
+
+            const url =
+                URL.createObjectURL(
+                    file
+                );
+
+            if (videoPreview) {
+
+                videoPreview.innerHTML = `
+                    <video
+                        src="${url}"
+                        controls
+                        playsinline
+                        style="
+                            width:100%;
+                            max-width:500px;
+                            border-radius:12px;
+                            display:block;
+                            margin:10px auto;
+                        "
+                    ></video>
+
+                    <div
+                        style="
+                            text-align:center;
+                            font-size:13px;
+                            color:#777;
+                        "
+                    >
+                        🎥 Video siap digunakan
+                        (${ukuran.toFixed(2)} MB)
+                    </div>
+                `;
+
+            }
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// SIMPAN KE GITHUB
 // ============================================================
 
 async function simpanKeGitHub() {
@@ -1238,7 +1625,8 @@ async function simpanKeGitHub() {
             await fetch(
                 API_URL,
                 {
-                    method: "POST",
+                    method:
+                        "POST",
 
                     headers: {
                         "Content-Type":
@@ -1306,126 +1694,259 @@ async function simpanKeGitHub() {
 
 
 // ============================================================
-// MUAT PRODUK DARI GITHUB
+// LOAD PRODUK ADMIN - VERSI AMAN
 // ============================================================
 
 async function muatProdukAwalAdmin() {
 
+    console.log(
+        "🔄 Memuat data produk Admin..."
+    );
+
+    // ========================================================
+    // 1. CEK DATA LOCAL TERLEBIH DAHULU
+    // ========================================================
+
+    let produkLocal = [];
+
     try {
 
-        const response =
-            await fetch(
-                "products.json?cache=" +
-                Date.now()
+        const dataLocal =
+            JSON.parse(
+                localStorage.getItem(
+                    "ronaProducts"
+                )
             );
-
-        if (!response.ok) {
-
-            throw new Error(
-                "products.json tidak ditemukan."
-            );
-
-        }
-
-        const data =
-            await response.json();
-
-        const produkDariGithub =
-            Array.isArray(data)
-                ? data
-                : data.products;
 
         if (
-            !Array.isArray(
-                produkDariGithub
+            Array.isArray(
+                dataLocal
             )
         ) {
 
-            throw new Error(
-                "Format products.json tidak valid."
-            );
+            produkLocal =
+                dataLocal;
 
         }
 
+    } catch (error) {
+
+        console.warn(
+            "Data localStorage tidak valid:",
+            error
+        );
+
+    }
+
+
+    // ========================================================
+    // 2. JIKA ADA DATA LOCAL
+    //    GUNAKAN DATA LOCAL DAHULU
+    // ========================================================
+
+    if (
+        produkLocal.length > 0
+    ) {
+
         adminProducts =
-            produkDariGithub;
+            produkLocal;
+
+        console.log(
+            "✅ Produk dimuat dari localStorage:",
+            adminProducts.length
+        );
+
+        tampilkanProdukAdmin();
+
+        updateStatistikAdmin();
+
+    }
+
+
+    // ========================================================
+    // 3. JIKA LOCAL KOSONG
+    //    BARU AMBIL DARI GITHUB
+    // ========================================================
+
+    if (
+        produkLocal.length === 0
+    ) {
 
         try {
 
-            const dataLocal =
+            const response =
+                await fetch(
+                    "products.json?cache=" +
+                    Date.now()
+                );
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "products.json tidak ditemukan."
+                );
+
+            }
+
+            const data =
+                await response.json();
+
+            const produkDariGithub =
+                Array.isArray(data)
+                    ? data
+                    : data.products;
+
+
+            if (
+                !Array.isArray(
+                    produkDariGithub
+                )
+            ) {
+
+                throw new Error(
+                    "Format products.json tidak valid."
+                );
+
+            }
+
+
+            // =================================================
+            // NORMALISASI HARGA PROMO
+            // =================================================
+
+            adminProducts =
+                produkDariGithub.map(
+                    function(product) {
+
+                        const produk =
+                            {
+                                ...product
+                            };
+
+                        // Jika data lama menggunakan promoPrice
+                        // pindahkan ke pricePromo
+
+                        if (
+                            (
+                                produk.pricePromo ===
+                                undefined ||
+                                produk.pricePromo ===
+                                null
+                            ) &&
+                            produk.promoPrice !==
+                                undefined
+                        ) {
+
+                            produk.pricePromo =
+                                Number(
+                                    produk.promoPrice ||
+                                    0
+                                );
+
+                        }
+
+                        // Pastikan field selalu ada
+
+                        if (
+                            produk.pricePromo ===
+                            undefined
+                        ) {
+
+                            produk.pricePromo =
+                                0;
+
+                        }
+
+                        return produk;
+
+                    }
+                );
+
+
+            // =================================================
+            // SIMPAN LOCAL
+            // =================================================
+
+            const dataLocalBaru =
                 JSON.stringify(
                     adminProducts
                 );
 
             if (
                 storageMasihAman(
-                    dataLocal
+                    dataLocalBaru
                 )
             ) {
 
                 localStorage.setItem(
                     "ronaProducts",
-                    dataLocal
+                    dataLocalBaru
                 );
 
             }
+
+
+            console.log(
+                "☁️ Produk berhasil dimuat dari GitHub:",
+                adminProducts.length
+            );
+
+
+            tampilkanProdukAdmin();
+
+            updateStatistikAdmin();
+
 
         } catch (error) {
 
             console.warn(
-                "Tidak dapat menyimpan produk ke localStorage:",
+                "❌ Tidak bisa mengambil products.json:",
                 error
             );
 
-        }
 
-        console.log(
-            "Produk berhasil dimuat dari GitHub:",
-            adminProducts
-        );
+            // =================================================
+            // FALLBACK LOCAL STORAGE
+            // =================================================
 
-        tampilkanProdukAdmin();
+            try {
 
-        updateStatistikAdmin();
+                const dataLocal =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "ronaProducts"
+                        )
+                    );
 
-    } catch (error) {
-
-        console.warn(
-            "Tidak bisa mengambil products.json:",
-            error
-        );
-
-        // Gunakan localStorage
-
-        try {
-
-            const dataLocal =
-                JSON.parse(
-                    localStorage.getItem(
-                        "ronaProducts"
+                if (
+                    Array.isArray(
+                        dataLocal
                     )
-                );
+                ) {
 
-            if (Array.isArray(dataLocal)) {
+                    adminProducts =
+                        dataLocal;
+
+                } else {
+
+                    adminProducts =
+                        [];
+
+                }
+
+            } catch (errorLocal) {
 
                 adminProducts =
-                    dataLocal;
-
-            } else {
-
-                adminProducts = [];
+                    [];
 
             }
 
-        } catch (errorLocal) {
 
-            adminProducts = [];
+            tampilkanProdukAdmin();
+
+            updateStatistikAdmin();
 
         }
-
-        tampilkanProdukAdmin();
-
-        updateStatistikAdmin();
 
     }
 
@@ -1477,9 +1998,12 @@ if (backupProductButton) {
                 );
 
             const link =
-                document.createElement("a");
+                document.createElement(
+                    "a"
+                );
 
-            link.href = url;
+            link.href =
+                url;
 
             link.download =
                 "backup-rona-creation-" +
@@ -1520,10 +2044,58 @@ if (exportProductsButton) {
         "click",
         function() {
 
-            const produk =
-                Array.isArray(adminProducts)
-                    ? adminProducts
-                    : [];
+const produk =
+    Array.isArray(
+        adminProducts
+    )
+        ? adminProducts.map(
+            function(product) {
+
+                const produk =
+                    {
+                        ...product
+                    };
+
+                // Satukan format harga promo
+
+                if (
+                    (
+                        produk.pricePromo ===
+                        undefined ||
+                        produk.pricePromo ===
+                        null
+                    ) &&
+                    produk.promoPrice !==
+                        undefined
+                ) {
+
+                    produk.pricePromo =
+                        Number(
+                            produk.promoPrice ||
+                            0
+                        );
+
+                }
+
+                if (
+                    produk.pricePromo ===
+                    undefined
+                ) {
+
+                    produk.pricePromo =
+                        0;
+
+                }
+
+                // Hapus format lama
+
+                delete produk.promoPrice;
+
+                return produk;
+
+            }
+        )
+        : [];
 
             if (!produk.length) {
 
@@ -1532,10 +2104,14 @@ if (exportProductsButton) {
                 );
 
                 return;
+
             }
 
             const dataExport = {
-                products: produk
+
+                products:
+                    produk
+
             };
 
             const json =
@@ -1560,9 +2136,12 @@ if (exportProductsButton) {
                 );
 
             const link =
-                document.createElement("a");
+                document.createElement(
+                    "a"
+                );
 
-            link.href = url;
+            link.href =
+                url;
 
             link.download =
                 "products.json";
@@ -1646,7 +2225,9 @@ if (restoreProductInput) {
                         let produkRestore;
 
                         if (
-                            Array.isArray(data)
+                            Array.isArray(
+                                data
+                            )
                         ) {
 
                             produkRestore =
@@ -1693,6 +2274,7 @@ if (restoreProductInput) {
                         ) {
 
                             return;
+
                         }
 
                         adminProducts =
@@ -1756,7 +2338,76 @@ if (restoreProductInput) {
 
                 };
 
-            reader.readAsText(file);
+            reader.readAsText(
+                file
+            );
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// NORMALISASI NAMA PRODUK
+// ============================================================
+
+function normalisasiNamaProduk(
+    namaProduk
+) {
+
+    return String(
+        namaProduk || ""
+    )
+        .toLowerCase()
+        .trim()
+        .replace(
+            /\s+/g,
+            " "
+        );
+
+}
+
+
+// ============================================================
+// CEK DUPLIKAT
+// ============================================================
+
+function cekProdukDuplikat(
+    nama,
+    kategori,
+    idYangDikecualikan = null
+) {
+
+    const namaNormal =
+        normalisasiNamaProduk(
+            nama
+        );
+
+    return adminProducts.some(
+        function(product) {
+
+            if (
+                idYangDikecualikan !== null &&
+                String(product.id) ===
+                String(idYangDikecualikan)
+            ) {
+
+                return false;
+
+            }
+
+            return (
+                normalisasiNamaProduk(
+                    product.name
+                ) === namaNormal &&
+                String(
+                    product.category || ""
+                ).toLowerCase() ===
+                String(
+                    kategori || ""
+                ).toLowerCase()
+            );
 
         }
     );
@@ -1774,9 +2425,24 @@ if (saveProductButton) {
         "click",
         async function() {
 
-            const file =
+            const file1 =
                 productImage
                     ? productImage.files[0]
+                    : null;
+
+            const file2 =
+                productImage2
+                    ? productImage2.files[0]
+                    : null;
+
+            const file3 =
+                productImage3
+                    ? productImage3.files[0]
+                    : null;
+
+            const videoFile =
+                productVideo
+                    ? productVideo.files[0]
                     : null;
 
             const nama =
@@ -1802,11 +2468,20 @@ if (saveProductButton) {
             const harga =
                 productPrice
                     ? Number(
-                        productPrice.value
-                            .replace(
-                                /[^\d]/g,
-                                ""
-                            )
+                        productPrice.value.replace(
+                            /[^\d]/g,
+                            ""
+                        )
+                    )
+                    : 0;
+
+            const hargaPromo =
+                productPricePromo
+                    ? Number(
+                        productPricePromo.value.replace(
+                            /[^\d]/g,
+                            ""
+                        )
                     )
                     : 0;
 
@@ -1817,7 +2492,7 @@ if (saveProductButton) {
 
 
             // ====================================================
-            // VALIDASI
+            // VALIDASI NAMA
             // ====================================================
 
             if (!nama) {
@@ -1831,7 +2506,13 @@ if (saveProductButton) {
                 }
 
                 return;
+
             }
+
+
+            // ====================================================
+            // VALIDASI KATEGORI
+            // ====================================================
 
             if (!kategori) {
 
@@ -1844,7 +2525,13 @@ if (saveProductButton) {
                 }
 
                 return;
+
             }
+
+
+            // ====================================================
+            // VALIDASI SUBKATEGORI
+            // ====================================================
 
             if (!subkategori) {
 
@@ -1857,7 +2544,13 @@ if (saveProductButton) {
                 }
 
                 return;
+
             }
+
+
+            // ====================================================
+            // VALIDASI HARGA
+            // ====================================================
 
             if (!harga || harga <= 0) {
 
@@ -1870,7 +2563,33 @@ if (saveProductButton) {
                 }
 
                 return;
+
             }
+
+            // ====================================================
+            // VALIDASI HARGA PROMO
+            // ====================================================
+
+            if (
+                hargaPromo &&
+                hargaPromo >= harga
+            ) {
+
+                alert(
+                    "⚠️ Harga promo harus lebih murah daripada harga normal."
+                );
+
+                if (productPricePromo) {
+                    productPricePromo.focus();
+                }
+
+                return;
+
+            }
+
+            // ====================================================
+            // VALIDASI DESKRIPSI
+            // ====================================================
 
             if (!deskripsi) {
 
@@ -1883,6 +2602,7 @@ if (saveProductButton) {
                 }
 
                 return;
+
             }
 
 
@@ -1891,7 +2611,8 @@ if (saveProductButton) {
             // ====================================================
 
             if (
-                kategori === "Undangan" &&
+                kategori ===
+                    "Undangan" &&
                 subkategori ===
                     "Undangan Website Online"
             ) {
@@ -1907,6 +2628,7 @@ if (saveProductButton) {
                     }
 
                     return;
+
                 }
 
                 if (
@@ -1927,6 +2649,87 @@ if (saveProductButton) {
                     }
 
                     return;
+
+                }
+
+            }
+
+
+            // ====================================================
+            // VALIDASI FOTO
+            // ====================================================
+
+            const daftarFileFoto = [
+                file1,
+                file2,
+                file3
+            ];
+
+            for (
+                let i = 0;
+                i <
+                daftarFileFoto.length;
+                i++
+            ) {
+
+                const file =
+                    daftarFileFoto[i];
+
+                if (!file) {
+                    continue;
+                }
+
+                if (
+                    !file.type.startsWith(
+                        "image/"
+                    )
+                ) {
+
+                    alert(
+                        "Foto " +
+                        (i + 1) +
+                        " bukan file gambar."
+                    );
+
+                    return;
+
+                }
+
+            }
+
+
+            // ====================================================
+            // VALIDASI VIDEO
+            // ====================================================
+
+            if (videoFile) {
+
+                if (
+                    !videoFile.type.startsWith(
+                        "video/"
+                    )
+                ) {
+
+                    alert(
+                        "File video tidak valid."
+                    );
+
+                    return;
+
+                }
+
+                if (
+                    videoFile.size >
+                    MAX_VIDEO_SIZE
+                ) {
+
+                    alert(
+                        "⚠️ Video terlalu besar.\n\n" +
+                        "Maksimal video adalah 2 MB."
+                    );
+
+                    return;
+
                 }
 
             }
@@ -1936,56 +2739,13 @@ if (saveProductButton) {
             // CEK DUPLIKAT
             // ====================================================
 
-            function normalisasiNamaProduk(
-                namaProduk
-            ) {
-
-                return String(
-                    namaProduk || ""
+            if (
+                cekProdukDuplikat(
+                    nama,
+                    kategori,
+                    window.editingProductId
                 )
-                    .toLowerCase()
-                    .trim()
-                    .replace(
-                        /\s+/g,
-                        " "
-                    );
-
-            }
-
-            const namaNormal =
-                normalisasiNamaProduk(
-                    nama
-                );
-
-            const produkDuplikat =
-                adminProducts.some(
-                    function(product) {
-
-                        if (
-                            window.editingProductId !==
-                                null &&
-                            String(product.id) ===
-                                String(
-                                    window.editingProductId
-                                )
-                        ) {
-
-                            return false;
-
-                        }
-
-                        return (
-                            normalisasiNamaProduk(
-                                product.name
-                            ) === namaNormal &&
-                            product.category ===
-                                kategori
-                        );
-
-                    }
-                );
-
-            if (produkDuplikat) {
+            ) {
 
                 alert(
                     "Produk dengan nama dan kategori tersebut sudah ada."
@@ -1996,242 +2756,13 @@ if (saveProductButton) {
                 }
 
                 return;
-            }
-
-
-            // ====================================================
-            // MODE EDIT
-            // ====================================================
-
-            if (
-                window.editingProductId !== null
-            ) {
-
-                const index =
-                    adminProducts.findIndex(
-                        function(product) {
-
-                            return (
-                                String(product.id) ===
-                                String(
-                                    window.editingProductId
-                                )
-                            );
-
-                        }
-                    );
-
-                if (index === -1) {
-
-                    alert(
-                        "Produk yang diedit tidak ditemukan."
-                    );
-
-                    return;
-                }
-
-                let gambar =
-                    adminProducts[index].image ||
-                    "";
-
-
-                // FOTO BARU
-
-                if (file) {
-
-                    if (
-                        !file.type.startsWith(
-                            "image/"
-                        )
-                    ) {
-
-                        alert(
-                            "Silakan pilih file gambar."
-                        );
-
-                        return;
-                    }
-
-                    try {
-
-                        saveProductButton.disabled =
-                            true;
-
-                        saveProductButton.textContent =
-                            "⏳ Mengompres foto...";
-
-                        gambar =
-                            await kompresFoto(
-                                file
-                            );
-
-                    } catch (error) {
-
-                        console.error(
-                            error
-                        );
-
-                        alert(
-                            "❌ Gagal memproses foto."
-                        );
-
-                        saveProductButton.disabled =
-                            false;
-
-                        saveProductButton.textContent =
-                            "💾 Simpan Perubahan";
-
-                        return;
-                    }
-
-                }
-
-
-                // UPDATE
-
-                const produkLama =
-                    adminProducts[index];
-
-                adminProducts[index] = {
-
-                    ...produkLama,
-
-                    name:
-                        nama,
-
-                    category:
-                        kategori,
-
-                    subcategory:
-                        subkategori,
-
-                    price:
-                        harga,
-
-                    image:
-                        gambar,
-
-                    description:
-                        deskripsi,
-
-                    website:
-                        website
-
-                };
-
-
-                const dataProduk =
-                    JSON.stringify(
-                        adminProducts
-                    );
-
-                if (
-                    !storageMasihAman(
-                        dataProduk
-                    )
-                ) {
-
-                    // Kembalikan data lama
-
-                    adminProducts[index] =
-                        produkLama;
-
-                    return;
-                }
-
-
-                try {
-
-                    localStorage.setItem(
-                        "ronaProducts",
-                        dataProduk
-                    );
-
-                } catch (error) {
-
-                    console.error(
-                        error
-                    );
-
-                    alert(
-                        "❌ Gagal menyimpan data di perangkat."
-                    );
-
-                    adminProducts[index] =
-                        produkLama;
-
-                    return;
-                }
-
-
-                tampilkanProdukAdmin();
-
-                updateStatistikAdmin();
-
-
-                // KIRIM GITHUB
-
-                saveProductButton.textContent =
-                    "☁️ Menyimpan ke GitHub...";
-
-                const berhasil =
-                    await simpanKeGitHub();
-
-                if (berhasil) {
-
-                    resetFormProduk();
-
-                    alert(
-                        "✅ Produk berhasil diperbarui.\n\n" +
-                        "Data juga sudah tersimpan ke GitHub."
-                    );
-
-                } else {
-
-                    alert(
-                        "⚠️ Produk diperbarui di perangkat,\n" +
-                        "tetapi gagal dikirim ke GitHub."
-                    );
-
-                }
-
-                saveProductButton.disabled =
-                    false;
-
-                saveProductButton.textContent =
-                    "💾 Simpan Produk";
-
-                return;
 
             }
 
 
             // ====================================================
-            // MODE TAMBAH
+            // MULAI PROSES
             // ====================================================
-
-            if (!file) {
-
-                alert(
-                    "Silakan pilih foto produk."
-                );
-
-                return;
-            }
-
-            if (
-                !file.type.startsWith(
-                    "image/"
-                )
-            ) {
-
-                alert(
-                    "Silakan pilih file gambar."
-                );
-
-                return;
-            }
-
 
             try {
 
@@ -2239,15 +2770,308 @@ if (saveProductButton) {
                     true;
 
                 saveProductButton.textContent =
-                    "⏳ Mengompres foto...";
+                    "⏳ Memproses media...";
 
 
-                // KOMPRES FOTO
+                // ====================================================
+                // MODE EDIT
+                // ====================================================
 
-                const gambar =
-                    await kompresFoto(
-                        file
+                if (
+                    window.editingProductId !==
+                    null
+                ) {
+
+                    const index =
+                        adminProducts.findIndex(
+                            function(product) {
+
+                                return (
+                                    String(
+                                        product.id
+                                    ) ===
+                                    String(
+                                        window.editingProductId
+                                    )
+                                );
+
+                            }
+                        );
+
+                    if (index === -1) {
+
+                        alert(
+                            "Produk yang diedit tidak ditemukan."
+                        );
+
+                        return;
+
+                    }
+
+                    const produkLama =
+                        adminProducts[index];
+
+                    let gambar1 =
+                        produkLama.image ||
+                        "";
+
+                    let gambar2 =
+                        produkLama.image2 ||
+                        "";
+
+                    let gambar3 =
+                        produkLama.image3 ||
+                        "";
+
+                    let video =
+                        produkLama.video ||
+                        "";
+
+
+                    // FOTO 1
+
+                    if (file1) {
+
+                        saveProductButton.textContent =
+                            "⏳ Mengompres Foto 1...";
+
+                        gambar1 =
+                            await kompresFoto(
+                                file1
+                            );
+
+                    }
+
+
+                    // FOTO 2
+
+                    if (file2) {
+
+                        saveProductButton.textContent =
+                            "⏳ Mengompres Foto 2...";
+
+                        gambar2 =
+                            await kompresFoto(
+                                file2
+                            );
+
+                    }
+
+
+                    // FOTO 3
+
+                    if (file3) {
+
+                        saveProductButton.textContent =
+                            "⏳ Mengompres Foto 3...";
+
+                        gambar3 =
+                            await kompresFoto(
+                                file3
+                            );
+
+                    }
+
+
+                    // VIDEO
+
+                    if (videoFile) {
+
+                        saveProductButton.textContent =
+                            "⏳ Memproses Video...";
+
+                        video =
+                            await bacaFileDataURL(
+                                videoFile
+                            );
+
+                    }
+
+
+                    const produkUpdate = {
+
+                        ...produkLama,
+
+                        name:
+                            nama,
+
+                        category:
+                            kategori,
+
+                        subcategory:
+                            subkategori,
+
+                        price:
+                            harga,
+
+                         pricePromo:
+                            hargaPromo,
+
+                        image:
+                            gambar1,
+
+                        image2:
+                            gambar2,
+
+                        image3:
+                            gambar3,
+
+                        video:
+                            video,
+
+                        description:
+                            deskripsi,
+
+                        website:
+                            website
+
+                    };
+
+
+                    const dataPercobaan =
+                        adminProducts.slice();
+
+                    dataPercobaan[index] =
+                        produkUpdate;
+
+                    const dataProduk =
+                        JSON.stringify(
+                            dataPercobaan
+                        );
+
+
+                    if (
+                        !storageMasihAman(
+                            dataProduk
+                        )
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    adminProducts =
+                        dataPercobaan;
+
+                    localStorage.setItem(
+                        "ronaProducts",
+                        dataProduk
                     );
+
+                    tampilkanProdukAdmin();
+
+                    updateStatistikAdmin();
+
+
+                    // GITHUB
+
+                    saveProductButton.textContent =
+                        "☁️ Menyimpan ke GitHub...";
+
+                    const berhasil =
+                        await simpanKeGitHub();
+
+                    if (berhasil) {
+
+                        resetFormProduk();
+
+                        alert(
+                            "✅ Produk berhasil diperbarui dan disimpan ke GitHub."
+                        );
+
+                    } else {
+
+                        alert(
+                            "⚠️ Produk diperbarui di perangkat,\n" +
+                            "tetapi gagal dikirim ke GitHub."
+                        );
+
+                    }
+
+                    return;
+
+                }
+
+
+                // ====================================================
+                // MODE TAMBAH
+                // ====================================================
+
+                if (!file1) {
+
+                    alert(
+                        "Silakan pilih Foto 1 sebagai foto utama."
+                    );
+
+                    return;
+
+                }
+
+
+                // FOTO 1
+
+                saveProductButton.textContent =
+                    "⏳ Mengompres Foto 1...";
+
+                const gambar1 =
+                    await kompresFoto(
+                        file1
+                    );
+
+
+                // FOTO 2
+
+                let gambar2 =
+                    "";
+
+                if (file2) {
+
+                    saveProductButton.textContent =
+                        "⏳ Mengompres Foto 2...";
+
+                    gambar2 =
+                        await kompresFoto(
+                            file2
+                        );
+
+                }
+
+
+                // FOTO 3
+
+                let gambar3 =
+                    "";
+
+                if (file3) {
+
+                    saveProductButton.textContent =
+                        "⏳ Mengompres Foto 3...";
+
+                    gambar3 =
+                        await kompresFoto(
+                            file3
+                        );
+
+                }
+
+
+                // VIDEO
+
+                let video =
+                    "";
+
+                if (videoFile) {
+
+                    saveProductButton.textContent =
+                        "⏳ Memproses Video...";
+
+                    video =
+                        await bacaFileDataURL(
+                            videoFile
+                        );
+
+                }
 
 
                 // PRODUK BARU
@@ -2269,8 +3093,20 @@ if (saveProductButton) {
                     price:
                         harga,
 
+                    pricePromo:
+                        hargaPromo,
+
                     image:
-                        gambar,
+                        gambar1,
+
+                    image2:
+                        gambar2,
+
+                    image3:
+                        gambar3,
+
+                    video:
+                        video,
 
                     description:
                         deskripsi,
@@ -2281,19 +3117,16 @@ if (saveProductButton) {
                 };
 
 
-                // SIMPAN SEMENTARA
-
                 adminProducts.push(
                     produkBaru
                 );
 
 
-                // CEK STORAGE
-
                 const dataProduk =
                     JSON.stringify(
                         adminProducts
                     );
+
 
                 if (
                     !storageMasihAman(
@@ -2304,10 +3137,9 @@ if (saveProductButton) {
                     adminProducts.pop();
 
                     return;
+
                 }
 
-
-                // SIMPAN LOCAL
 
                 try {
 
@@ -2332,7 +3164,7 @@ if (saveProductButton) {
                 updateStatistikAdmin();
 
 
-                // KIRIM KE GITHUB
+                // GITHUB
 
                 saveProductButton.textContent =
                     "☁️ Menyimpan ke GitHub...";
@@ -2347,7 +3179,29 @@ if (saveProductButton) {
 
                     alert(
                         "✅ Produk berhasil ditambahkan!\n\n" +
-                        "Produk juga sudah tersimpan ke GitHub."
+                        "Foto 1: Ya\n" +
+                        "Foto 2: " +
+                        (
+                            gambar2
+                                ? "Ya"
+                                : "Tidak"
+                        ) +
+                        "\n" +
+                        "Foto 3: " +
+                        (
+                            gambar3
+                                ? "Ya"
+                                : "Tidak"
+                        ) +
+                        "\n" +
+                        "Video: " +
+                        (
+                            video
+                                ? "Ya"
+                                : "Tidak"
+                        ) +
+                        "\n\n" +
+                        "Data sudah tersimpan ke GitHub."
                     );
 
                 } else {
@@ -2404,6 +3258,18 @@ function resetFormProduk() {
         productImage.value = "";
     }
 
+    if (productImage2) {
+        productImage2.value = "";
+    }
+
+    if (productImage3) {
+        productImage3.value = "";
+    }
+
+    if (productVideo) {
+        productVideo.value = "";
+    }
+
     if (productName) {
         productName.value = "";
     }
@@ -2426,6 +3292,10 @@ function resetFormProduk() {
         productPrice.value = "";
     }
 
+    if (productPricePromo) {
+    productPricePromo.value = "";
+    }
+
     if (productDescription) {
         productDescription.value = "";
     }
@@ -2443,6 +3313,18 @@ function resetFormProduk() {
 
     if (imagePreview) {
         imagePreview.innerHTML = "";
+    }
+
+    if (imagePreview2) {
+        imagePreview2.innerHTML = "";
+    }
+
+    if (imagePreview3) {
+        imagePreview3.innerHTML = "";
+    }
+
+    if (videoPreview) {
+        videoPreview.innerHTML = "";
     }
 
     if (imageSizeInfo) {
@@ -2465,6 +3347,116 @@ function resetFormProduk() {
 
     window.editingProductId =
         null;
+
+}
+
+
+// ============================================================
+// TAMPILKAN MEDIA EDIT
+// ============================================================
+
+function tampilkanMediaEdit(
+    product
+) {
+
+    // FOTO 1
+
+    if (imagePreview) {
+
+        if (product.image) {
+
+            imagePreview.innerHTML = `
+                <img
+                    src="${product.image}"
+                    alt="Foto Produk 1"
+                >
+            `;
+
+        } else {
+
+            imagePreview.innerHTML =
+                "";
+
+        }
+
+    }
+
+
+    // FOTO 2
+
+    if (imagePreview2) {
+
+        if (product.image2) {
+
+            imagePreview2.innerHTML = `
+                <img
+                    src="${product.image2}"
+                    alt="Foto Produk 2"
+                >
+            `;
+
+        } else {
+
+            imagePreview2.innerHTML =
+                "";
+
+        }
+
+    }
+
+
+    // FOTO 3
+
+    if (imagePreview3) {
+
+        if (product.image3) {
+
+            imagePreview3.innerHTML = `
+                <img
+                    src="${product.image3}"
+                    alt="Foto Produk 3"
+                >
+            `;
+
+        } else {
+
+            imagePreview3.innerHTML =
+                "";
+
+        }
+
+    }
+
+
+    // VIDEO
+
+    if (videoPreview) {
+
+        if (product.video) {
+
+            videoPreview.innerHTML = `
+                <video
+                    src="${product.video}"
+                    controls
+                    playsinline
+                    style="
+                        width:100%;
+                        max-width:500px;
+                        border-radius:12px;
+                        display:block;
+                        margin:10px auto;
+                    "
+                ></video>
+            `;
+
+        } else {
+
+            videoPreview.innerHTML =
+                "";
+
+        }
+
+    }
 
 }
 
@@ -2501,9 +3493,11 @@ function tampilkanProdukAdmin(
         `;
 
         return;
+
     }
 
-    adminProductList.innerHTML = "";
+    adminProductList.innerHTML =
+        "";
 
     data.forEach(
         function(product) {
@@ -2516,298 +3510,467 @@ function tampilkanProdukAdmin(
             item.className =
                 "admin-product-item";
 
-
-            // FOTO
-
             const gambar =
-                product.image || "";
+                product.image ||
+                "";
 
             const namaProduk =
-                product.name || "Tanpa Nama";
+                product.name ||
+                "Tanpa Nama";
 
 
-            item.innerHTML = `
+            // =================================================
+            // BUAT ELEMENT TANPA INNERHTML DATA USER
+            // =================================================
 
-                <img
-                    src="${gambar}"
-                    alt="${namaProduk}"
-                >
+            const img =
+                document.createElement(
+                    "img"
+                );
 
-                <div class="admin-product-info">
+            img.src =
+                gambar;
 
-                    <div class="admin-product-category">
-                        ${product.category || ""}
-                    </div>
+            img.alt =
+                namaProduk;
 
-                    <h3>
-                        ${namaProduk}
-                    </h3>
+            img.onerror =
+                function() {
 
-                    <p>
-                        ${formatRupiah(
-                            product.price
-                        )}
-                    </p>
+                    this.style.display =
+                        "none";
 
-                </div>
+                };
 
-                <div class="admin-product-actions">
 
-                    <button
-                        type="button"
-                        class="edit-product-button"
-                    >
-                        ✏️ Edit
-                    </button>
+            const info =
+                document.createElement(
+                    "div"
+                );
 
-                    <button
-                        type="button"
-                        class="delete-product-button"
-                    >
-                        🗑️ Hapus
-                    </button>
+            info.className =
+                "admin-product-info";
 
-                </div>
 
-            `;
+            const kategoriDiv =
+                document.createElement(
+                    "div"
+                );
+
+            kategoriDiv.className =
+                "admin-product-category";
+
+            kategoriDiv.textContent =
+                product.category ||
+                "";
+
+
+            const judul =
+                document.createElement(
+                    "h3"
+                );
+
+            judul.textContent =
+                namaProduk;
+
+
+const harga =
+    document.createElement(
+        "p"
+    );
+
+const hargaNormal =
+    Number(
+        product.price || 0
+    );
+
+const hargaPromo =
+    Number(
+        product.pricePromo ??
+        product.promoPrice ??
+        0
+    );
+
+if (
+    hargaPromo > 0 &&
+    hargaPromo < hargaNormal
+) {
+
+    harga.innerHTML =
+        `
+        <span style="
+            text-decoration: line-through;
+            color: #999;
+            font-size: 13px;
+            margin-right: 6px;
+        ">
+            ${formatRupiah(hargaNormal)}
+        </span>
+
+        <strong style="
+            color: #c62828;
+            font-size: 16px;
+        ">
+            ${formatRupiah(hargaPromo)}
+        </strong>
+        `;
+
+} else {
+
+    harga.textContent =
+        formatRupiah(
+            hargaNormal
+        );
+
+}
+
+            const jumlahFoto =
+                [
+                    product.image,
+                    product.image2,
+                    product.image3
+                ]
+                    .filter(Boolean)
+                    .length;
+
+            const mediaInfo =
+                document.createElement(
+                    "small"
+                );
+
+            mediaInfo.textContent =
+                "📸 " +
+                jumlahFoto +
+                " foto" +
+                (
+                    product.video
+                        ? " • 🎥 Ada video"
+                        : ""
+                );
+
+
+            info.appendChild(
+                kategoriDiv
+            );
+
+            info.appendChild(
+                judul
+            );
+
+            info.appendChild(
+                harga
+            );
+
+            info.appendChild(
+                mediaInfo
+            );
+
+
+            // ACTIONS
+
+            const actions =
+                document.createElement(
+                    "div"
+                );
+
+            actions.className =
+                "admin-product-actions";
+
+
+            const tombolEdit =
+                document.createElement(
+                    "button"
+                );
+
+            tombolEdit.type =
+                "button";
+
+            tombolEdit.className =
+                "edit-product-button";
+
+            tombolEdit.textContent =
+                "✏️ Edit";
+
+
+            const tombolHapus =
+                document.createElement(
+                    "button"
+                );
+
+            tombolHapus.type =
+                "button";
+
+            tombolHapus.className =
+                "delete-product-button";
+
+            tombolHapus.textContent =
+                "🗑️ Hapus";
+
+
+            actions.appendChild(
+                tombolEdit
+            );
+
+            actions.appendChild(
+                tombolHapus
+            );
+
+
+            item.appendChild(
+                img
+            );
+
+            item.appendChild(
+                info
+            );
+
+            item.appendChild(
+                actions
+            );
 
 
             // =================================================
             // EDIT
             // =================================================
 
-            const tombolEdit =
-                item.querySelector(
-                    ".edit-product-button"
-                );
+            tombolEdit.addEventListener(
+                "click",
+                function() {
 
-            if (tombolEdit) {
+                    if (productName) {
 
-                tombolEdit.addEventListener(
-                    "click",
-                    function() {
-
-                        if (productName) {
-
-                            productName.value =
-                                product.name || "";
-
-                        }
-
-                        if (productCategory) {
-
-                            productCategory.value =
-                                product.category || "";
-
-                        }
-
-                        tampilkanSubkategoriAdmin(
-                            product.subcategory || ""
-                        );
-
-                        if (productWebsite) {
-
-                            productWebsite.value =
-                                product.website || "";
-
-                        }
-
-                        tampilkanFieldWebsite();
-
-                        if (productPrice) {
-
-                            productPrice.value =
-                                Number(
-                                    product.price || 0
-                                ).toLocaleString(
-                                    "id-ID"
-                                );
-
-                        }
-
-                        if (productDescription) {
-
-                            productDescription.value =
-                                product.description || "";
-
-                        }
-
-                        if (imagePreview) {
-
-                            if (product.image) {
-
-                                imagePreview.innerHTML = `
-                                    <img
-                                        src="${product.image}"
-                                        alt="Foto Produk"
-                                    >
-                                `;
-
-                            } else {
-
-                                imagePreview.innerHTML =
-                                    "";
-
-                            }
-
-                        }
-
-                        if (imageSizeInfo) {
-
-                            imageSizeInfo.textContent =
-                                "";
-
-                        }
-
-                        window.editingProductId =
-                            product.id;
-
-                        if (saveProductButton) {
-
-                            saveProductButton.textContent =
-                                "💾 Simpan Perubahan";
-
-                        }
-
-                        if (cancelEditButton) {
-
-                            cancelEditButton.style.display =
-                                "inline-block";
-
-                        }
-
-                        if (saveProductButton) {
-
-                            saveProductButton.scrollIntoView(
-                                {
-                                    behavior:
-                                        "smooth",
-                                    block:
-                                        "center"
-                                }
-                            );
-
-                        }
+                        productName.value =
+                            product.name ||
+                            "";
 
                     }
-                );
 
-            }
+                    if (productCategory) {
+
+                        productCategory.value =
+                            product.category ||
+                            "";
+
+                    }
+
+                    tampilkanSubkategoriAdmin(
+                        product.subcategory ||
+                        ""
+                    );
+
+                    if (productWebsite) {
+
+                        productWebsite.value =
+                            product.website ||
+                            "";
+
+                    }
+
+                    tampilkanFieldWebsite();
+
+                    if (productPrice) {
+
+                        productPrice.value =
+                            Number(
+                                product.price ||
+                                0
+                            ).toLocaleString(
+                                "id-ID"
+                            );
+
+                    }
+
+if (productPricePromo) {
+
+    const hargaPromoEdit =
+        Number(
+            product.pricePromo ??
+            product.promoPrice ??
+            0
+        );
+
+    productPricePromo.value =
+        hargaPromoEdit > 0
+            ? hargaPromoEdit.toLocaleString(
+                "id-ID"
+            )
+            : "";
+
+}
+
+                    if (productDescription) {
+
+                        productDescription.value =
+                            product.description ||
+                            "";
+
+                    }
+
+                    tampilkanMediaEdit(
+                        product
+                    );
+
+                    if (imageSizeInfo) {
+
+                        imageSizeInfo.textContent =
+                            "";
+
+                    }
+
+                    if (productImage) {
+                        productImage.value =
+                            "";
+                    }
+
+                    if (productImage2) {
+                        productImage2.value =
+                            "";
+                    }
+
+                    if (productImage3) {
+                        productImage3.value =
+                            "";
+                    }
+
+                    if (productVideo) {
+                        productVideo.value =
+                            "";
+                    }
+
+                    window.editingProductId =
+                        product.id;
+
+                    if (saveProductButton) {
+
+                        saveProductButton.textContent =
+                            "💾 Simpan Perubahan";
+
+                    }
+
+                    if (cancelEditButton) {
+
+                        cancelEditButton.style.display =
+                            "inline-block";
+
+                    }
+
+                    if (saveProductButton) {
+
+                        saveProductButton.scrollIntoView(
+                            {
+                                behavior:
+                                    "smooth",
+
+                                block:
+                                    "center"
+                            }
+                        );
+
+                    }
+
+                }
+            );
 
 
             // =================================================
             // HAPUS
             // =================================================
 
-            const tombolHapus =
-                item.querySelector(
-                    ".delete-product-button"
-                );
+            tombolHapus.addEventListener(
+                "click",
+                async function() {
 
-            if (tombolHapus) {
+                    const yakin =
+                        confirm(
+                            'Hapus produk "' +
+                            namaProduk +
+                            '"?'
+                        );
 
-                tombolHapus.addEventListener(
-                    "click",
-                    async function() {
+                    if (!yakin) {
+                        return;
+                    }
 
-                        const yakin =
-                            confirm(
-                                'Hapus produk "' +
-                                namaProduk +
-                                '"?'
-                            );
+                    const dataSebelum =
+                        adminProducts.slice();
 
-                        if (!yakin) {
-                            return;
-                        }
+                    adminProducts =
+                        adminProducts.filter(
+                            function(item) {
 
+                                return (
+                                    String(
+                                        item.id
+                                    ) !==
+                                    String(
+                                        product.id
+                                    )
+                                );
 
-                        const dataSebelum =
-                            adminProducts.slice();
+                            }
+                        );
 
+                    const dataProduk =
+                        JSON.stringify(
+                            adminProducts
+                        );
+
+                    try {
+
+                        localStorage.setItem(
+                            "ronaProducts",
+                            dataProduk
+                        );
+
+                    } catch (error) {
 
                         adminProducts =
-                            adminProducts.filter(
-                                function(item) {
+                            dataSebelum;
 
-                                    return (
-                                        String(item.id) !==
-                                        String(product.id)
-                                    );
+                        alert(
+                            "❌ Gagal menyimpan perubahan."
+                        );
 
-                                }
-                            );
-
-
-                        const dataProduk =
-                            JSON.stringify(
-                                adminProducts
-                            );
-
-
-                        try {
-
-                            localStorage.setItem(
-                                "ronaProducts",
-                                dataProduk
-                            );
-
-                        } catch (error) {
-
-                            adminProducts =
-                                dataSebelum;
-
-                            alert(
-                                "❌ Gagal menyimpan perubahan."
-                            );
-
-                            return;
-
-                        }
-
-
-                        tampilkanProdukAdmin();
-
-                        updateStatistikAdmin();
-
-
-                        tombolHapus.disabled =
-                            true;
-
-                        tombolHapus.textContent =
-                            "⏳";
-
-
-                        const berhasil =
-                            await simpanKeGitHub();
-
-
-                        tombolHapus.disabled =
-                            false;
-
-                        tombolHapus.textContent =
-                            "🗑️ Hapus";
-
-
-                        if (berhasil) {
-
-                            alert(
-                                "✅ Produk berhasil dihapus dari katalog dan GitHub."
-                            );
-
-                        } else {
-
-                            alert(
-                                "⚠️ Produk terhapus dari perangkat,\n" +
-                                "tetapi gagal memperbarui GitHub."
-                            );
-
-                        }
+                        return;
 
                     }
-                );
 
-            }
+                    tampilkanProdukAdmin();
+
+                    updateStatistikAdmin();
+
+                    tombolHapus.disabled =
+                        true;
+
+                    tombolHapus.textContent =
+                        "⏳";
+
+                    const berhasil =
+                        await simpanKeGitHub();
+
+                    tombolHapus.disabled =
+                        false;
+
+                    tombolHapus.textContent =
+                        "🗑️ Hapus";
+
+                    if (berhasil) {
+
+                        alert(
+                            "✅ Produk berhasil dihapus dari katalog dan GitHub."
+                        );
+
+                    } else {
+
+                        alert(
+                            "⚠️ Produk terhapus dari perangkat,\n" +
+                            "tetapi gagal memperbarui GitHub."
+                        );
+
+                    }
+
+                }
+            );
 
 
             adminProductList.appendChild(
@@ -2841,35 +4004,50 @@ if (adminSearchInput) {
 
                         const nama =
                             String(
-                                product.name || ""
+                                product.name ||
+                                ""
                             ).toLowerCase();
 
                         const kategori =
                             String(
-                                product.category || ""
+                                product.category ||
+                                ""
                             ).toLowerCase();
 
                         const subkategori =
                             String(
-                                product.subcategory || ""
+                                product.subcategory ||
+                                ""
                             ).toLowerCase();
 
                         const harga =
                             String(
-                                product.price || ""
+                                product.price ||
+                                ""
                             ).toLowerCase();
 
                         const deskripsi =
                             String(
-                                product.description || ""
+                                product.description ||
+                                ""
                             ).toLowerCase();
 
                         return (
-                            nama.includes(keyword) ||
-                            kategori.includes(keyword) ||
-                            subkategori.includes(keyword) ||
-                            harga.includes(keyword) ||
-                            deskripsi.includes(keyword)
+                            nama.includes(
+                                keyword
+                            ) ||
+                            kategori.includes(
+                                keyword
+                            ) ||
+                            subkategori.includes(
+                                keyword
+                            ) ||
+                            harga.includes(
+                                keyword
+                            ) ||
+                            deskripsi.includes(
+                                keyword
+                            )
                         );
 
                     }
@@ -2916,11 +4094,14 @@ async function kompresProdukLama() {
         );
 
         return;
+
     }
 
     const yakin =
         confirm(
-            `Kompres ulang ${adminProducts.length} foto produk?`
+            "Kompres ulang foto semua produk?\n\n" +
+            adminProducts.length +
+            " produk akan diproses."
         );
 
     if (!yakin) {
@@ -2933,7 +4114,8 @@ async function kompresProdukLama() {
 
         for (
             let i = 0;
-            i < adminProducts.length;
+            i <
+            adminProducts.length;
             i++
         ) {
 
@@ -2941,12 +4123,20 @@ async function kompresProdukLama() {
                 adminProducts[i];
 
             console.log(
-                `Memproses ${i + 1}/${adminProducts.length}: ${product.name}`
+                "Memproses " +
+                (i + 1) +
+                "/" +
+                adminProducts.length +
+                ": " +
+                product.name
             );
 
             const produkUpdate = {
                 ...product
             };
+
+
+            // FOTO 1
 
             if (
                 product.image &&
@@ -2966,7 +4156,7 @@ async function kompresProdukLama() {
                 const file =
                     new File(
                         [blob],
-                        `produk-${product.id}.jpg`,
+                        `produk-${product.id}-1.jpg`,
                         {
                             type:
                                 "image/jpeg"
@@ -2980,11 +4170,82 @@ async function kompresProdukLama() {
 
             }
 
+
+            // FOTO 2
+
+            if (
+                product.image2 &&
+                product.image2.startsWith(
+                    "data:image"
+                )
+            ) {
+
+                const response =
+                    await fetch(
+                        product.image2
+                    );
+
+                const blob =
+                    await response.blob();
+
+                const file =
+                    new File(
+                        [blob],
+                        `produk-${product.id}-2.jpg`,
+                        {
+                            type:
+                                "image/jpeg"
+                        }
+                    );
+
+                produkUpdate.image2 =
+                    await kompresFoto(
+                        file
+                    );
+
+            }
+
+
+            // FOTO 3
+
+            if (
+                product.image3 &&
+                product.image3.startsWith(
+                    "data:image"
+                )
+            ) {
+
+                const response =
+                    await fetch(
+                        product.image3
+                    );
+
+                const blob =
+                    await response.blob();
+
+                const file =
+                    new File(
+                        [blob],
+                        `produk-${product.id}-3.jpg`,
+                        {
+                            type:
+                                "image/jpeg"
+                        }
+                    );
+
+                produkUpdate.image3 =
+                    await kompresFoto(
+                        file
+                    );
+
+            }
+
             produkBaru.push(
                 produkUpdate
             );
 
         }
+
 
         const dataBaru =
             JSON.stringify(
@@ -2998,6 +4259,7 @@ async function kompresProdukLama() {
         ) {
 
             return;
+
         }
 
         adminProducts =
@@ -3013,8 +4275,6 @@ async function kompresProdukLama() {
         updateStatistikAdmin();
 
 
-        // SIMPAN GITHUB
-
         if (compressProductsButton) {
 
             compressProductsButton.disabled =
@@ -3024,6 +4284,7 @@ async function kompresProdukLama() {
                 "☁️ Menyimpan ke GitHub...";
 
         }
+
 
         const berhasil =
             await simpanKeGitHub();
@@ -3043,13 +4304,13 @@ async function kompresProdukLama() {
         if (berhasil) {
 
             alert(
-                "✅ Foto produk berhasil dikompres dan disimpan ke GitHub."
+                "✅ Semua foto produk berhasil dioptimalkan dan disimpan ke GitHub."
             );
 
         } else {
 
             alert(
-                "⚠️ Foto berhasil dikompres di perangkat,\n" +
+                "⚠️ Foto berhasil dioptimalkan di perangkat,\n" +
                 "tetapi gagal memperbarui GitHub."
             );
 
@@ -3138,6 +4399,7 @@ function updateStatistikAdmin() {
             )
         ];
 
+
     if (statTotalProduk) {
 
         statTotalProduk.textContent =
@@ -3163,7 +4425,7 @@ function updateStatistikAdmin() {
 
 
 // ============================================================
-// SINKRONISASI DATA
+// SINKRONISASI
 // ============================================================
 
 function sinkronisasiProduk() {
@@ -3176,7 +4438,7 @@ function sinkronisasiProduk() {
 
 
 // ============================================================
-// INISIALISASI KATEGORI
+// INISIALISASI
 // ============================================================
 
 perbaruiPilihanKategori();
@@ -3187,18 +4449,13 @@ tampilkanSubkategoriAdmin();
 
 tampilkanFieldWebsite();
 
-
-// ============================================================
-// TAMPILKAN DATA AWAL
-// ============================================================
-
 tampilkanProdukAdmin();
 
 updateStatistikAdmin();
 
 
 // ============================================================
-// MUAT PRODUK DARI GITHUB
+// LOAD DARI GITHUB
 // ============================================================
 
 muatProdukAwalAdmin();
