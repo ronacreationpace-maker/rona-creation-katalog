@@ -6,13 +6,20 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Admin - RONA CREATION</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
 
 </head>
+
 
 <body>
 
@@ -34,14 +41,17 @@
 </header>
 
 
+
 <!-- =========================================================
-     ADMIN
+     MAIN ADMIN
 ========================================================= -->
 
 <main class="admin-container">
 
 
-    <!-- HEADER HALAMAN -->
+    <!-- =====================================================
+         HEADER ADMIN
+    ====================================================== -->
 
     <div class="admin-header">
 
@@ -57,6 +67,7 @@
 
         </div>
 
+
         <a
             href="index.html"
             class="back-button"
@@ -67,76 +78,6 @@
     </div>
 
 
-    <!-- =====================================================
-         STATISTIK
-    ====================================================== -->
-
-    <div class="admin-statistics">
-
-        <div class="admin-stat-card">
-
-            <div class="admin-stat-icon">
-                📦
-            </div>
-
-            <div class="admin-stat-info">
-
-                <span>
-                    Total Produk
-                </span>
-
-                <strong id="statTotalProduk">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="admin-stat-card">
-
-            <div class="admin-stat-icon">
-                🖼️
-            </div>
-
-            <div class="admin-stat-info">
-
-                <span>
-                    Produk dengan Foto
-                </span>
-
-                <strong id="statProdukFoto">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="admin-stat-card">
-
-            <div class="admin-stat-icon">
-                🏷️
-            </div>
-
-            <div class="admin-stat-info">
-
-                <span>
-                    Kategori
-                </span>
-
-                <strong id="statKategori">
-                    0
-                </strong>
-
-            </div>
-
-        </div>
-
-    </div>
-
 
     <!-- =====================================================
          FORM PRODUK
@@ -145,48 +86,228 @@
     <section class="admin-card">
 
         <h2>
-            ➕ Tambah / Edit Produk
+            ➕ Tambah Produk
         </h2>
 
 
-        <!-- FOTO PRODUK -->
+        <!-- =================================================
+             MEDIA PRODUK
+        ================================================== -->
 
         <div class="form-group">
 
-            <label for="productImage">
-                Foto Produk
+            <label>
+                📸 Foto Produk
             </label>
 
-            <div class="upload-box">
+            <p
+                style="
+                    font-size:13px;
+                    color:#777;
+                    margin-bottom:10px;
+                "
+            >
+                Maksimal 3 foto.
+                Foto 1 menjadi foto utama produk.
+            </p>
 
-                <input
-                    type="file"
-                    id="productImage"
-                    accept="image/*"
-                >
 
-                <p>
-                    Pilih foto produk
-                </p>
+            <div class="media-upload-grid">
+
+
+                <!-- FOTO 1 -->
+
+                <div class="media-upload-item">
+
+                    <label for="productImage">
+
+                        Foto 1
+
+                        <span class="required">
+                            Wajib
+                        </span>
+
+                    </label>
+
+
+                    <div class="upload-box">
+
+                        <input
+                            type="file"
+                            id="productImage"
+                            accept="image/*"
+                        >
+
+                        <p>
+                            📷 Pilih foto utama
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        id="imagePreview"
+                        class="single-image-preview"
+                    ></div>
+
+                </div>
+
+
+
+                <!-- FOTO 2 -->
+
+                <div class="media-upload-item">
+
+                    <label for="productImage2">
+
+                        Foto 2
+
+                        <span class="optional">
+                            Opsional
+                        </span>
+
+                    </label>
+
+
+                    <div class="upload-box">
+
+                        <input
+                            type="file"
+                            id="productImage2"
+                            accept="image/*"
+                        >
+
+                        <p>
+                            📷 Pilih foto kedua
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        id="imagePreview2"
+                        class="single-image-preview"
+                    ></div>
+
+                </div>
+
+
+
+                <!-- FOTO 3 -->
+
+                <div class="media-upload-item">
+
+                    <label for="productImage3">
+
+                        Foto 3
+
+                        <span class="optional">
+                            Opsional
+                        </span>
+
+                    </label>
+
+
+                    <div class="upload-box">
+
+                        <input
+                            type="file"
+                            id="productImage3"
+                            accept="image/*"
+                        >
+
+                        <p>
+                            📷 Pilih foto ketiga
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        id="imagePreview3"
+                        class="single-image-preview"
+                    ></div>
+
+                </div>
 
             </div>
 
-            <div id="imagePreview"></div>
+
+            <!-- INFO UKURAN FOTO -->
 
             <div
                 id="imageSizeInfo"
                 style="
-                    margin-top: 8px;
-                    font-size: 13px;
-                    color: #777;
-                    text-align: center;
+                    font-size:13px;
+                    color:#777;
+                    margin-top:10px;
                 "
             ></div>
 
         </div>
 
 
-        <!-- NAMA PRODUK -->
+
+        <!-- =================================================
+             VIDEO PRODUK
+        ================================================== -->
+
+        <div class="form-group">
+
+            <label for="productVideo">
+
+                🎥 Video Produk
+
+                <span class="optional">
+                    Opsional
+                </span>
+
+            </label>
+
+
+            <p
+                style="
+                    font-size:13px;
+                    color:#777;
+                    margin-bottom:10px;
+                "
+            >
+                Video boleh dikosongkan.
+                Maksimal ukuran video 2 MB.
+            </p>
+
+
+            <div class="upload-box video-upload-box">
+
+                <input
+                    type="file"
+                    id="productVideo"
+                    accept="video/*"
+                >
+
+                <p>
+                    🎬 Pilih video produk
+                </p>
+
+                <small>
+                    Maksimal 1 video • Maksimal 2 MB
+                </small>
+
+            </div>
+
+
+            <div
+                id="videoPreview"
+                class="video-preview"
+            ></div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             NAMA PRODUK
+        ================================================== -->
 
         <div class="form-group">
 
@@ -198,18 +319,23 @@
                 type="text"
                 id="productName"
                 placeholder="Contoh: Mahar Box Elegan"
+                autocomplete="off"
             >
 
         </div>
 
 
-        <!-- KATEGORI -->
+
+        <!-- =================================================
+             KATEGORI
+        ================================================== -->
 
         <div class="form-group">
 
             <label for="productCategory">
                 Kategori
             </label>
+
 
             <select id="productCategory">
 
@@ -246,13 +372,17 @@
         </div>
 
 
-        <!-- SUBKATEGORI -->
+
+        <!-- =================================================
+             SUBKATEGORI
+        ================================================== -->
 
         <div class="form-group">
 
             <label for="productSubcategory">
                 Subkategori Produk
             </label>
+
 
             <select id="productSubcategory">
 
@@ -265,32 +395,48 @@
         </div>
 
 
-        <!-- LINK WEBSITE UNDANGAN -->
+
+        <!-- =================================================
+             WEBSITE UNDANGAN
+        ================================================== -->
 
         <div
             class="form-group"
             id="websiteLinkGroup"
-            style="display: none;"
+            style="display:none;"
         >
 
             <label for="productWebsite">
-                Link Website Undangan
+
+                🌐 Link Website Undangan
+
             </label>
+
 
             <input
                 type="url"
                 id="productWebsite"
                 placeholder="https://contoh-website-undangan.com"
+                autocomplete="off"
             >
 
+
             <small>
-                Isi hanya untuk produk Undangan Website Online.
+
+                Isi hanya untuk produk
+                <strong>
+                    Undangan Website Online
+                </strong>.
+
             </small>
 
         </div>
 
 
-        <!-- HARGA -->
+
+        <!-- =================================================
+             HARGA
+        ================================================== -->
 
         <div class="form-group">
 
@@ -298,23 +444,46 @@
                 Harga
             </label>
 
+
             <input
                 type="text"
                 id="productPrice"
+                placeholder="Contoh: 150.000"
                 inputmode="numeric"
-                placeholder="Contoh: 150000"
+                autocomplete="off"
             >
+            <label for="productPricePromo">
+                🔥 Harga Promo
+            </label>
+
+            <input
+                type="text"
+                id="productPricePromo"
+                placeholder="Contoh: 125000"
+                inputmode="numeric"
+            >
+
+            <small>
+                Masukkan harga dalam angka.
+                Contoh: 150000
+            </small>
 
         </div>
 
 
-        <!-- DESKRIPSI -->
+
+        <!-- =================================================
+             DESKRIPSI
+        ================================================== -->
 
         <div class="form-group">
 
             <label for="productDescription">
+
                 Deskripsi Produk
+
             </label>
+
 
             <textarea
                 id="productDescription"
@@ -325,9 +494,20 @@
         </div>
 
 
-        <!-- TOMBOL PRODUK -->
 
-        <div class="admin-product-buttons">
+        <!-- =================================================
+             TOMBOL SIMPAN
+        ================================================== -->
+
+        <div
+            class="admin-form-buttons"
+            style="
+                display:flex;
+                flex-wrap:wrap;
+                gap:10px;
+                margin-top:15px;
+            "
+        >
 
             <button
                 type="button"
@@ -341,7 +521,7 @@
             <button
                 type="button"
                 id="cancelEditButton"
-                style="display: none;"
+                style="display:none;"
             >
                 ❌ Batal Edit
             </button>
@@ -351,95 +531,116 @@
     </section>
 
 
-    <!-- =====================================================
-         KELOLA KATEGORI & SUBKATEGORI
-    ====================================================== -->
-
-    <section class="admin-category-panel">
-
-        <h2>
-            ⚙️ Kelola Kategori & Subkategori
-        </h2>
-
-        <p class="admin-category-info">
-            Tambahkan, edit, atau hapus subkategori produk.
-        </p>
-
-
-        <div class="category-form">
-
-
-            <!-- KATEGORI -->
-
-            <div class="form-group">
-
-                <label for="newCategory">
-                    Kategori
-                </label>
-
-                <input
-                    type="text"
-                    id="newCategory"
-                    placeholder="Contoh: Mahar"
-                >
-
-            </div>
-
-
-            <!-- SUBKATEGORI -->
-
-            <div class="form-group">
-
-                <label for="newSubcategory">
-                    Subkategori
-                </label>
-
-                <input
-                    type="text"
-                    id="newSubcategory"
-                    placeholder="Contoh: Mahar Custom"
-                >
-
-            </div>
-
-
-            <!-- TAMBAH -->
-
-            <button
-                type="button"
-                id="addCategoryButton"
-            >
-                ➕ Tambah
-            </button>
-
-        </div>
-
-
-        <div
-            id="adminCategoryList"
-            class="admin-category-list"
-        ></div>
-
-    </section>
-
 
     <!-- =====================================================
-         KELOLA DATA
+         KELOLA KATEGORI
     ====================================================== -->
 
     <section class="admin-card">
 
         <h2>
-            💾 Kelola Data
+            🏷️ Kelola Kategori & Subkategori
         </h2>
 
-        <p>
-            Backup, restore, export, dan optimalkan data produk.
+
+        <p
+            style="
+                font-size:13px;
+                color:#777;
+                margin-bottom:15px;
+            "
+        >
+            Tambahkan subkategori baru tanpa mengubah kode program.
         </p>
 
 
-        <div class="admin-data-buttons">
+        <div class="form-group">
 
+            <label for="newCategory">
+                Nama Kategori
+            </label>
+
+
+            <input
+                type="text"
+                id="newCategory"
+                placeholder="Contoh: Mahar"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            <label for="newSubcategory">
+                Nama Subkategori
+            </label>
+
+
+            <input
+                type="text"
+                id="newSubcategory"
+                placeholder="Contoh: Mahar Custom"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <button
+            type="button"
+            id="addCategoryButton"
+        >
+            ➕ Tambah Kategori / Subkategori
+        </button>
+
+
+
+        <!-- DAFTAR KATEGORI -->
+
+        <div
+            id="adminCategoryList"
+            class="admin-category-list"
+            style="margin-top:20px;"
+        ></div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         BACKUP / RESTORE / EXPORT
+    ====================================================== -->
+
+    <section class="admin-card">
+
+        <h2>
+            💾 Data Produk
+        </h2>
+
+
+        <p
+            style="
+                font-size:13px;
+                color:#777;
+                margin-bottom:15px;
+            "
+        >
+            Gunakan backup secara berkala agar data produk
+            tetap aman.
+        </p>
+
+
+        <div
+            class="admin-data-buttons"
+            style="
+                display:flex;
+                flex-wrap:wrap;
+                gap:10px;
+            "
+        >
 
             <!-- BACKUP -->
 
@@ -449,16 +650,6 @@
                 class="admin-backup-button"
             >
                 💾 Backup Produk
-            </button>
-
-
-            <!-- EXPORT -->
-
-            <button
-                type="button"
-                id="exportProductsButton"
-            >
-                🚀 Export products.json
             </button>
 
 
@@ -473,6 +664,24 @@
             </button>
 
 
+            <input
+                type="file"
+                id="restoreProductInput"
+                accept=".json,application/json"
+                style="display:none;"
+            >
+
+
+            <!-- EXPORT -->
+
+            <button
+                type="button"
+                id="exportProductsButton"
+            >
+                📤 Export products.json
+            </button>
+
+
             <!-- KOMPRES -->
 
             <button
@@ -484,17 +693,8 @@
 
         </div>
 
-
-        <!-- INPUT FILE RESTORE -->
-
-        <input
-            type="file"
-            id="restoreProductInput"
-            accept=".json,application/json"
-            style="display: none;"
-        >
-
     </section>
+
 
 
     <!-- =====================================================
@@ -502,6 +702,9 @@
     ====================================================== -->
 
     <section class="admin-card">
+
+
+        <!-- HEADER PRODUK -->
 
         <div class="product-list-header">
 
@@ -528,7 +731,10 @@
         </div>
 
 
-        <!-- PENCARIAN -->
+
+        <!-- =================================================
+             PENCARIAN
+        ================================================== -->
 
         <div class="admin-search-box">
 
@@ -542,23 +748,110 @@
         </div>
 
 
-        <!-- LIST PRODUK -->
+
+        <!-- =================================================
+             STATISTIK
+        ================================================== -->
+
+        <div class="admin-statistics">
+
+
+            <!-- TOTAL PRODUK -->
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+                    📦
+                </div>
+
+
+                <div class="admin-stat-info">
+
+                    <span>
+                        Total Produk
+                    </span>
+
+
+                    <strong id="statTotalProduk">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PRODUK DENGAN FOTO -->
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+                    🖼️
+                </div>
+
+
+                <div class="admin-stat-info">
+
+                    <span>
+                        Produk dengan Foto
+                    </span>
+
+
+                    <strong id="statProdukFoto">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- JUMLAH KATEGORI -->
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+                    🏷️
+                </div>
+
+
+                <div class="admin-stat-info">
+
+                    <span>
+                        Kategori
+                    </span>
+
+
+                    <strong id="statKategori">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             DAFTAR PRODUK
+        ================================================== -->
 
         <div
             id="adminProductList"
             class="admin-product-list"
-        >
+        ></div>
 
-            <div class="empty-product">
-                Memuat produk...
-            </div>
-
-        </div>
 
     </section>
 
 
 </main>
+
 
 
 <!-- =========================================================
@@ -571,15 +864,18 @@
         RONA CREATION
     </h3>
 
+
     <p>
         Mahar • Undangan • Hantaran • Custom
     </p>
+
 
     <p class="copyright">
         © 2026 RONA CREATION
     </p>
 
 </footer>
+
 
 
 <!-- =========================================================
