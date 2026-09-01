@@ -1,161 +1,570 @@
+/* =========================================================
+   RONA CREATION
+   STYLE FINAL
+   KATALOG + ADMIN
+   ========================================================= */
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: #fff8fb;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fff9f7;
     color: #333;
+    line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
 }
 
 
-/* =========================
-   HEADER RONA CREATION
-========================= */
+/* =========================================================
+   HEADER
+   ========================================================= */
 
 .header {
-    background: #ffffff;
-    text-align: center;
-    padding: 24px 15px 22px;
-    border-bottom: 1px solid #f1dede;
-    box-shadow: 0 3px 15px rgba(198, 40, 40, 0.07);
     position: relative;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #f0dddd;
+    box-shadow: 0 3px 20px rgba(90, 0, 20, 0.06);
+    z-index: 10;
 }
 
-/* Aksen merah bagian atas */
-.header::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: #c62828;
-    border-radius: 0 0 10px 10px;
-}
-
-.logo {
-    font-size: 30px;
-    font-weight: 800;
-    letter-spacing: 2.5px;
-    color: #b71c1c;
-    line-height: 1.1;
-}
-
-.logo span {
-    color: #333;
-}
-
-.tagline {
-    margin-top: 8px;
-    font-size: 12px;
-    letter-spacing: 0.8px;
-    color: #888;
-}
-
-/* Aksen kecil di bawah tagline */
-.header::after {
-    content: "";
-    display: block;
-    width: 35px;
-    height: 2px;
-    margin: 13px auto 0;
-    background: #c62828;
-    border-radius: 5px;
-}
-
-/* =========================
-   HERO
-========================= */
-
-.hero {
-    margin: 18px auto;
-    width: calc(100% - 30px);
-    max-width: 1100px;
-    min-height: 230px;
-
-    border-radius: 20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffd6e8,
-            #fff0f6
-        );
+.header-inner {
+    width: calc(100% - 40px);
+    max-width: 1200px;
+    min-height: 82px;
+    margin: auto;
 
     display: flex;
     align-items: center;
-    padding: 30px;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.brand img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.brand-text {
+    text-align: left;
+}
+
+.brand-text .logo {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    line-height: 1.1;
+    color: #b21f35;
+}
+
+.brand-text .logo span {
+    color: #333;
+}
+
+.brand-text .tagline {
+    margin-top: 4px;
+    font-size: 11px;
+    color: #888;
+    letter-spacing: .4px;
+}
+
+.header-catalog-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 18px;
+
+    background: #b21f35;
+    color: #fff;
+
+    border-radius: 25px;
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    box-shadow: 0 5px 14px rgba(178, 31, 53, .18);
+
+    transition: .2s ease;
+}
+
+.header-catalog-button:hover {
+    background: #94192c;
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+    width: 100%;
+    min-height: 500px;
+
+    background:
+        radial-gradient(
+            circle at 82% 35%,
+            rgba(255,255,255,.13),
+            transparent 28%
+        ),
+        linear-gradient(
+            120deg,
+            #8f172c 0%,
+            #b21f35 55%,
+            #c8324b 100%
+        );
+
+    color: white;
+    overflow: hidden;
+}
+
+.hero-inner {
+    width: calc(100% - 40px);
+    max-width: 1200px;
+    min-height: 500px;
+
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+
+    align-items: center;
+    gap: 40px;
 }
 
 .hero-content {
-    max-width: 600px;
+    max-width: 650px;
+}
+
+.hero-label {
+    display: inline-flex;
+    align-items: center;
+
+    margin-bottom: 18px;
+    padding: 7px 13px;
+
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 30px;
+
+    background: rgba(255,255,255,.1);
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 .hero h1 {
-    font-size: 34px;
-    line-height: 1.15;
-    color: #c62828;
-    margin-bottom: 12px;
+    font-size: 54px;
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: -.8px;
+
+    margin-bottom: 20px;
 }
 
 .hero p {
-    font-size: 15px;
-    line-height: 1.6;
-    color: #555;
+    max-width: 560px;
+
+    font-size: 17px;
+    line-height: 1.7;
+
+    color: rgba(255,255,255,.88);
+
+    margin-bottom: 28px;
+}
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 46px;
+    padding: 0 20px;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: .2s ease;
+}
+
+.hero-button.primary {
+    background: #fff;
+    color: #a21c32;
+    border: 1px solid #fff;
+}
+
+.hero-button.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
+
+.hero-button.secondary {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.65);
+}
+
+.hero-button.secondary:hover {
+    background: rgba(255,255,255,.12);
+    transform: translateY(-2px);
 }
 
 
-/* =========================
+/* =========================================================
+   HERO VISUAL
+   ========================================================= */
+
+.hero-visual {
+    position: relative;
+
+    min-height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-product-frame {
+    width: 100px;
+    height: 150px;
+
+    padding: 2px;
+
+    background: #fff;
+
+    border-radius: 2px;
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.12);
+
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-product-frame img {
+    width: 10%;
+    height: 10%;
+
+    object-fit: cover;
+
+    display: block;
+
+    border-radius: 10px;
+}
+
+/* =========================================================
+   BENEFIT
+   ========================================================= */
+
+.benefit-section {
+    background: #fff;
+    padding: 75px 20px;
+}
+
+.benefit-inner {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: .8fr 1.2fr;
+
+    gap: 60px;
+    align-items: center;
+}
+
+.benefit-heading span,
+.catalog-label,
+.cta-label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #b21f35;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.benefit-heading h2 {
+    font-size: 35px;
+    line-height: 1.15;
+
+    color: #333;
+
+    margin-bottom: 15px;
+}
+
+.benefit-heading p {
+    max-width: 420px;
+
+    color: #777;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+.benefit-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    padding: 22px;
+
+    background: #fffafa;
+
+    border: 1px solid #f1dddd;
+    border-radius: 18px;
+
+    transition: .25s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 12px 25px rgba(90,0,20,.08);
+}
+
+.benefit-icon {
+    width: 43px;
+    height: 43px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff0f2;
+
+    border-radius: 12px;
+
+    font-size: 20px;
+}
+
+.benefit-card h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.benefit-card p {
+    color: #888;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   CATALOG SECTION
+   ========================================================= */
+
+.catalog-section {
+    padding: 75px 20px 45px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff8f5 0%,
+            #fffaf8 100%
+        );
+}
+
+.catalog-heading {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto 28px;
+}
+
+.catalog-heading h2 {
+    color: #333;
+
+    font-size: 38px;
+    line-height: 1.15;
+
+    margin-bottom: 8px;
+}
+
+.catalog-heading p {
+    color: #888;
+    font-size: 14px;
+}
+
+
+/* =========================================================
    SEARCH
-========================= */
+   ========================================================= */
 
 .search-section {
-    width: calc(100% - 30px);
-    max-width: 1100px;
-    margin: 20px auto 12px;
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto 22px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+.search-box {
+    position: relative;
+
+    flex: 1;
+}
+
+.search-icon {
+    position: absolute;
+
+    left: 17px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 15px;
 }
 
 #searchInput {
     width: 100%;
-    padding: 14px 18px;
 
-    border: 1px solid #eee;
-    border-radius: 50px;
+    min-height: 48px;
+
+    padding: 12px 18px 12px 45px;
+
+    border: 1px solid #ead9dc;
+    border-radius: 30px;
 
     outline: none;
 
+    background: #fff;
+
     font-size: 14px;
 
-    background: white;
+    box-shadow:
+        0 5px 18px rgba(80,0,20,.05);
 
-    box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+    transition: .2s ease;
 }
 
 #searchInput:focus {
-    border-color: #c62828;
+    border-color: #b21f35;
+
+    box-shadow:
+        0 0 0 4px rgba(178,31,53,.08);
+}
+
+.share-catalog-button {
+    width: auto;
+    min-height: 48px;
+
+    padding: 0 20px;
+
+    border: none;
+    border-radius: 30px;
+
+    background: #b21f35;
+    color: white;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition: .2s ease;
+}
+
+.share-catalog-button:hover {
+    background: #92182b;
+    transform: translateY(-2px);
 }
 
 
-/* =========================
-   KATEGORI
-========================= */
+/* =========================================================
+   CATEGORY
+   ========================================================= */
+
+.category-wrapper {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto 14px;
+}
+
+.section-label {
+    margin-bottom: 10px;
+    padding-left: 2px;
+
+    color: #7e2030;
+
+    font-size: 13px;
+    font-weight: 800;
+}
 
 .category-section {
-    width: calc(100% - 30px);
-    max-width: 1100px;
-
-    margin: 0 auto 25px;
-
     display: flex;
-    gap: 8px;
+
+    gap: 9px;
 
     overflow-x: auto;
 
-    padding-bottom: 5px;
+    padding: 5px 2px 10px;
+
+    scrollbar-width: none;
 }
 
 .category-section::-webkit-scrollbar {
@@ -163,196 +572,468 @@ body {
 }
 
 .category {
-    border: none;
-    background: white;
+    flex: 0 0 auto;
 
-    padding: 9px 16px;
+    padding: 10px 18px;
 
+    border: 1px solid #ead0d4;
     border-radius: 30px;
 
-    white-space: nowrap;
+    background: #fff;
+    color: #8f1b2c;
+
+    font-size: 13px;
+    font-weight: 700;
 
     cursor: pointer;
 
-    color: #555;
+    transition: .2s ease;
+}
 
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+.category:hover {
+    border-color: #b21f35;
+    transform: translateY(-1px);
 }
 
 .category.active {
-    background: #c62828;
-    color: white;
+    background: #b21f35;
+    border-color: #b21f35;
+
+    color: #fff;
+
+    box-shadow:
+        0 6px 15px rgba(178,31,53,.18);
 }
 
 
-/* =========================
-   PRODUK
-========================= */
+/* =========================================================
+   SUBCATEGORY
+   ========================================================= */
+
+.subcategory-section {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
+    gap: 8px;
+
+    overflow-x: auto;
+
+    flex-wrap: nowrap;
+
+    padding: 2px 0 8px;
+
+    scrollbar-width: none;
+}
+
+.subcategory-section::-webkit-scrollbar {
+    display: none;
+}
+
+.subcategory-button {
+    flex: 0 0 auto;
+
+    padding: 8px 15px;
+
+    border: 1px solid #e2b8be;
+    border-radius: 25px;
+
+    background: #fff8f9;
+    color: #a21d32;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.subcategory-button:hover {
+    background: #fff0f2;
+    transform: translateY(-1px);
+}
+
+.subcategory-button.active {
+    background: #a91d32;
+    color: #fff;
+    border-color: #a91d32;
+}
+
+
+/* =========================================================
+   CATALOG TOOLBAR
+   ========================================================= */
+
+.catalog-toolbar {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.catalog-result-title h3 {
+    color: #333;
+    font-size: 19px;
+}
+
+.catalog-result-title p {
+    color: #999;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.sort-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sort-box label {
+    color: #777;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+#sortSelect {
+    min-width: 175px;
+
+    padding: 10px 13px;
+
+    border: 1px solid #e0c4c8;
+    border-radius: 10px;
+
+    background: #fff;
+    color: #7e2030;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+#sortSelect:focus {
+    border-color: #b21f35;
+}
+
+
+/* =========================================================
+   PRODUCT SECTION
+   ========================================================= */
 
 .product-section {
-    width: calc(100% - 30px);
-    max-width: 1100px;
+    width: 100%;
+    max-width: 1200px;
 
-    margin: 0 auto 40px;
+    margin: 0 auto;
 }
-
-/* =========================
-   JUDUL KATALOG
-========================= */
 
 .product-section h2 {
-    font-size: 26px;
-    font-weight: 800;
-    color: #333;
     text-align: center;
-    margin-bottom: 6px;
-    letter-spacing: 0.3px;
+
+    color: #8f1b2c;
+
+    font-size: 24px;
+
+    margin: 10px 0 18px;
 }
 
-.product-section h2::after {
-    content: "";
-    display: block;
-    width: 45px;
-    height: 3px;
-    background: #c62828;
-    border-radius: 10px;
-    margin: 10px auto 18px;
-}
+
+/* =========================================================
+   PRODUCT GRID
+   ========================================================= */
 
 .product-container {
     display: grid;
 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
 
-    gap: 14px;
+    gap: 20px;
+
+    width: 100%;
 }
 
 
-/* =========================
-   CARD PRODUK
-========================= */
+/* =========================================================
+   PRODUCT CARD
+   ========================================================= */
 
 .product-card {
-    background: white;
+    position: relative;
 
-    border-radius: 15px;
+    min-width: 0;
 
     overflow: hidden;
 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+    background: #fff;
 
-    transition: 0.2s;
+    border: 1px solid #f0dfe2;
+    border-radius: 18px;
+
+    box-shadow:
+        0 5px 18px rgba(80,0,20,.06);
+
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
 }
 
 .product-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 15px 30px rgba(80,0,20,.12);
+}
+
+
+/* =========================================================
+   PRODUCT IMAGE
+   ========================================================= */
+
+.product-image-wrapper {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+    background: #f8f5f5;
 }
 
 .product-image {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: 100%;
 
     object-fit: cover;
 
     display: block;
+
+    transition:
+        transform .4s ease;
 }
+
+.product-card:hover .product-image {
+    transform: scale(1.045);
+}
+
+
+/* =========================================================
+   NO IMAGE
+   ========================================================= */
+
+.product-no-image {
+    width: 100%;
+    height: 100%;
+
+    min-height: 220px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    background: #f7f7f7;
+    color: #999;
+}
+
+.product-no-image span {
+    font-size: 40px;
+}
+
+.product-no-image small {
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   PRODUCT INFO
+   ========================================================= */
 
 .product-info {
-    padding: 12px;
+    padding: 14px 15px 16px;
 }
 
-.product-name {
-    font-size: 14px;
-    font-weight: bold;
 
-    margin-bottom: 6px;
-
-    line-height: 1.4;
-}
+/* =========================================================
+   PRODUCT CATEGORY
+   ========================================================= */
 
 .product-category {
-    font-size: 11px;
-    color: #c62828;
+    display: inline-block;
 
-    margin-bottom: 6px;
+    margin-bottom: 7px;
+
+    padding: 4px 8px;
+
+    border-radius: 20px;
+
+    background: #fff0f2;
+    color: #a51d31;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-transform: uppercase;
 }
+
+
+/* =========================================================
+   PRODUCT NAME
+   ========================================================= */
+
+.product-name {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #333;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    line-height: 1.35;
+
+    white-space: normal;
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   PRODUCT SUBCATEGORY
+   ========================================================= */
+
+.product-subcategory {
+    margin-bottom: 9px;
+
+    color: #999;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   PRODUCT PRICE
+   ========================================================= */
 
 .product-price {
-    font-size: 14px;
-    font-weight: bold;
-    color: #c62828;
+    margin-bottom: 12px;
+
+    color: #b21f35;
+
+    font-size: 16px;
+    font-weight: 800;
 }
 
 
-/* =========================
-   FOOTER
-========================= */
 
-.footer {
-    background: #333;
-    color: white;
+/* =========================================================
+   DETAIL BUTTON
+   ========================================================= */
+
+.detail-button {
+    display: block;
+
+    width: 100%;
+
+    min-height: 38px;
+
+    padding: 9px 12px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #b21f35;
+    color: #fff;
+
+    font-size: 12px;
+    font-weight: 700;
 
     text-align: center;
 
-    padding: 30px 15px;
+    cursor: pointer;
+
+    transition: .2s ease;
 }
 
-.footer h3 {
-    font-size: 18px;
-    margin-bottom: 8px;
+.detail-button:hover {
+    background: #92182b;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(178,31,53,.2);
 }
 
-.footer p {
-    font-size: 13px;
-    color: #ddd;
-}
-
-.copyright {
-    margin-top: 15px;
-    font-size: 11px !important;
-    color: #aaa !important;
+.detail-button:active {
+    transform: scale(.98);
 }
 
 
-/* =========================
-   DESKTOP
-========================= */
+/* =========================================================
+   PRODUCT CARD LINK
+   ========================================================= */
 
-@media (min-width: 768px) {
+.product-card a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    .hero {
-        min-height: 300px;
-        padding: 50px;
-    }
+    margin-top: 5px;
+    padding: 5px 9px;
 
-    .hero h1 {
-        font-size: 48px;
-    }
+    background: #c62828;
+    color: #fff;
 
-    .hero p {
-        font-size: 17px;
-    }
+    border-radius: 6px;
 
-    .product-container {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-    }
+    text-decoration: none;
 
-    .product-name {
-        font-size: 15px;
-    }
+    font-size: 10px;
+    font-weight: 700;
 
+    transition: .2s ease;
 }
 
-/* =========================
-   DETAIL PRODUK
-========================= */
+.product-card a:hover {
+    background: #a91f1f;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   DETAIL OVERLAY
+   ========================================================= */
 
 .detail-overlay {
     position: fixed;
+
     inset: 0;
 
-    background: rgba(0, 0, 0, 0.55);
+    background: rgba(0,0,0,.58);
 
     display: flex;
     align-items: center;
@@ -363,37 +1044,63 @@ body {
     z-index: 9999;
 }
 
+
+/* =========================================================
+   DETAIL MODAL
+   ========================================================= */
+
+/* =========================================================
+   DETAIL MODAL PREMIUM
+   ========================================================= */
+
 .detail-modal {
     position: relative;
 
     width: 100%;
-    max-width: 500px;
-    max-height: 90vh;
+    max-width: 560px;
+
+    max-height: 92vh;
 
     overflow-y: auto;
 
-    background: white;
+    background: #fff;
 
-    border-radius: 20px;
+    border-radius: 24px;
 
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.30);
 
-    animation: munculDetail 0.2s ease;
+    animation: munculDetail .25s ease;
+
+    scrollbar-width: thin;
+}
+
+.detail-modal::-webkit-scrollbar {
+    width: 5px;
+}
+
+.detail-modal::-webkit-scrollbar-thumb {
+    background: #d9aeb5;
+    border-radius: 10px;
 }
 
 @keyframes munculDetail {
 
     from {
         opacity: 0;
-        transform: scale(0.95);
+        transform: scale(.95);
     }
 
     to {
         opacity: 1;
         transform: scale(1);
     }
-
 }
+
+
+/* =========================================================
+   CLOSE DETAIL
+   ========================================================= */
 
 .close-detail {
     position: absolute;
@@ -405,109 +1112,294 @@ body {
     height: 38px;
 
     border: none;
-
     border-radius: 50%;
 
-    background: white;
-
+    background: #fff;
     color: #555;
 
     font-size: 18px;
 
     cursor: pointer;
 
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    box-shadow:
+        0 3px 10px rgba(0,0,0,.15);
 
     z-index: 2;
 }
 
+
+/* =========================================================
+   DETAIL IMAGE PREMIUM
+   ========================================================= */
+
 .detail-image {
     width: 100%;
 
-    max-height: 450px;
+    max-height: 470px;
 
     object-fit: cover;
 
     display: block;
+
+    background: #f8f5f5;
 }
+
+
+/* =========================================================
+   DETAIL CONTENT
+   ========================================================= */
 
 .detail-content {
     padding: 22px;
 }
 
 .detail-category {
-    font-size: 12px;
+    margin-bottom: 6px;
 
     color: #c62828;
 
-    font-weight: bold;
-
-    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 800;
 
     text-transform: uppercase;
 }
 
 .detail-content h2 {
-    font-size: 23px;
-
     margin-bottom: 8px;
 
     color: #333;
+
+    font-size: 23px;
 }
 
 .detail-price {
-    font-size: 18px;
-
-    font-weight: bold;
-
-    color: #c62828;
-
     margin-bottom: 15px;
+
+    color: #b71c1c;
+
+    font-size: 18px;
+    font-weight: 800;
 }
 
 .detail-content p {
-    font-size: 14px;
-
-    line-height: 1.7;
+    margin-bottom: 20px;
 
     color: #666;
 
-    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.7;
 }
+
+
+/* =========================================================
+   WHATSAPP PREMIUM
+   ========================================================= */
 
 .whatsapp-button {
     width: 100%;
 
+    min-height: 48px;
+
+    padding: 13px 16px;
+
     border: none;
-
-    padding: 14px;
-
     border-radius: 12px;
 
     background: #25d366;
+    color: #fff;
 
-    color: white;
-
-    font-size: 15px;
-
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 800;
 
     cursor: pointer;
 
-    transition: 0.2s;
+    box-shadow:
+        0 7px 18px rgba(37,211,102,.18);
+
+    transition: .2s ease;
 }
 
 .whatsapp-button:hover {
     transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 22px rgba(37,211,102,.25);
 }
 
-/* =========================
+.whatsapp-button:active {
+    transform: scale(.98);
+}
+
+/* =========================================================
+   WEBSITE PREMIUM
+   ========================================================= */
+
+.website-button {
+    width: 100%;
+
+    min-height: 48px;
+
+    margin-top: 10px;
+
+    padding: 13px 16px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #b21f35;
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px rgba(178,31,53,.18);
+
+    transition: .2s ease;
+}
+
+.website-button:hover {
+    background: #92182b;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 22px rgba(178,31,53,.24);
+}
+
+.website-button:active {
+    transform: scale(.98);
+}
+
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.cta-section {
+    padding: 65px 20px;
+
+    background: #8f172c;
+    color: #fff;
+}
+
+.cta-inner {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+.cta-label {
+    color: #ffd9df;
+}
+
+.cta-inner h2 {
+    margin-bottom: 9px;
+
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.cta-inner p {
+    max-width: 650px;
+
+    color: rgba(255,255,255,.78);
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.cta-button {
+    flex-shrink: 0;
+
+    padding: 13px 20px;
+
+    border: none;
+    border-radius: 30px;
+
+    background: #fff;
+    color: #a21c32;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.18);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    background: #272727;
+
+    color: white;
+
+    padding: 30px 20px;
+}
+
+.footer-inner {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+.footer h3 {
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.footer p {
+    color: #ccc;
+    font-size: 12px;
+}
+
+.footer-note {
+    text-align: right;
+}
+
+.copyright {
+    margin-top: 10px;
+
+    font-size: 10px !important;
+    color: #888 !important;
+}
+
+
+/* =========================================================
    ADMIN
-========================= */
+   ========================================================= */
 
 .admin-container {
     width: calc(100% - 30px);
     max-width: 900px;
+
     margin: 25px auto 50px;
 }
 
@@ -515,46 +1407,75 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     gap: 15px;
+
     margin-bottom: 20px;
 }
 
 .admin-header h1 {
+    color: #b71c1c;
+
     font-size: 26px;
-    color: #333;
+
     margin-bottom: 5px;
 }
 
 .admin-header p {
-    font-size: 13px;
     color: #777;
+
+    font-size: 13px;
 }
 
 .back-button {
     text-decoration: none;
-    background: white;
+
+    background: #fff;
     color: #c62828;
+
     padding: 10px 15px;
+
     border-radius: 10px;
+
     font-size: 13px;
-    font-weight: bold;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    font-weight: 700;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,.06);
+
     white-space: nowrap;
 }
 
+
+/* =========================================================
+   ADMIN CARD
+   ========================================================= */
+
 .admin-card {
-    background: white;
+    background: #fff;
+
     border-radius: 18px;
+
     padding: 22px;
+
     margin-bottom: 20px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+
+    box-shadow:
+        0 4px 18px rgba(0,0,0,.06);
 }
 
 .admin-card h2 {
-    font-size: 19px;
-    margin-bottom: 5px;
     color: #333;
+
+    font-size: 19px;
+
+    margin-bottom: 5px;
 }
+
+
+/* =========================================================
+   ADMIN FORM
+   ========================================================= */
 
 .form-group {
     margin-top: 18px;
@@ -562,16 +1483,20 @@ body {
 
 .form-group label {
     display: block;
-    font-size: 13px;
-    font-weight: bold;
+
     margin-bottom: 7px;
+
     color: #444;
+
+    font-size: 13px;
+    font-weight: 700;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
+
     padding: 13px 14px;
 
     border: 1px solid #e5e5e5;
@@ -579,10 +1504,9 @@ body {
 
     outline: none;
 
-    font-family: inherit;
-    font-size: 14px;
-
     background: #fff;
+
+    font-size: 14px;
 }
 
 .form-group input:focus,
@@ -595,12 +1519,21 @@ body {
     resize: vertical;
 }
 
+
+/* =========================================================
+   UPLOAD
+   ========================================================= */
+
 .upload-box {
-    border: 2px dashed #e7b4cc;
+    border: 2px dashed #e0a0a0;
+
     border-radius: 12px;
+
     padding: 20px;
+
     text-align: center;
-    background: #fff8fb;
+
+    background: #fffafa;
 }
 
 .upload-box input {
@@ -610,9 +1543,16 @@ body {
 
 .upload-box p {
     margin-top: 8px;
-    font-size: 12px;
+
     color: #888;
+
+    font-size: 12px;
 }
+
+
+/* =========================================================
+   IMAGE PREVIEW
+   ========================================================= */
 
 #imagePreview {
     margin-top: 12px;
@@ -621,13 +1561,22 @@ body {
 #imagePreview img {
     width: 120px;
     height: 120px;
+
     object-fit: cover;
+
     border-radius: 12px;
+
     display: block;
 }
 
+
+/* =========================================================
+   SAVE BUTTON
+   ========================================================= */
+
 .save-product-button {
     width: 100%;
+
     margin-top: 22px;
 
     padding: 14px;
@@ -639,103 +1588,70 @@ body {
     color: white;
 
     font-size: 15px;
-    font-weight: bold;
+    font-weight: 700;
 
     cursor: pointer;
 }
 
 .save-product-button:hover {
-    opacity: 0.9;
+    opacity: .9;
 }
+
+
+/* =========================================================
+   ADMIN PRODUCT LIST HEADER
+   ========================================================= */
 
 .product-list-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     gap: 15px;
 }
 
 .product-list-header p {
     margin-top: 5px;
-    font-size: 12px;
+
     color: #888;
+
+    font-size: 12px;
 }
 
 .product-count {
-    background: #fff0f6;
+    background: #ffebee;
     color: #c62828;
+
     padding: 8px 12px;
+
     border-radius: 20px;
+
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 700;
+
     white-space: nowrap;
 }
+
+
+/* =========================================================
+   ADMIN PRODUCT LIST
+   ========================================================= */
 
 .admin-product-list {
     margin-top: 20px;
 }
 
-.empty-product {
-    text-align: center;
-    padding: 30px 10px;
-    color: #999;
-    font-size: 13px;
-}
-
-
-/* =========================
-   ADMIN MOBILE
-========================= */
-
-@media (max-width: 600px) {
-
-    .admin-container {
-        width: calc(100% - 20px);
-        margin-top: 18px;
-    }
-
-    .admin-header {
-        display: block;
-    }
-
-    .admin-header h1 {
-        font-size: 23px;
-    }
-
-    .back-button {
-        display: inline-block;
-        margin-top: 12px;
-    }
-
-    .admin-card {
-        padding: 17px;
-        border-radius: 15px;
-    }
-
-    .product-list-header {
-        align-items: flex-start;
-    }
-
-    .product-list-header h2 {
-        font-size: 17px;
-    }
-
-}
-
-/* =========================
-   ADMIN PRODUCT LIST
-========================= */
-
 .admin-product-item {
     display: flex;
     align-items: center;
+
     gap: 14px;
 
     padding: 12px;
 
     margin-bottom: 10px;
 
-    background: #fff8fb;
+    background: #fffafa;
 
     border-radius: 12px;
 }
@@ -753,85 +1669,64 @@ body {
 
 .admin-product-info {
     min-width: 0;
+    flex: 1;
 }
 
 .admin-product-category {
-    font-size: 11px;
-
     color: #c62828;
 
-    font-weight: bold;
+    font-size: 11px;
+    font-weight: 700;
 
     margin-bottom: 3px;
 }
 
 .admin-product-info h3 {
+    color: #333;
+
     font-size: 14px;
 
     margin-bottom: 4px;
-
-    color: #333;
 }
 
 .admin-product-info p {
+    color: #b71c1c;
+
     font-size: 13px;
-
-    color: #c62828;
-
-    font-weight: bold;
+    font-weight: 700;
 }
 
-@media (max-width: 600px) {
 
-    .admin-product-item img {
-        width: 60px;
-        height: 60px;
-    }
-
-}
-
-/* =========================
-   TOMBOL HAPUS PRODUK
-   ========================= */
-
-.delete-product-button {
-    border: none;
-    background: #dc3545;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
-    transition: 0.2s;
-}
-
-.delete-product-button:hover {
-    background: #b02a37;
-    transform: scale(1.03);
-}
-
-/* =========================
-   AKSI PRODUK ADMIN
-   ========================= */
+/* =========================================================
+   ADMIN ACTIONS
+   ========================================================= */
 
 .admin-product-actions {
     display: flex;
+
     gap: 8px;
+
     margin-top: 10px;
+
     flex-wrap: wrap;
 }
 
 .edit-product-button,
 .delete-product-button {
     border: none;
+
     color: white;
+
     padding: 8px 12px;
+
     border-radius: 8px;
+
     cursor: pointer;
+
     font-size: 13px;
     font-weight: 600;
-    transition: 0.2s;
+
+    transition: .2s ease;
 }
 
 .edit-product-button {
@@ -852,289 +1747,591 @@ body {
     transform: scale(1.03);
 }
 
-/* =========================
-   TOMBOL BATAL EDIT
-   ========================= */
+
+/* =========================================================
+   CANCEL EDIT
+   ========================================================= */
 
 #cancelEditButton {
     border: none;
+
     background: #6c757d;
     color: white;
+
     padding: 8px 14px;
+
     border-radius: 8px;
+
     cursor: pointer;
+
     font-size: 13px;
     font-weight: 600;
+
     margin-left: 6px;
-    transition: 0.2s;
+
+    transition: .2s ease;
 }
 
 #cancelEditButton:hover {
     background: #5c636a;
 }
 
-/* =========================
-   3.17.3 - WARNA MERAH RONA
-========================= */
 
-/* Header / Logo */
-.logo {
-    color: #c62828;
-}
+/* =========================================================
+   EMPTY PRODUCT
+   ========================================================= */
 
-.logo span {
-    color: #333;
-}
-
-/* Tombol kategori aktif */
-.category.active {
-    background: #c62828;
-}
-
-/* Pencarian */
-#searchInput:focus {
-    border-color: #c62828;
-}
-
-/* Produk */
-.product-category {
-    color: #c62828;
-}
-
-.product-price {
-    color: #b71c1c;
-}
-
-/* Detail produk */
-.detail-category {
-    color: #c62828;
-}
-
-.detail-price {
-    color: #b71c1c;
-}
-
-/* Admin */
-.admin-header h1 {
-    color: #b71c1c;
-}
-
-.back-button {
-    color: #c62828;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    border-color: #c62828;
-}
-
-.upload-box {
-    border-color: #e0a0a0;
-    background: #fffafa;
-}
-
-.save-product-button {
-    background: #c62828;
-}
-
-/* Jumlah produk */
-.product-count {
-    background: #ffebee;
-    color: #c62828;
-}
-
-/* Daftar produk admin */
-.admin-product-item {
-    background: #fffafa;
-}
-
-
-.admin-product-info p {
-    color: #b71c1c;
-}
-
-/* =========================
-   3.17.3 - KATALOG MERAH RONA
-========================= */
-
-/* HEADER */
-.logo {
-    color: #c62828;
-}
-
-.logo span {
-    color: #333;
-}
-
-/* HERO */
-.hero {
-    background:
-        linear-gradient(
-            135deg,
-            #f8d7da,
-            #fff5f5
-        );
-}
-
-.hero h1 {
-    color: #b71c1c;
-}
-
-/* SEARCH */
-#searchInput:focus {
-    border-color: #c62828;
-}
-
-/* KATEGORI */
-.category.active {
-    background: #c62828;
-}
-
-/* PRODUK */
-.product-category {
-    color: #c62828;
-}
-
-.product-price {
-    color: #b71c1c;
-}
-
-/* DETAIL PRODUK */
-.detail-category {
-    color: #c62828;
-}
-
-.detail-price {
-    color: #b71c1c;
-}
-
-/* =========================
-   TOMBOL LIHAT DETAIL
-========================= */
-
-.product-card a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-top: 5px;
-
-    padding: 5px 10px;
-
-    background: #c62828;
-    color: white;
-
-    border-radius: 6px;
-
-    text-decoration: none;
-
-    font-size: 10px;
-    font-weight: bold;
-
-    transition: all 0.2s ease;
-}
-
-.product-card a:hover {
-    background: #a91f1f;
-    transform: translateY(-1px);
-    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.15);
-}
-
-/* =========================
-   TOMBOL LIHAT DETAIL
-========================= */
-
-.detail-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-top: 6px;
-    padding: 6px 12px;
-
-    border: none;
-    border-radius: 7px;
-
-    background: #c62828;
-    color: #ffffff;
-
-    font-size: 10px;
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition: all 0.2s ease;
-}
-
-.detail-button:hover {
-    background: #a91f1f;
-    transform: translateY(-1px);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-}
-
-.detail-button:active {
-    transform: scale(0.97);
-}
-
-/* =========================
-   JUDUL KATALOG RONA
-========================= */
-
-.catalog-heading {
+.empty-product {
     text-align: center;
-    margin: 10px auto 25px;
-    padding: 0 15px;
-}
 
-.catalog-heading h1 {
-    font-size: 27px;
-    font-weight: 800;
-    color: #333;
-    margin-bottom: 8px;
-    line-height: 1.25;
-}
+    padding: 40px 10px;
 
-.catalog-heading h1::after {
-    content: "";
-    display: block;
-    width: 45px;
-    height: 3px;
-    background: #c62828;
-    border-radius: 10px;
-    margin: 10px auto 12px;
-}
+    color: #999;
 
-.catalog-heading p {
-    max-width: 600px;
-    margin: 0 auto;
     font-size: 13px;
-    line-height: 1.6;
-    color: #888;
 }
 
-.logo img {
-    width: 180px;
-    max-width: 70%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .product-container {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+    .benefit-inner {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+    }
 }
 
-/* =========================
-   BRAND HEADER RONA
-========================= */
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    /* HEADER */
+
+    .header-inner {
+        width: calc(100% - 24px);
+
+        min-height: 70px;
+    }
+
+    .brand {
+        gap: 8px;
+    }
+
+    .brand img {
+        width: 44px;
+        height: 44px;
+    }
+
+    .brand-text .logo {
+        font-size: 20px;
+        letter-spacing: 1.2px;
+    }
+
+    .brand-text .tagline {
+        font-size: 9px;
+    }
+
+    .header-catalog-button {
+        padding: 8px 13px;
+
+        font-size: 11px;
+    }
+
+    .detail-modal {
+    max-width: 100%;
+    max-height: 94vh;
+
+    border-radius: 18px;
+    }
+
+    .detail-content {
+        padding: 19px;
+    }
+
+    .detail-content h2 {
+        font-size: 21px;
+    }
+
+    .detail-price {
+        font-size: 18px;
+    }
+
+    .detail-image {
+        max-height: 380px;
+    }
+
+    /* HERO */
+
+    .hero,
+    .hero-inner {
+        min-height: auto;
+    }
+
+    .hero-inner {
+        width: calc(100% - 30px);
+
+        padding: 55px 0 45px;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 30px;
+    }
+
+    .hero-content {
+        max-width: none;
+    }
+
+    .hero h1 {
+        font-size: 37px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .hero-buttons {
+        gap: 8px;
+    }
+
+    .hero-button {
+        min-height: 43px;
+
+        padding: 0 15px;
+
+        font-size: 12px;
+    }
+
+    .hero-visual {
+        min-height: 320px;
+    }
+
+    .hero-product-frame {
+        width: 240px;
+        min-height: 290px;
+
+        padding: 22px;
+
+        border-radius: 24px;
+    }
+
+    .hero-product-frame img {
+        width: 145px;
+        height: 145px;
+    }
+
+    .hero-decoration-one {
+        width: 180px;
+        height: 180px;
+    }
+
+
+    /* BENEFIT */
+
+    .benefit-section {
+        padding: 55px 15px;
+    }
+
+    .benefit-inner {
+        gap: 30px;
+    }
+
+    .benefit-heading h2 {
+        font-size: 29px;
+    }
+
+    .benefit-grid {
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+    .benefit-card {
+        padding: 17px;
+    }
+
+
+    /* CATALOG */
+
+    .catalog-section {
+        padding: 55px 12px 35px;
+    }
+
+    .catalog-heading {
+        margin-bottom: 22px;
+    }
+
+    .catalog-heading h2 {
+        font-size: 30px;
+    }
+
+    .search-section {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 8px;
+    }
+
+    .share-catalog-button {
+        width: 100%;
+    }
+
+    .category-wrapper {
+        margin-bottom: 8px;
+    }
+
+    .category-section {
+        overflow-x: auto;
+    }
+
+    .subcategory-section {
+        overflow-x: auto;
+
+        flex-wrap: nowrap;
+    }
+
+
+    /* TOOLBAR */
+
+    .catalog-toolbar {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 10px;
+    }
+
+    .sort-box {
+        justify-content: space-between;
+    }
+
+    #sortSelect {
+        flex: 1;
+
+        min-width: 0;
+    }
+
+
+    /* PRODUCTS */
+
+    .product-container {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 10px;
+    }
+
+    .product-card {
+        border-radius: 14px;
+    }
+
+    .product-info {
+        padding: 10px;
+    }
+
+    .product-category {
+        font-size: 9px;
+
+        padding: 4px 6px;
+    }
+
+    .product-name {
+        font-size: 13px;
+    }
+
+    .product-subcategory {
+        font-size: 10px;
+    }
+
+    .product-price {
+        font-size: 14px;
+
+        margin-bottom: 9px;
+    }
+
+    .detail-button {
+        min-height: 35px;
+
+        padding: 8px 5px;
+
+        font-size: 11px;
+    }
+
+
+    /* CTA */
+
+    .cta-section {
+        padding: 50px 18px;
+    }
+
+    .cta-inner {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 22px;
+    }
+
+    .cta-inner h2 {
+        font-size: 25px;
+    }
+
+    .cta-button {
+        width: 100%;
+    }
+
+
+    /* FOOTER */
+
+    .footer {
+        padding: 25px 15px;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+    }
+
+    .footer-note {
+        text-align: center;
+    }
+
+
+    /* DETAIL */
+
+    .detail-overlay {
+        padding: 8px;
+    }
+
+    .detail-modal {
+        max-height: 94vh;
+
+        border-radius: 16px;
+    }
+
+    .detail-content {
+        padding: 18px;
+    }
+
+    .detail-content h2 {
+        font-size: 20px;
+    }
+
+    .detail-image {
+        max-height: 350px;
+    }
+
+
+    /* ADMIN */
+
+    .admin-container {
+        width: calc(100% - 20px);
+
+        margin-top: 18px;
+    }
+
+    .admin-header {
+        display: block;
+    }
+
+    .admin-header h1 {
+        font-size: 23px;
+    }
+
+    .back-button {
+        display: inline-block;
+
+        margin-top: 12px;
+    }
+
+    .admin-card {
+        padding: 17px;
+
+        border-radius: 15px;
+    }
+
+    .product-list-header {
+        align-items: flex-start;
+    }
+
+    .product-list-header h2 {
+        font-size: 17px;
+    }
+
+    .admin-product-item {
+        align-items: flex-start;
+    }
+
+    .admin-product-item img {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+/* =========================================================
+   HP KECIL
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .header-catalog-button {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .hero-button {
+        width: 100%;
+    }
+
+    .product-container {
+        gap: 8px;
+    }
+
+    .product-info {
+        padding: 8px;
+    }
+
+    .product-name {
+        font-size: 12px;
+    }
+
+    .product-price {
+        font-size: 13px;
+    }
+
+    .detail-button {
+        font-size: 10px;
+    }
+}
+
+
+/* =========================================================
+   ADMIN MOBILE ACTIONS
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .admin-product-actions {
+        width: 100%;
+    }
+
+    .edit-product-button,
+    .delete-product-button {
+        padding: 7px 10px;
+
+        font-size: 12px;
+    }
+
+    #cancelEditButton {
+        margin-left: 0;
+
+        margin-top: 8px;
+    }
+}
+cssnya aku suka yg ini /* =========================================================
+   RONA CREATION
+   STYLE FINAL
+   KATALOG + ADMIN
+   ========================================================= */
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fff9f7;
+    color: #333;
+    line-height: 1.5;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+    position: relative;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #f0dddd;
+    box-shadow: 0 3px 20px rgba(90, 0, 20, 0.06);
+    z-index: 10;
+}
+
+.header-inner {
+    width: calc(100% - 40px);
+    max-width: 1200px;
+    min-height: 82px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
 
 .brand {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 12px;
+    text-decoration: none;
+    color: inherit;
 }
 
 .brand img {
-    width: 58px;
-    height: 58px;
+    width: 52px;
+    height: 52px;
     object-fit: contain;
     flex-shrink: 0;
 }
@@ -1144,11 +2341,11 @@ body {
 }
 
 .brand-text .logo {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 800;
     letter-spacing: 2px;
     line-height: 1.1;
-    color: #b71c1c;
+    color: #b21f35;
 }
 
 .brand-text .logo span {
@@ -1156,344 +2353,710 @@ body {
 }
 
 .brand-text .tagline {
-    margin-top: 6px;
-    font-size: 12px;
+    margin-top: 4px;
+    font-size: 11px;
     color: #888;
-    letter-spacing: 0.5px;
+    letter-spacing: .4px;
 }
 
-@media (max-width: 600px) {
+.header-catalog-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    .brand {
-        gap: 9px;
-    }
+    padding: 10px 18px;
 
-    .brand img {
-        width: 48px;
-        height: 48px;
-    }
+    background: #b21f35;
+    color: #fff;
 
-    .brand-text .logo {
-        font-size: 23px;
-        letter-spacing: 1.5px;
-    }
+    border-radius: 25px;
+    text-decoration: none;
 
-    .brand-text .tagline {
-        font-size: 10px;
-    }
+    font-size: 13px;
+    font-weight: 700;
 
+    box-shadow: 0 5px 14px rgba(178, 31, 53, .18);
+
+    transition: .2s ease;
 }
 
-/* =========================
-   SUBKATEGORI
-========================= */
+.header-catalog-button:hover {
+    background: #94192c;
+    transform: translateY(-2px);
+}
 
-.subcategory-section {
-    width: calc(100% - 30px);
-    max-width: 1100px;
 
-    margin: -12px auto 25px;
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+    width: 100%;
+    min-height: 500px;
+
+    background:
+        radial-gradient(
+            circle at 82% 35%,
+            rgba(255,255,255,.13),
+            transparent 28%
+        ),
+        linear-gradient(
+            120deg,
+            #8f172c 0%,
+            #b21f35 55%,
+            #c8324b 100%
+        );
+
+    color: white;
+    overflow: hidden;
+}
+
+.hero-inner {
+    width: calc(100% - 40px);
+    max-width: 1200px;
+    min-height: 500px;
+
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+
+    align-items: center;
+    gap: 40px;
+}
+
+.hero-content {
+    max-width: 650px;
+}
+
+.hero-label {
+    display: inline-flex;
+    align-items: center;
+
+    margin-bottom: 18px;
+    padding: 7px 13px;
+
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 30px;
+
+    background: rgba(255,255,255,.1);
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.hero h1 {
+    font-size: 54px;
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: -.8px;
+
+    margin-bottom: 20px;
+}
+
+.hero p {
+    max-width: 560px;
+
+    font-size: 17px;
+    line-height: 1.7;
+
+    color: rgba(255,255,255,.88);
+
+    margin-bottom: 28px;
+}
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 46px;
+    padding: 0 20px;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: .2s ease;
+}
+
+.hero-button.primary {
+    background: #fff;
+    color: #a21c32;
+    border: 1px solid #fff;
+}
+
+.hero-button.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
+
+.hero-button.secondary {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.65);
+}
+
+.hero-button.secondary:hover {
+    background: rgba(255,255,255,.12);
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   HERO VISUAL
+   ========================================================= */
+
+.hero-visual {
+    position: relative;
+
+    min-height: 390px;
 
     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-product-frame {
+    position: relative;
+    z-index: 2;
+
+    width: 300px;
+    min-height: 350px;
+
+    padding: 28px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff;
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 25px 60px rgba(60,0,15,.28);
+
+    transform: rotate(3deg);
+
+    transition: .35s ease;
+}
+
+.hero-product-frame:hover {
+    transform: rotate(0deg) translateY(-5px);
+}
+
+.hero-product-frame img {
+    width: 190px;
+    height: 190px;
+
+    object-fit: contain;
+
+    margin-bottom: 20px;
+}
+
+.hero-product-caption {
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+}
+
+.hero-product-caption strong {
+    color: #a91c32;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+.hero-product-caption span {
+    margin-top: 5px;
+
+    color: #888;
+    font-size: 11px;
+}
+
+.hero-decoration {
+    position: absolute;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.09);
+}
+
+.hero-decoration-one {
+    width: 230px;
+    height: 230px;
+
+    top: 15px;
+    right: 30px;
+}
+
+.hero-decoration-two {
+    width: 130px;
+    height: 130px;
+
+    bottom: 20px;
+    left: 40px;
+}
+
+
+/* =========================================================
+   BENEFIT
+   ========================================================= */
+
+.benefit-section {
+    background: #fff;
+    padding: 75px 20px;
+}
+
+.benefit-inner {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: .8fr 1.2fr;
+
+    gap: 60px;
+    align-items: center;
+}
+
+.benefit-heading span,
+.catalog-label,
+.cta-label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #b21f35;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+.benefit-heading h2 {
+    font-size: 35px;
+    line-height: 1.15;
+
+    color: #333;
+
+    margin-bottom: 15px;
+}
+
+.benefit-heading p {
+    max-width: 420px;
+
+    color: #777;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+.benefit-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    padding: 22px;
+
+    background: #fffafa;
+
+    border: 1px solid #f1dddd;
+    border-radius: 18px;
+
+    transition: .25s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 12px 25px rgba(90,0,20,.08);
+}
+
+.benefit-icon {
+    width: 43px;
+    height: 43px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #fff0f2;
+
+    border-radius: 12px;
+
+    font-size: 20px;
+}
+
+.benefit-card h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.benefit-card p {
+    color: #888;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   CATALOG SECTION
+   ========================================================= */
+
+.catalog-section {
+    padding: 75px 20px 45px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff8f5 0%,
+            #fffaf8 100%
+        );
+}
+
+.catalog-heading {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto 28px;
+}
+
+.catalog-heading h2 {
+    color: #333;
+
+    font-size: 38px;
+    line-height: 1.15;
+
+    margin-bottom: 8px;
+}
+
+.catalog-heading p {
+    color: #888;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.search-section {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto 22px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+.search-box {
+    position: relative;
+
+    flex: 1;
+}
+
+.search-icon {
+    position: absolute;
+
+    left: 17px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    font-size: 15px;
+}
+
+#searchInput {
+    width: 100%;
+
+    min-height: 48px;
+
+    padding: 12px 18px 12px 45px;
+
+    border: 1px solid #ead9dc;
+    border-radius: 30px;
+
+    outline: none;
+
+    background: #fff;
+
+    font-size: 14px;
+
+    box-shadow:
+        0 5px 18px rgba(80,0,20,.05);
+
+    transition: .2s ease;
+}
+
+#searchInput:focus {
+    border-color: #b21f35;
+
+    box-shadow:
+        0 0 0 4px rgba(178,31,53,.08);
+}
+
+.share-catalog-button {
+    width: auto;
+    min-height: 48px;
+
+    padding: 0 20px;
+
+    border: none;
+    border-radius: 30px;
+
+    background: #b21f35;
+    color: white;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition: .2s ease;
+}
+
+.share-catalog-button:hover {
+    background: #92182b;
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   CATEGORY
+   ========================================================= */
+
+.category-wrapper {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto 14px;
+}
+
+.section-label {
+    margin-bottom: 10px;
+    padding-left: 2px;
+
+    color: #7e2030;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.category-section {
+    display: flex;
+
+    gap: 9px;
+
+    overflow-x: auto;
+
+    padding: 5px 2px 10px;
+
+    scrollbar-width: none;
+}
+
+.category-section::-webkit-scrollbar {
+    display: none;
+}
+
+.category {
+    flex: 0 0 auto;
+
+    padding: 10px 18px;
+
+    border: 1px solid #ead0d4;
+    border-radius: 30px;
+
+    background: #fff;
+    color: #8f1b2c;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.category:hover {
+    border-color: #b21f35;
+    transform: translateY(-1px);
+}
+
+.category.active {
+    background: #b21f35;
+    border-color: #b21f35;
+
+    color: #fff;
+
+    box-shadow:
+        0 6px 15px rgba(178,31,53,.18);
+}
+
+
+/* =========================================================
+   SUBCATEGORY
+   ========================================================= */
+
+.subcategory-section {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+
     gap: 8px;
 
     overflow-x: auto;
 
-    padding: 4px 2px 8px;
+    flex-wrap: nowrap;
+
+    padding: 2px 0 8px;
+
+    scrollbar-width: none;
 }
 
 .subcategory-section::-webkit-scrollbar {
     display: none;
 }
 
-.subcategory {
-    border: 1px solid #ead0d0;
-
-    background: #fffafa;
-
-    color: #777;
-
-    padding: 7px 13px;
-
-    border-radius: 20px;
-
-    white-space: nowrap;
-
-    cursor: pointer;
-
-    font-size: 12px;
-
-    transition: 0.2s;
-}
-
-.subcategory:hover {
-    border-color: #c62828;
-    color: #c62828;
-}
-
-.subcategory.active {
-    background: #c62828;
-    border-color: #c62828;
-    color: white;
-}
-
-/* =========================
-   KATALOG - SUBKATEGORI
-========================= */
-
-.product-info .product-subcategory {
-    font-size: 12px;
-    color: #777;
-    margin-top: 4px;
-    margin-bottom: 6px;
-}
-
-
-/* =========================
-   KATALOG - TOMBOL DETAIL
-========================= */
-
-.product-info .detail-button {
-    display: block;
-    width: 100%;
-    padding: 10px 15px;
-    margin-top: 12px;
-
-    background: #c62828;
-    color: #ffffff;
-
-    border: none;
-    border-radius: 6px;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-    text-align: center;
-}
-
-.product-info .detail-button:hover {
-    background: #a91f1f;
-}
-
-/* =========================================================
-   SUBKATEGORI
-========================================================= */
-
-.subcategory-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    padding: 12px 20px 22px;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
 .subcategory-button {
-    border: 1px solid #d9a0a8;
-    background: #fff;
-    color: #9f1d2f;
-    padding: 9px 18px;
+    flex: 0 0 auto;
+
+    padding: 8px 15px;
+
+    border: 1px solid #e2b8be;
     border-radius: 25px;
-    font-size: 14px;
+
+    background: #fff8f9;
+    color: #a21d32;
+
+    font-size: 12px;
     font-weight: 600;
+
     cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: 0 2px 6px rgba(120, 0, 20, 0.08);
+
+    transition: .2s ease;
 }
 
 .subcategory-button:hover {
-    background: #fff1f3;
-    border-color: #b21f35;
-    transform: translateY(-2px);
+    background: #fff0f2;
+    transform: translateY(-1px);
 }
 
 .subcategory-button.active {
-    background: #b21f35;
-    color: white;
-    border-color: #b21f35;
-    box-shadow: 0 4px 10px rgba(178, 31, 53, 0.22);
+    background: #a91d32;
+    color: #fff;
+    border-color: #a91d32;
 }
 
 
 /* =========================================================
-   PRODUCT CARD
-========================================================= */
+   CATALOG TOOLBAR
+   ========================================================= */
 
-.product-container {
-    display: grid;
-    grid-template-columns: repeat(
-        auto-fill,
-        minmax(220px, 1fr)
-    );
-    gap: 22px;
-    padding: 10px 20px 40px;
+.catalog-toolbar {
+    width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
 }
 
-
-/* KARTU */
-
-.product-card {
-    background: #fff;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid #f0dfe2;
-    box-shadow:
-        0 4px 14px rgba(80, 0, 20, 0.08);
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-
-    cursor: pointer;
-}
-
-
-/* EFEK HOVER */
-
-.product-card:hover {
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 10px 25px rgba(80, 0, 20, 0.14);
-}
-
-
-/* =========================================================
-   FOTO PRODUK
-========================================================= */
-
-.product-image {
-    width: 100%;
-    height: 220px;
-
-    object-fit: cover;
-
-    display: block;
-
-    background: #fafafa;
-
-    transition:
-        transform 0.35s ease;
-}
-
-
-/* Zoom sedikit saat hover */
-
-.product-card:hover .product-image {
-    transform: scale(1.03);
-}
-
-
-/* =========================================================
-   INFO PRODUK
-========================================================= */
-
-.product-info {
-    padding: 15px 16px 17px;
-}
-
-
-/* KATEGORI */
-
-.product-category {
-    display: inline-block;
-
-    font-size: 11px;
-    font-weight: 700;
-
-    color: #a51d31;
-    background: #fff0f2;
-
-    padding: 5px 9px;
-
-    border-radius: 20px;
-
-    margin-bottom: 8px;
-
-    text-transform: uppercase;
-}
-
-
-/* NAMA PRODUK */
-
-.product-name {
-    font-size: 17px;
-    font-weight: 700;
-
+.catalog-result-title h3 {
     color: #333;
-
-    line-height: 1.35;
-
-    margin-bottom: 5px;
+    font-size: 19px;
 }
 
-
-/* SUBKATEGORI */
-
-.product-subcategory {
+.catalog-result-title p {
+    color: #999;
     font-size: 12px;
-    color: #888;
-
-    margin-bottom: 10px;
+    margin-top: 2px;
 }
 
+.sort-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
-/* HARGA */
-
-.product-price {
-    font-size: 17px;
+.sort-box label {
+    color: #777;
+    font-size: 12px;
     font-weight: 700;
-
-    color: #b21f35;
-
-    margin-bottom: 14px;
+    white-space: nowrap;
 }
 
+#sortSelect {
+    min-width: 175px;
 
-/* =========================================================
-   TOMBOL LIHAT DETAIL
-========================================================= */
+    padding: 10px 13px;
 
-.detail-button {
-    width: 100%;
+    border: 1px solid #e0c4c8;
+    border-radius: 10px;
 
-    border: none;
+    background: #fff;
+    color: #7e2030;
 
-    background: #b21f35;
-    color: white;
-
-    padding: 10px 14px;
-
-    border-radius: 9px;
-
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
 
-    cursor: pointer;
+    outline: none;
 
-    transition:
-        background 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    cursor: pointer;
 }
 
-.detail-button:hover {
-    background: #92182b;
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 4px 10px rgba(178, 31, 53, 0.25);
+#sortSelect:focus {
+    border-color: #b21f35;
 }
 
 
 /* =========================================================
-   JUDUL PRODUK
-========================================================= */
+   PRODUCT SECTION
+   ========================================================= */
+
+.product-section {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+}
 
 .product-section h2 {
     text-align: center;
@@ -1503,565 +3066,2921 @@ body {
     font-size: 24px;
 
     margin: 10px 0 18px;
-
-    font-weight: 700;
 }
 
 
 /* =========================================================
-   RESPONSIVE HP
-========================================================= */
+   PRODUCT GRID
+   ========================================================= */
 
-@media (max-width: 600px) {
+.product-container {
+    display: grid;
 
-    .subcategory-section {
-        justify-content: flex-start;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
 
-        overflow-x: auto;
+    gap: 20px;
 
-        flex-wrap: nowrap;
-
-        padding-left: 15px;
-        padding-right: 15px;
-
-        scrollbar-width: none;
-    }
-
-    .subcategory-section::-webkit-scrollbar {
-        display: none;
-    }
-
-    .subcategory-button {
-        flex: 0 0 auto;
-
-        font-size: 13px;
-
-        padding: 8px 15px;
-    }
-
-
-    .product-container {
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-
-        gap: 12px;
-
-        padding-left: 12px;
-        padding-right: 12px;
-    }
-
-
-    .product-image {
-        height: 170px;
-    }
-
-
-    .product-info {
-        padding: 11px;
-    }
-
-
-    .product-name {
-        font-size: 14px;
-    }
-
-
-    .product-price {
-        font-size: 14px;
-    }
-
-
-    .detail-button {
-        font-size: 12px;
-
-        padding: 9px 8px;
-    }
-
-}
-
-/* =========================
-   TAMPILAN HP
-========================= */
-
-@media (max-width: 768px) {
-
-    .product-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-        padding: 10px;
-    }
-
-    .product-card {
-        width: 100%;
-        min-width: 0;
-    }
-
-    .product-image {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-    }
-
-    .product-info {
-        padding: 10px;
-    }
-
-    .product-name {
-        font-size: 14px;
-    }
-
-    .product-price {
-        font-size: 14px;
-    }
-
-    .detail-button {
-        width: 100%;
-        padding: 9px 5px;
-        font-size: 12px;
-    }
-
-    .category-section {
-        display: flex;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        gap: 8px;
-        padding: 10px 15px;
-    }
-
-    .category {
-        flex: 0 0 auto;
-        white-space: nowrap;
-    }
-
-    .subcategory-section {
-        display: flex;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        gap: 8px;
-        padding: 5px 15px 15px;
-    }
-
-    .subcategory-button {
-        flex: 0 0 auto;
-        white-space: nowrap;
-    }
-
-    .search-section {
-        padding: 15px;
-    }
-
-    #searchInput {
-        width: 100%;
-    }
-
-}
-
-/* =========================
-   TOMBOL BAGIKAN KATALOG
-========================= */
-
-.share-catalog-button {
     width: 100%;
-    margin-top: 10px;
-    padding: 12px 15px;
+}
 
-    border: none;
-    border-radius: 10px;
 
-    background: #b5122b;
-    color: white;
+/* =========================================================
+   PRODUCT CARD
+   ========================================================= */
 
-    font-size: 14px;
-    font-weight: 600;
+.product-card {
+    position: relative;
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    background: #fff;
+
+    border: 1px solid #f0dfe2;
+    border-radius: 18px;
+
+    box-shadow:
+        0 5px 18px rgba(80,0,20,.06);
 
     cursor: pointer;
 
-    transition: 0.2s;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
 }
 
-.share-catalog-button:hover {
-    transform: translateY(-1px);
-    opacity: 0.9;
-}
-
-.share-catalog-button:active {
-    transform: scale(0.98);
-}
-
-/* =========================================================
-   KATEGORI & URUTKAN - RONA CREATION
-========================================================= */
-
-/* Pembungkus kategori */
-.category-wrapper {
-    width: calc(100% - 30px);
-    max-width: 1100px;
-    margin: 18px auto 8px;
-}
-
-/* Judul kategori */
-.section-label {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    margin-bottom: 10px;
-    padding-left: 3px;
-
-    font-size: 15px;
-    font-weight: 800;
-    color: #8f1b2c;
-}
-
-/* Kategori */
-.category-wrapper .category-section {
-    width: 100%;
-    margin: 0;
-    padding: 4px 2px 10px;
-
-    display: flex;
-    gap: 9px;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-}
-
-/* Tombol kategori */
-.category-wrapper .category {
-    flex: 0 0 auto;
-
-    padding: 11px 18px;
-
-    border: 1px solid #ead0d0;
-    border-radius: 25px;
-
-    background: #ffffff;
-    color: #555;
-
-    font-size: 13px;
-    font-weight: 700;
-
-    box-shadow: 0 3px 9px rgba(80, 0, 20, 0.07);
-
-    transition: all 0.2s ease;
-}
-
-/* Kategori saat disentuh */
-.category-wrapper .category:hover {
-    border-color: #b21f35;
-    color: #b21f35;
-    transform: translateY(-1px);
-}
-
-/* Kategori aktif */
-.category-wrapper .category.active {
-    background: #b21f35;
-    border-color: #b21f35;
-    color: #ffffff;
+.product-card:hover {
+    transform: translateY(-5px);
 
     box-shadow:
-        0 5px 12px rgba(178, 31, 53, 0.22);
+        0 15px 30px rgba(80,0,20,.12);
 }
 
 
 /* =========================================================
-   URUTKAN PRODUK
-========================================================= */
+   PRODUCT IMAGE
+   ========================================================= */
 
-.sort-section {
-    width: calc(100% - 30px);
-    max-width: 1100px;
+.product-image-wrapper {
+    position: relative;
 
-    margin: 0 auto 18px;
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+    background: #f8f5f5;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform .4s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.045);
+}
+
+
+/* =========================================================
+   NO IMAGE
+   ========================================================= */
+
+.product-no-image {
+    width: 100%;
+    height: 100%;
+
+    min-height: 220px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    background: #f7f7f7;
+    color: #999;
+}
+
+.product-no-image span {
+    font-size: 40px;
+}
+
+.product-no-image small {
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   PRODUCT INFO
+   ========================================================= */
+
+.product-info {
+    padding: 14px 15px 16px;
+}
+
+
+/* =========================================================
+   PRODUCT CATEGORY
+   ========================================================= */
+
+.product-category {
+    display: inline-block;
+
+    margin-bottom: 7px;
+
+    padding: 4px 8px;
+
+    border-radius: 20px;
+
+    background: #fff0f2;
+    color: #a51d31;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   PRODUCT NAME
+   ========================================================= */
+
+.product-name {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #333;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    line-height: 1.35;
+
+    white-space: normal;
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   PRODUCT SUBCATEGORY
+   ========================================================= */
+
+.product-subcategory {
+    margin-bottom: 9px;
+
+    color: #999;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   PRODUCT PRICE
+   ========================================================= */
+
+.product-price {
+    margin-bottom: 12px;
+
+    color: #b21f35;
+
+    font-size: 16px;
+    font-weight: 800;
+}
+
+/* =========================================================
+   HARGA PROMO
+   ========================================================= */
+
+.product-price-promo {
+    margin-top: 6px;
+}
+
+
+/* HARGA NORMAL / CORET */
+
+.harga-coret {
+    font-size: 12px;
+    color: #999;
+    text-decoration: line-through;
+    line-height: 1.2;
+    margin-bottom: 2px;
+}
+
+
+/* HARGA PROMO */
+
+.harga-promo {
+    font-size: 19px;
+    font-weight: 800;
+    color: #d62828;
+    line-height: 1.2;
+}
+
+
+/* LABEL PROMO */
+
+.label-promo {
+    display: inline-block;
+
+    margin-top: 5px;
+
+    padding: 3px 8px;
+
+    background: #d62828;
+    color: #fff;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    border-radius: 5px;
+
+    letter-spacing: .3px;
+}
+
+/* =========================================================
+   DETAIL BUTTON
+   ========================================================= */
+
+.detail-button {
+    display: block;
+
+    width: 100%;
+
+    min-height: 38px;
+
+    padding: 9px 12px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #b21f35;
+    color: #fff;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.detail-button:hover {
+    background: #92182b;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(178,31,53,.2);
+}
+
+.detail-button:active {
+    transform: scale(.98);
+}
+
+
+/* =========================================================
+   PRODUCT CARD LINK
+   ========================================================= */
+
+.product-card a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 5px;
+    padding: 5px 9px;
+
+    background: #c62828;
+    color: #fff;
+
+    border-radius: 6px;
+
+    text-decoration: none;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    transition: .2s ease;
+}
+
+.product-card a:hover {
+    background: #a91f1f;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   DETAIL OVERLAY
+   ========================================================= */
+
+.detail-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,.58);
 
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
 
-    gap: 10px;
+    padding: 15px;
+
+    z-index: 9999;
 }
 
-/* Label */
-.sort-section label {
-    font-size: 13px;
+
+/* =========================================================
+   DETAIL MODAL
+   ========================================================= */
+
+.detail-modal {
+    position: relative;
+
+    width: 100%;
+    max-width: 520px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: #fff;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.25);
+
+    animation: munculDetail .2s ease;
+}
+
+@keyframes munculDetail {
+
+    from {
+        opacity: 0;
+        transform: scale(.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   CLOSE DETAIL PREMIUM
+   ========================================================= */
+
+.close-detail {
+    position: absolute;
+
+    top: 14px;
+    right: 14px;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.96);
+    color: #555;
+
+    font-size: 17px;
     font-weight: 700;
-    color: #666;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,.16);
+
+    z-index: 5;
+
+    transition: .2s ease;
 }
 
-/* Select */
-#sortSelect {
-    min-width: 170px;
+.close-detail:hover {
+    background: #b21f35;
+    color: #fff;
 
-    padding: 10px 14px;
+    transform: rotate(90deg);
+}
 
-    border: 1px solid #e2c5c9;
+/* =========================================================
+   DETAIL IMAGE
+   ========================================================= */
+
+.detail-image {
+    width: 100%;
+
+    max-height: 450px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* =========================================================
+   DETAIL CONTENT PREMIUM
+   ========================================================= */
+
+.detail-content {
+    padding: 24px 25px 25px;
+}
+
+.detail-category {
+    display: inline-block;
+
+    margin-bottom: 9px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    background: #fff0f2;
+    color: #b21f35;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: .5px;
+
+    text-transform: uppercase;
+}
+
+.detail-content h2 {
+    margin-bottom: 7px;
+
+    color: #333;
+
+    font-size: 25px;
+    line-height: 1.25;
+}
+
+.detail-price {
+    margin-bottom: 16px;
+
+    color: #b21f35;
+
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.detail-content p {
+    margin-bottom: 22px;
+
+    color: #666;
+
+    font-size: 14px;
+    line-height: 1.75;
+}
+/* =========================================================
+   WEBSITE BUTTON
+   ========================================================= */
+
+.website-button {
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #c62828;
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.website-button:hover {
+    background: #a91f1f;
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.cta-section {
+    padding: 65px 20px;
+
+    background: #8f172c;
+    color: #fff;
+}
+
+.cta-inner {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+.cta-label {
+    color: #ffd9df;
+}
+
+.cta-inner h2 {
+    margin-bottom: 9px;
+
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.cta-inner p {
+    max-width: 650px;
+
+    color: rgba(255,255,255,.78);
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.cta-button {
+    flex-shrink: 0;
+
+    padding: 13px 20px;
+
+    border: none;
+    border-radius: 30px;
+
+    background: #fff;
+    color: #a21c32;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.18);
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    background: #272727;
+
+    color: white;
+
+    padding: 30px 20px;
+}
+
+.footer-inner {
+    width: 100%;
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+.footer h3 {
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.footer p {
+    color: #ccc;
+    font-size: 12px;
+}
+
+.footer-note {
+    text-align: right;
+}
+
+.copyright {
+    margin-top: 10px;
+
+    font-size: 10px !important;
+    color: #888 !important;
+}
+
+
+/* =========================================================
+   ADMIN
+   ========================================================= */
+
+.admin-container {
+    width: calc(100% - 30px);
+    max-width: 900px;
+
+    margin: 25px auto 50px;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+.admin-header h1 {
+    color: #b71c1c;
+
+    font-size: 26px;
+
+    margin-bottom: 5px;
+}
+
+.admin-header p {
+    color: #777;
+
+    font-size: 13px;
+}
+
+.back-button {
+    text-decoration: none;
+
+    background: #fff;
+    color: #c62828;
+
+    padding: 10px 15px;
+
     border-radius: 10px;
 
-    background: #ffffff;
-    color: #8f1b2c;
+    font-size: 13px;
+    font-weight: 700;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,.06);
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   ADMIN CARD
+   ========================================================= */
+
+.admin-card {
+    background: #fff;
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 4px 18px rgba(0,0,0,.06);
+}
+
+.admin-card h2 {
+    color: #333;
+
+    font-size: 19px;
+
+    margin-bottom: 5px;
+}
+
+
+/* =========================================================
+   ADMIN FORM
+   ========================================================= */
+
+.form-group {
+    margin-top: 18px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #444;
 
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
 
     outline: none;
 
-    cursor: pointer;
+    background: #fff;
 
-    box-shadow: 0 2px 8px rgba(80, 0, 20, 0.06);
+    font-size: 14px;
 }
 
-/* Saat dipilih */
-#sortSelect:focus {
-    border-color: #b21f35;
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #c62828;
+}
 
-    box-shadow:
-        0 0 0 3px rgba(178, 31, 53, 0.10);
+.form-group textarea {
+    resize: vertical;
+}
+
+
+/* =========================================================
+   UPLOAD
+   ========================================================= */
+
+.upload-box {
+    border: 2px dashed #e0a0a0;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    background: #fffafa;
+}
+
+.upload-box input {
+    border: none;
+    padding: 5px;
+}
+
+.upload-box p {
+    margin-top: 8px;
+
+    color: #888;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   IMAGE PREVIEW
+   ========================================================= */
+
+#imagePreview {
+    margin-top: 12px;
+}
+
+#imagePreview img {
+    width: 120px;
+    height: 120px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    display: block;
+}
+
+
+/* =========================================================
+   SAVE BUTTON
+   ========================================================= */
+
+.save-product-button {
+    width: 100%;
+
+    margin-top: 22px;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #c62828;
+    color: white;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.save-product-button:hover {
+    opacity: .9;
+}
+
+
+/* =========================================================
+   ADMIN PRODUCT LIST HEADER
+   ========================================================= */
+
+.product-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+}
+
+.product-list-header p {
+    margin-top: 5px;
+
+    color: #888;
+
+    font-size: 12px;
+}
+
+.product-count {
+    background: #ffebee;
+    color: #c62828;
+
+    padding: 8px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   ADMIN PRODUCT LIST
+   ========================================================= */
+
+.admin-product-list {
+    margin-top: 20px;
+}
+
+.admin-product-item {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 12px;
+
+    margin-bottom: 10px;
+
+    background: #fffafa;
+
+    border-radius: 12px;
+}
+
+.admin-product-item img {
+    width: 70px;
+    height: 70px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    flex-shrink: 0;
+}
+
+.admin-product-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.admin-product-category {
+    color: #c62828;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    margin-bottom: 3px;
+}
+
+.admin-product-info h3 {
+    color: #333;
+
+    font-size: 14px;
+
+    margin-bottom: 4px;
+}
+
+.admin-product-info p {
+    color: #b71c1c;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ADMIN ACTIONS
+   ========================================================= */
+
+.admin-product-actions {
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 10px;
+
+    flex-wrap: wrap;
+}
+
+.edit-product-button,
+.delete-product-button {
+    border: none;
+
+    color: white;
+
+    padding: 8px 12px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: .2s ease;
+}
+
+.edit-product-button {
+    background: #198754;
+}
+
+.edit-product-button:hover {
+    background: #146c43;
+    transform: scale(1.03);
+}
+
+.delete-product-button {
+    background: #dc3545;
+}
+
+.delete-product-button:hover {
+    background: #b02a37;
+    transform: scale(1.03);
+}
+
+
+/* =========================================================
+   CANCEL EDIT
+   ========================================================= */
+
+#cancelEditButton {
+    border: none;
+
+    background: #6c757d;
+    color: white;
+
+    padding: 8px 14px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    margin-left: 6px;
+
+    transition: .2s ease;
+}
+
+#cancelEditButton:hover {
+    background: #5c636a;
+}
+
+
+/* =========================================================
+   EMPTY PRODUCT
+   ========================================================= */
+
+.empty-product {
+    text-align: center;
+
+    padding: 40px 10px;
+
+    color: #999;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .product-container {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+    .benefit-inner {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+    }
 }
 
 
 /* =========================================================
    MOBILE
-========================================================= */
+   ========================================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
 
-    .category-wrapper {
-        width: calc(100% - 20px);
-        margin-top: 12px;
+    /* HEADER */
+
+    .header-inner {
+        width: calc(100% - 24px);
+
+        min-height: 70px;
     }
 
-    .section-label {
+    .brand {
+        gap: 8px;
+    }
+
+    .brand img {
+        width: 44px;
+        height: 44px;
+    }
+
+    .brand-text .logo {
+        font-size: 20px;
+        letter-spacing: 1.2px;
+    }
+
+    .brand-text .tagline {
+        font-size: 9px;
+    }
+
+    .header-catalog-button {
+        padding: 8px 13px;
+
+        font-size: 11px;
+    }
+
+
+    /* HERO */
+
+    .hero,
+    .hero-inner {
+        min-height: auto;
+    }
+
+    .hero-inner {
+        width: calc(100% - 30px);
+
+        padding: 55px 0 45px;
+
+        display: flex;
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 30px;
+    }
+
+    .hero-content {
+        max-width: none;
+    }
+
+    .hero h1 {
+        font-size: 37px;
+    }
+
+    .hero p {
         font-size: 14px;
-        margin-bottom: 8px;
     }
 
-    .category-wrapper .category-section {
-        padding-left: 2px;
-        padding-right: 2px;
-        padding-bottom: 9px;
+    .hero-buttons {
+        gap: 8px;
     }
 
-    .category-wrapper .category {
-        padding: 10px 15px;
+    .hero-button {
+        min-height: 43px;
+
+        padding: 0 15px;
+
         font-size: 12px;
     }
 
+    .hero-visual {
+        min-height: 320px;
+    }
 
-    /* Urutan di HP */
-    .sort-section {
-        width: calc(100% - 20px);
+    .hero-product-frame {
+        width: 240px;
+        min-height: 290px;
 
-        margin: 2px auto 18px;
+        padding: 22px;
 
-        justify-content: space-between;
+        border-radius: 24px;
+    }
+
+    .hero-product-frame img {
+        width: 145px;
+        height: 145px;
+    }
+
+    .hero-decoration-one {
+        width: 180px;
+        height: 180px;
+    }
+
+
+    /* BENEFIT */
+
+    .benefit-section {
+        padding: 55px 15px;
+    }
+
+    .benefit-inner {
+        gap: 30px;
+    }
+
+    .benefit-heading h2 {
+        font-size: 29px;
+    }
+
+    .benefit-grid {
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+    .benefit-card {
+        padding: 17px;
+    }
+
+
+    /* CATALOG */
+
+    .catalog-section {
+        padding: 55px 12px 35px;
+    }
+
+    .catalog-heading {
+        margin-bottom: 22px;
+    }
+
+    .catalog-heading h2 {
+        font-size: 30px;
+    }
+
+    .search-section {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: stretch;
 
         gap: 8px;
     }
 
-    .sort-section label {
-        font-size: 12px;
-        white-space: nowrap;
+    .share-catalog-button {
+        width: 100%;
+    }
+
+    .category-wrapper {
+        margin-bottom: 8px;
+    }
+
+    .category-section {
+        overflow-x: auto;
+    }
+
+    .subcategory-section {
+        overflow-x: auto;
+
+        flex-wrap: nowrap;
+    }
+
+
+    /* TOOLBAR */
+
+    .catalog-toolbar {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 10px;
+    }
+
+    .sort-box {
+        justify-content: space-between;
     }
 
     #sortSelect {
-        min-width: 0;
         flex: 1;
 
-        padding: 10px 11px;
+        min-width: 0;
+    }
+
+
+    /* PRODUCTS */
+
+    .product-container {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 10px;
+    }
+
+    .product-card {
+        border-radius: 14px;
+    }
+
+    .product-info {
+        padding: 10px;
+    }
+
+    .product-category {
+        font-size: 9px;
+
+        padding: 4px 6px;
+    }
+
+    .product-name {
+        font-size: 13px;
+    }
+
+    .product-subcategory {
+        font-size: 10px;
+    }
+
+    .product-price {
+        font-size: 14px;
+
+        margin-bottom: 9px;
+    }
+
+    .detail-button {
+        min-height: 35px;
+
+        padding: 8px 5px;
+
+        font-size: 11px;
+    }
+
+
+    /* CTA */
+
+    .cta-section {
+        padding: 50px 18px;
+    }
+
+    .cta-inner {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 22px;
+    }
+
+    .cta-inner h2 {
+        font-size: 25px;
+    }
+
+    .cta-button {
+        width: 100%;
+    }
+
+
+    /* FOOTER */
+
+    .footer {
+        padding: 25px 15px;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+    }
+
+    .footer-note {
+        text-align: center;
+    }
+
+
+    /* DETAIL */
+
+    .detail-overlay {
+        padding: 8px;
+    }
+
+    .detail-modal {
+        max-height: 94vh;
+
+        border-radius: 16px;
+    }
+
+    .detail-content {
+        padding: 18px;
+    }
+
+    .detail-content h2 {
+        font-size: 20px;
+    }
+
+    .detail-image {
+        max-height: 350px;
+    }
+
+
+    /* ADMIN */
+
+    .admin-container {
+        width: calc(100% - 20px);
+
+        margin-top: 18px;
+    }
+
+    .admin-header {
+        display: block;
+    }
+
+    .admin-header h1 {
+        font-size: 23px;
+    }
+
+    .back-button {
+        display: inline-block;
+
+        margin-top: 12px;
+    }
+
+    .admin-card {
+        padding: 17px;
+
+        border-radius: 15px;
+    }
+
+    .product-list-header {
+        align-items: flex-start;
+    }
+
+    .product-list-header h2 {
+        font-size: 17px;
+    }
+
+    .admin-product-item {
+        align-items: flex-start;
+    }
+
+    .admin-product-item img {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+
+/* =========================================================
+   HP KECIL
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .header-catalog-button {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .hero-button {
+        width: 100%;
+    }
+
+    .product-container {
+        gap: 8px;
+    }
+
+    .product-info {
+        padding: 8px;
+    }
+
+    .product-name {
+        font-size: 12px;
+    }
+
+    .product-price {
+        font-size: 13px;
+    }
+
+    .detail-button {
+        font-size: 10px;
+    }
+}
+
+
+/* =========================================================
+   ADMIN MOBILE ACTIONS
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .admin-product-actions {
+        width: 100%;
+    }
+
+    .edit-product-button,
+    .delete-product-button {
+        padding: 7px 10px;
 
         font-size: 12px;
     }
 
+    #cancelEditButton {
+        margin-left: 0;
+
+        margin-top: 8px;
+    }
 }
 
-/* =========================
-   TOOLBAR KATALOG
-========================= */
+/* =========================================================
+   PRODUCT NAME PREMIUM
+   ========================================================= */
 
-.catalog-toolbar {
-    width: 100%;
-    max-width: 1200px;
-    margin: 5px auto 15px;
-    padding: 0 12px;
+.product-name-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+
+    margin-bottom: 4px;
+}
+
+.product-name-icon {
+    width: 20px;
+    height: 20px;
+
+    flex-shrink: 0;
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 15px;
+    justify-content: center;
+
+    margin-top: 1px;
+
+    border-radius: 50%;
+
+    background: #fff0f2;
+    color: #b21f35;
+
+    font-size: 10px;
+    font-weight: 800;
 }
 
-.catalog-toolbar h2 {
-    margin: 0;
-    color: #8f1b2c;
-    font-size: 24px;
+.product-name-row .product-name {
+    flex: 1;
+
+    margin-bottom: 0;
+}
+
+/* =========================================================
+   PRODUCT IMAGE PREMIUM
+   ========================================================= */
+
+.product-image-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-image-badge {
+    position: absolute;
+
+    top: 10px;
+    left: 10px;
+
+    padding: 6px 10px;
+
+    background: rgba(255,255,255,.94);
+    color: #a21d32;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: .5px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.10);
+
+    z-index: 2;
+}
+
+.product-image-wrapper::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.06),
+            transparent 25%,
+            transparent 75%,
+            rgba(0,0,0,.03)
+        );
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+.product-image {
+    position: relative;
+    z-index: 0;
+}
+
+/* =========================================================
+   RONA CREATION
+   PRODUCT CARD PREMIUM
+   ========================================================= */
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.product-card {
+    background: #fff;
+
+    border: 1px solid #f0dfe2;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 5px 18px rgba(80,0,20,.055);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+
+.product-card:hover {
+    transform: translateY(-6px);
+
+    border-color: #ead0d4;
+
+    box-shadow:
+        0 18px 35px rgba(80,0,20,.12);
+}
+
+
+/* =========================================================
+   FOTO
+   ========================================================= */
+
+.product-image-wrapper {
+    position: relative;
+
+    aspect-ratio: 1 / 1;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff8f8,
+            #f8eeee
+        );
+}
+
+
+.product-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition:
+        transform .5s ease;
+}
+
+
+.product-card:hover .product-image {
+    transform: scale(1.06);
+}
+
+
+/* =========================================================
+   GARIS HALUS DI BAWAH FOTO
+   ========================================================= */
+
+.product-image-wrapper::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 1px;
+
+    background:
+        rgba(178,31,53,.08);
+}
+
+
+/* =========================================================
+   INFO
+   ========================================================= */
+
+.product-info {
+    padding: 15px 15px 16px;
+
+    background: #fff;
+}
+
+
+/* =========================================================
+   CATEGORY
+   ========================================================= */
+
+.product-category {
+    display: inline-flex;
+
+    align-items: center;
+
+    min-height: 22px;
+
+    margin-bottom: 8px;
+
+    padding: 4px 9px;
+
+    border-radius: 20px;
+
+    background: #fff0f2;
+
+    color: #a51d31;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: .7px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   NAMA PRODUK
+   ========================================================= */
+
+.product-name {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #333;
+
+    font-size: 16px;
     font-weight: 700;
+
+    line-height: 1.35;
+
+    white-space: normal;
+    word-break: break-word;
+}
+
+/* =========================================================
+   SUBKATEGORI
+   ========================================================= */
+
+.product-subcategory {
+    min-height: 17px;
+
+    margin-bottom: 8px;
+
+    color: #999;
+
+    font-size: 10px;
+
+    line-height: 1.4;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
 }
 
 
-/* =========================
-   URUTKAN PRODUK
-========================= */
+/* =========================================================
+   HARGA
+   ========================================================= */
 
-.sort-box {
+.product-price {
+    margin-bottom: 12px;
+
+    color: #b21f35;
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   TOMBOL DETAIL
+   ========================================================= */
+
+.detail-button {
+    position: relative;
+
+    width: 100%;
+
+    min-height: 39px;
+
+    padding: 9px 12px;
+
+    border: 1px solid #b21f35;
+
+    border-radius: 10px;
+
+    background: #b21f35;
+
+    color: #fff;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.detail-button:hover {
+    background: #92182b;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(178,31,53,.2);
+}
+
+
+.detail-button:active {
+    transform: scale(.98);
+}
+
+
+/* =========================================================
+   NO IMAGE
+   ========================================================= */
+
+.product-no-image {
+    width: 100%;
+    height: 100%;
+
+    min-height: 220px;
+
     display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7f7,
+            #f8eeee
+        );
+
+    color: #aaa;
+}
+
+
+.product-no-image span {
+    font-size: 38px;
+
+    opacity: .7;
+}
+
+
+.product-no-image small {
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    color: #b21f35;
+}
+
+
+/* =========================================================
+   MOBILE PREMIUM
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .product-card {
+        border-radius: 14px;
+    }
+
+
+    .product-info {
+        padding: 11px 10px 12px;
+    }
+
+
+    .product-category {
+        min-height: 20px;
+
+        margin-bottom: 6px;
+
+        padding: 3px 7px;
+
+        font-size: 8px;
+    }
+
+
+    .product-name {
+        min-height: 35px;
+
+        margin-bottom: 2px;
+
+        font-size: 13px;
+
+        line-height: 1.35;
+    }
+
+
+    .product-subcategory {
+        min-height: 15px;
+
+        margin-bottom: 7px;
+
+        font-size: 9px;
+    }
+
+
+    .product-price {
+        margin-bottom: 9px;
+
+        font-size: 14px;
+    }
+
+
+    .detail-button {
+        min-height: 35px;
+
+        padding: 8px 5px;
+
+        border-radius: 8px;
+
+        font-size: 10px;
+    }
+
+}
+
+
+/* =========================================================
+   HP SANGAT KECIL
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .product-info {
+        padding: 9px 8px 10px;
+    }
+
+
+    .product-name {
+        font-size: 12px;
+
+        min-height: 33px;
+    }
+
+
+    .product-price {
+        font-size: 13px;
+    }
+
+
+    .detail-button {
+        min-height: 34px;
+
+        font-size: 10px;
+    }
+
+}
+
+/* =========================================================
+   DETAIL PRODUK - PREMIUM
+   ========================================================= */
+
+.detail-overlay {
+    background: rgba(35, 10, 15, .68);
+
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    padding: 20px;
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.detail-modal {
+    max-width: 560px;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.28);
+}
+
+
+/* =========================================================
+   FOTO DETAIL
+   ========================================================= */
+
+.detail-image {
+    width: 100%;
+
+    max-height: 480px;
+
+    object-fit: cover;
+
+    background: #f8f5f5;
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.detail-content {
+    padding: 24px;
+}
+
+
+/* =========================================================
+   KATEGORI
+   ========================================================= */
+
+.detail-category {
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    background: #fff0f2;
+
+    color: #a51d31;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: .7px;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   NAMA
+   ========================================================= */
+
+.detail-content h2 {
+    margin-bottom: 8px;
+
+    color: #333;
+
+    font-size: 25px;
+
+    line-height: 1.3;
+}
+
+
+/* =========================================================
+   HARGA
+   ========================================================= */
+
+.detail-price {
+    margin-bottom: 17px;
+
+    color: #b21f35;
+
+    font-size: 20px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   DESKRIPSI
+   ========================================================= */
+
+.detail-content p {
+    margin-bottom: 22px;
+
+    color: #666;
+
+    font-size: 14px;
+
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   TOMBOL WHATSAPP
+   ========================================================= */
+
+.whatsapp-button {
+    min-height: 48px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 6px 15px rgba(37,211,102,.15);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.whatsapp-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 20px rgba(37,211,102,.22);
+}
+
+
+/* =========================================================
+   WEBSITE
+   ========================================================= */
+
+.website-button {
+    min-height: 48px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 14px rgba(198,40,40,.12);
+}
+
+
+/* =========================================================
+   CLOSE
+   ========================================================= */
+
+.close-detail {
+    top: 14px;
+    right: 14px;
+
+    width: 40px;
+    height: 40px;
+
+    background: rgba(255,255,255,.96);
+
+    color: #555;
+
+    font-size: 17px;
+
+    box-shadow:
+        0 4px 14px rgba(0,0,0,.16);
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+.close-detail:hover {
+    transform: rotate(90deg);
+
+    background: #fff0f2;
+
+    color: #b21f35;
+}
+
+
+/* =========================================================
+   DETAIL MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .detail-overlay {
+        padding: 8px;
+    }
+
+
+    .detail-modal {
+        width: 100%;
+
+        max-width: 500px;
+
+        max-height: 94vh;
+
+        border-radius: 18px;
+    }
+
+
+    .detail-image {
+        max-height: 370px;
+    }
+
+
+    .detail-content {
+        padding: 18px;
+    }
+
+
+    .detail-content h2 {
+        font-size: 20px;
+    }
+
+
+    .detail-price {
+        font-size: 17px;
+
+        margin-bottom: 13px;
+    }
+
+
+    .detail-content p {
+        font-size: 13px;
+
+        line-height: 1.65;
+    }
+
+
+    .close-detail {
+        top: 10px;
+        right: 10px;
+
+        width: 36px;
+        height: 36px;
+    }
+
+}
+
+/* =========================================================
+   RONA DI TENGAH GARIS
+   ========================================================= */
+
+.rona-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px auto 20px;
+    width: 100%;
+}
+
+.rona-footer::before,
+.rona-footer::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+}
+
+.rona-footer span {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #888;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   PROMO HARIAN
+   ========================================================= */
+
+.daily-promo {
+    width: 100%;
+    padding: 20px 15px;
+    margin: 10px auto 30px;
+}
+
+.promo-inner {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 22px 20px;
+
+    text-align: center;
+
+    background: linear-gradient(
+        135deg,
+        #fff8f8,
+        #fff
+    );
+
+    border: 1px solid #f0dddd;
+    border-radius: 20px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.promo-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #b52b2b;
+    margin-bottom: 4px;
+}
+
+.promo-subtitle {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+.promo-countdown {
+    display: flex;
+    justify-content: center;
     align-items: center;
     gap: 8px;
 }
 
-.sort-box label {
+.countdown-box {
+    min-width: 72px;
+    padding: 8px 10px;
+
+    background: #fff;
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.countdown-box strong {
+    display: block;
+    font-size: 25px;
+    line-height: 1.1;
+    color: #333;
+}
+
+.countdown-box span {
+    display: block;
+    margin-top: 4px;
+    font-size: 11px;
+    color: #888;
+}
+
+.countdown-separator {
+    font-size: 24px;
+    font-weight: 700;
+    color: #b52b2b;
+}
+
+.promo-note {
+    margin-top: 14px;
     font-size: 13px;
     font-weight: 600;
-    color: #666;
+    color: #777;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .daily-promo {
+        padding: 15px 10px;
+        margin-bottom: 20px;
+    }
+
+    .promo-inner {
+        padding: 18px 12px;
+        border-radius: 16px;
+    }
+
+    .promo-title {
+        font-size: 19px;
+    }
+
+    .promo-countdown {
+        gap: 5px;
+    }
+
+    .countdown-box {
+        min-width: 62px;
+        padding: 7px 6px;
+    }
+
+    .countdown-box strong {
+        font-size: 21px;
+    }
+
+    .countdown-box span {
+        font-size: 10px;
+    }
+
+    .countdown-separator {
+        font-size: 19px;
+    }
+
+}
+
+/* =========================================================
+   HARGA PROMO PRODUK
+   ========================================================= */
+
+.product-price-promo {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
+
+/* Harga normal / harga coret */
+
+.harga-coret {
+    font-size: 12px;
+    color: #999;
+    text-decoration: line-through;
+    line-height: 1.2;
+}
+
+/* Harga promo */
+
+.harga-promo {
+    font-size: 19px;
+    font-weight: 800;
+    color: #b52b2b;
+    line-height: 1.2;
+}
+
+/* Label PROMO */
+
+.label-promo {
+    display: inline-block;
+    margin-top: 3px;
+
+    padding: 3px 8px;
+
+    background: #b52b2b;
+    color: #fff;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    border-radius: 5px;
+
+    letter-spacing: .3px;
+}
+
+
+/* =========================================================
+   DETAIL HARGA PROMO
+   ========================================================= */
+
+.detail-price .product-price-promo {
+    margin-top: 5px;
+}
+
+.detail-price .harga-coret {
+    font-size: 14px;
+}
+
+.detail-price .harga-promo {
+    font-size: 24px;
+}
+
+.detail-price .label-promo {
+    font-size: 11px;
+    padding: 4px 9px;
+}
+
+
+/* =========================================================
+   PROMO STICKY PALING ATAS
+   ========================================================= */
+
+.promo-section {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+
+    width: 100%;
+    max-width: 100%;
+
+    margin: 0;
+
+    padding: 8px 10px 9px;
+
+    background: #fff;
+
+    border-radius: 0;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, .12);
+
+    text-align: center;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   JUDUL PROMO
+   ========================================================= */
+
+.promo-title {
+    font-size: 16px;
+    font-weight: 900;
+
+    line-height: 1.2;
+
+    margin-bottom: 5px;
+
+    color: #b52b2b;
+
+    letter-spacing: .4px;
+}
+
+
+/* =========================================================
+   COUNTDOWN
+   ========================================================= */
+
+.promo-countdown {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 5px;
+}
+
+
+/* =========================================================
+   KOTAK WAKTU
+   ========================================================= */
+
+.promo-time-box {
+    min-width: 52px;
+
+    padding: 4px 7px;
+
+    background: #f8f8f8;
+
+    border-radius: 7px;
+
+    box-shadow:
+        inset 0 0 0 1px rgba(0,0,0,.05);
+}
+
+
+/* ANGKA */
+
+.promo-time-number {
+    display: block;
+
+    font-size: 18px;
+    font-weight: 900;
+
+    line-height: 1;
+
+    color: #222;
+}
+
+
+/* LABEL */
+
+.promo-time-label {
+    display: block;
+
+    margin-top: 3px;
+
+    font-size: 8px;
+
+    line-height: 1;
+
+    color: #777;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TITIK / PEMISAH
+   ========================================================= */
+
+.promo-separator {
+    font-size: 16px;
+
+    font-weight: 900;
+
+    color: #b21f35;
+}
+
+
+/* =========================================================
+   TEKS BAWAH PROMO
+   ========================================================= */
+
+.promo-section::after {
+    content: "Jangan lewatkan harga spesial hari ini!";
+
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 9px;
+
+    color: #777;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .promo-section {
+        padding: 7px 8px 8px;
+    }
+
+    .promo-title {
+        font-size: 15px;
+    }
+
+    .promo-time-box {
+        min-width: 48px;
+        padding: 4px 6px;
+    }
+
+    .promo-time-number {
+        font-size: 17px;
+    }
+
+    .promo-time-label {
+        font-size: 7px;
+    }
+
+    .promo-separator {
+        font-size: 14px;
+    }
+
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .promo-countdown {
+        gap: 5px;
+    }
+
+    .promo-time-box {
+        min-width: 58px;
+        padding: 7px 6px;
+    }
+
+    .promo-time-number {
+        font-size: 19px;
+    }
+
+    .promo-time-label {
+        font-size: 8px;
+    }
+
+    .promo-separator {
+        font-size: 16px;
+    }
+
+    .harga-promo {
+        font-size: 17px;
+    }
+
+}
+/* =========================================================
+   PROMO HARIAN - HORIZONTAL ELEGANT
+   ========================================================= */
+
+.daily-promo {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+
+    width: calc(100% - 24px);
+    margin: 6px 12px 0;
+
+    background: #b21f35;
+
+    color: #ffffff;
+
+    border-radius: 10px;
+
+    padding: 7px 12px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 3px 10px rgba(0, 0, 0, 0.14);
+}
+
+
+/* =========================================================
+   ISI PROMO
+   ========================================================= */
+
+.promo-inner {
+    max-width: 650px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
     white-space: nowrap;
 }
 
-#sortSelect {
-    border: 1px solid #d9a0a8;
-    background: #fff;
-    color: #8f1b2c;
 
-    padding: 9px 12px;
-    border-radius: 10px;
+/* =========================================================
+   JUDUL PROMO
+   ========================================================= */
 
-    font-size: 13px;
-    font-weight: 600;
+.promo-title {
+    font-size: 20px;
 
-    outline: none;
-    cursor: pointer;
+    font-weight: 1200;
 
-    box-shadow: 0 2px 7px rgba(120, 0, 20, 0.08);
-}
+    letter-spacing: 0.3px;
 
-#sortSelect:focus {
-    border-color: #b21f35;
-    box-shadow: 0 0 0 3px rgba(178, 31, 53, 0.10);
+    flex-shrink: 0;
 }
 
 
-/* =========================
-   HP
-========================= */
+/* =========================================================
+   COUNTDOWN
+   ========================================================= */
+
+.promo-countdown {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+/* =========================================================
+   KOTAK ANGKA
+   ========================================================= */
+
+.countdown-box {
+    min-width: 40px;
+
+    padding: 4px 5px;
+
+    background: rgba(255, 255, 255, 0.15);
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    border-radius: 6px;
+
+    text-align: center;
+
+    box-sizing: border-box;
+}
+
+
+.countdown-box strong {
+    display: block;
+
+    font-size: 25px;
+
+    font-weight: 800;
+
+    line-height: 1;
+}
+
+
+.countdown-box span {
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 7px;
+
+    line-height: 1;
+
+    opacity: 0.9;
+}
+
+
+/* =========================================================
+   PEMISAH
+   ========================================================= */
+
+.countdown-separator {
+    font-size: 12px;
+
+    font-weight: 700;
+
+    opacity: 0.8;
+}
+
+
+/* =========================================================
+   CATATAN PROMO
+   ========================================================= */
+
+.promo-note {
+    display: none;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 600px) {
 
-    .catalog-toolbar {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
+    .daily-promo {
+        width: calc(100% - 20px);
 
-        padding: 0 12px;
-        margin-bottom: 12px;
+        margin: 5px 10px 0;
+
+        padding: 6px 8px;
+
+        border-radius: 9px;
     }
 
-    .catalog-toolbar h2 {
-        text-align: left;
-        font-size: 21px;
-        margin: 0;
+
+    .promo-inner {
+        gap: 7px;
     }
 
-    .sort-box {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
+
+    .promo-title {
+        font-size: 15px;
     }
 
-    .sort-box label {
+
+    .promo-countdown {
+        gap: 3px;
+    }
+
+
+    .countdown-box {
+        min-width: 31px;
+
+        padding: 4px 4px;
+
+        border-radius: 5px;
+    }
+
+
+    .countdown-box strong {
         font-size: 12px;
     }
 
-    #sortSelect {
-        flex: 1;
-        max-width: 190px;
-        padding: 9px 10px;
-        font-size: 12px;
+
+    .countdown-box span {
+        font-size: 6px;
+
+        margin-top: 2px;
+    }
+
+
+    .countdown-separator {
+        font-size: 10px;
     }
 
 }
 
-/* =========================
-   KATEGORI RONA - LEBIH MENONJOL
-========================= */
 
-.category-section {
-    background: #fff;
-    border-radius: 14px;
-    padding: 10px;
-    box-shadow: 0 3px 12px rgba(120, 0, 20, 0.06);
-    border: 1px solid #f0dfe2;
-}
+/* =========================================================
+   HP KECIL
+   ========================================================= */
 
-.category {
-    border: 1px solid #ead0d0;
-    background: #fffafa;
-    color: #8f1b2c;
-    font-weight: 600;
-    transition: all 0.2s ease;
-}
+@media (max-width: 380px) {
 
-.category:hover {
-    border-color: #b21f35;
-    color: #b21f35;
-    transform: translateY(-1px);
-}
-
-.category.active {
-    background: #b21f35;
-    border-color: #b21f35;
-    color: #fff;
-    box-shadow: 0 3px 8px rgba(178, 31, 53, 0.22);
-}
-
-
-/* =========================
-   SUBKATEGORI LEBIH JELAS
-========================= */
-
-.subcategory-section {
-    background: #fffafa;
-    border-radius: 12px;
-    margin-top: -10px;
-    margin-bottom: 20px;
-    padding: 10px;
-}
-
-.subcategory-button {
-    background: #fff;
-    border: 1px solid #d9a0a8;
-    color: #9f1d2f;
-}
-
-.subcategory-button.active {
-    background: #b21f35;
-    border-color: #b21f35;
-    color: white;
-}
-
-
-/* =========================
-   HP
-========================= */
-
-@media (max-width: 600px) {
-
-    .category-section {
-        margin-left: 10px;
-        margin-right: 10px;
-        padding: 8px;
-        border-radius: 12px;
+    .daily-promo {
+        padding-left: 6px;
+        padding-right: 6px;
     }
 
-    .category {
-        padding: 9px 14px;
+
+    .promo-inner {
+        gap: 5px;
+    }
+
+
+    .promo-title {
         font-size: 13px;
     }
 
-    .subcategory-section {
-        margin-left: 10px;
-        margin-right: 10px;
-        padding: 8px;
+
+    .countdown-box {
+        min-width: 29px;
+
+        padding: 4px 3px;
+    }
+
+
+    .countdown-box strong {
+        font-size: 15px;
     }
 
 }
-
-
