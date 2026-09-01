@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -11,178 +12,522 @@
 
 <body>
 
-    <!-- HEADER -->
-<header class="header">
+<!-- =====================================================
+     PROMO HARIAN
+     ===================================================== -->
+<section class="daily-promo">
 
-    <div class="brand">
-        <img
-            src="image/logo-rona.png"
-            alt="Logo RONA CREATION"
-        >
+    <div class="promo-inner">
 
-        <div class="brand-text">
-            <div class="logo">
-                RONA <span>CREATION</span>
-            </div>
-
-            <div class="tagline">
-                Mahar • Undangan • Hantaran • Custom
-            </div>
+        <div class="promo-title">
+            🔥 <span id="promoDay">PROMO HARI INI!</span>
         </div>
+
+
+        <div class="promo-countdown">
+
+            <div class="countdown-box">
+                <strong id="promoHours">00</strong>
+                <span>Jam</span>
+            </div>
+
+            <div class="countdown-separator">:</div>
+
+            <div class="countdown-box">
+                <strong id="promoMinutes">00</strong>
+                <span>Menit</span>
+            </div>
+
+            <div class="countdown-separator">:</div>
+
+            <div class="countdown-box">
+                <strong id="promoSeconds">00</strong>
+                <span>Detik</span>
+            </div>
+
+        </div>
+
+        <div class="promo-note">
+            🎁 Harga spesial hari ini!
+        </div>
+
     </div>
 
-</header>
+</section>
 
-    <!-- HERO -->
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+    <header class="header">
+
+        <div class="header-inner">
+
+            <a href="#" class="brand">
+
+                <img
+                    src="images/logo-rona.png"
+                    alt="Logo RONA CREATION"
+                >
+
+                <div class="brand-text">
+
+                  <strong id="heroProductName">
+                    RONA CREATION
+                </strong>
+
+                <span id="heroProductCategory">
+                    Mahar • Undangan • Hantaran
+                </span>
+                </div>
+
+            </a>
+
+            <a
+                href="#katalog"
+                class="header-catalog-button"
+            >
+                Lihat Katalog
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
     <section class="hero">
 
-        <div class="hero-content">
+        <div class="hero-inner">
 
-            <h1>
-                Temukan Produk<br>
-                Favoritmu ✨
-            </h1>
+            <div class="hero-content">
 
-            <p>
-                Temukan koleksi cantik RONA CREATION untuk melengkapi momen spesial Anda.
-            </p>
+                <div class="hero-label">
+                    ✨ RONA CREATION
+                </div>
+
+                <h1>
+                    Wujudkan Momen<br>
+                    Spesial Bersama Kami
+                </h1>
+
+                <p>
+                    Mahar, undangan, hantaran, dan berbagai
+                    kebutuhan custom untuk melengkapi
+                    momen spesial Anda.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="#katalog"
+                        class="hero-button primary"
+                    >
+                        🛍️ Lihat Katalog
+                    </a>
+
+                    <button
+                        type="button"
+                        id="heroWhatsappButton"
+                        class="hero-button secondary"
+                    >
+                        💬 Konsultasi
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-visual">
+
+                <div class="hero-decoration hero-decoration-one"></div>
+                <div class="hero-decoration hero-decoration-two"></div>
+
+                <div class="hero-product-frame">
+
+                    <img
+                        src="images/foto 1.jpeg"
+                        alt="RONA CREATION"
+                    >
+
+                </div>
+
+            </div>
 
         </div>
 
     </section>
 
 
-    <!-- PENCARIAN -->
-<section class="search-section">
+    <!-- =====================================================
+         KEUNGGULAN
+         ===================================================== -->
+    <section class="benefit-section">
 
-    <input
-        type="text"
-        id="searchInput"
-        placeholder="🔎 Cari produk..."
-    >
+        <div class="benefit-inner">
 
-    <button
-        type="button"
-        id="shareCatalogButton"
-        class="share-catalog-button"
-    >
-        📤 Bagikan Katalog
-    </button>
+            <div class="benefit-heading">
 
-</section>
+                <span>
+                    WHY RONA?
+                </span>
+
+                <h2>
+                    Pilihan Produk untuk<br>
+                    Momen Spesial Anda
+                </h2>
+
+                <p>
+                    Kami hadir untuk membantu membuat
+                    setiap momen terasa lebih istimewa.
+                </p>
+
+            </div>
 
 
-   <!-- KATEGORI -->
-<section class="category-wrapper">
+            <div class="benefit-grid">
 
-    <div class="section-label">
-        📂 Pilih Kategori
-    </div>
+                <div class="benefit-card">
 
-    <section class="category-section">
+                    <div class="benefit-icon">
+                        ✨
+                    </div>
 
-        <button class="category active">
-            Semua
-        </button>
+                    <div>
+                        <h3>
+                            Bisa Custom
+                        </h3>
 
-        <button class="category">
-            Mahar
-        </button>
+                        <p>
+                            Sesuaikan desain dengan
+                            kebutuhan dan keinginan Anda.
+                        </p>
+                    </div>
 
-        <button class="category">
-            Undangan
-        </button>
+                </div>
 
-        <button class="category">
-            Hantaran
-        </button>
 
-        <button class="category">
-            Pigura & Cetak Foto
-        </button>
+                <div class="benefit-card">
 
-        <button class="category">
-            Lainnya
-        </button>
+                    <div class="benefit-icon">
+                        🎨
+                    </div>
+
+                    <div>
+                        <h3>
+                            Desain Menarik
+                        </h3>
+
+                        <p>
+                            Pilihan desain yang cantik
+                            untuk berbagai momen.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="benefit-card">
+
+                    <div class="benefit-icon">
+                        💝
+                    </div>
+
+                    <div>
+                        <h3>
+                            Berbagai Acara
+                        </h3>
+
+                        <p>
+                            Cocok untuk pernikahan,
+                            lamaran, dan acara lainnya.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="benefit-card">
+
+                    <div class="benefit-icon">
+                        📦
+                    </div>
+
+                    <div>
+                        <h3>
+                            Pesan Online
+                        </h3>
+
+                        <p>
+                            Konsultasi dan pemesanan
+                            dapat dilakukan dengan mudah.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </section>
 
-</section>
-    <!-- SUBKATEGORI -->
-    
 
-<div
-    id="subcategoryFilter"
-    class="subcategory-section">
-</div>
 
-<!-- URUTKAN PRODUK -->
-<section class="sort-section">
+    <!-- =====================================================
+         KATALOG
+         ===================================================== -->
+    <section
+        id="katalog"
+        class="catalog-section"
+    >
 
-    <label for="sortSelect">
-        ↕️ Urutkan Menurut
-    </label>
+        <div class="catalog-heading">
 
-    <select id="sortSelect">
+            <div>
 
-        <option value="terbaru">
-            Terbaru
-        </option>
+                <span class="catalog-label">
+                    OUR COLLECTION
+                </span>
 
-        <option value="nama-az">
-            Nama A–Z
-        </option>
+                <h2>
+                    Katalog Produk
+                </h2>
 
-        <option value="nama-za">
-            Nama Z–A
-        </option>
+                <p>
+                    Temukan produk yang sesuai
+                    dengan kebutuhan Anda.
+                </p>
 
-        <option value="harga-rendah">
-            Harga Termurah
-        </option>
+            </div>
 
-        <option value="harga-tinggi">
-            Harga Termahal
-        </option>
+        </div>
 
-    </select>
 
-</section>
+        <!-- =================================================
+             SEARCH
+             ================================================= -->
+        <section class="search-section">
 
-   <!-- PRODUK -->
-<main class="product-section">
+            <div class="search-box">
 
-    </div>
+                <span class="search-icon">
+                    🔎
+                </span>
 
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Cari produk..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <button
+                type="button"
+                id="shareCatalogButton"
+                class="share-catalog-button"
+            >
+                📤 Bagikan Katalog
+            </button>
+
+        </section>
+
+
+        <!-- =================================================
+             KATEGORI
+             ================================================= -->
+        <section class="category-wrapper">
+
+            <div class="section-label">
+                Pilih Kategori
+            </div>
+
+            <section class="category-section">
+
+                <button class="category active">
+                    Semua
+                </button>
+
+                <button class="category">
+                    Mahar
+                </button>
+
+                <button class="category">
+                    Undangan
+                </button>
+
+                <button class="category">
+                    Hantaran
+                </button>
+
+                <button class="category">
+                    Pigura & Cetak Foto
+                </button>
+
+                <button class="category">
+                    Lainnya
+                </button>
+
+            </section>
+
+        </section>
+
+
+        <!-- =================================================
+             SUBKATEGORI
+             ================================================= -->
         <div
-            id="productContainer"
-            class="product-container"
-        >
+            id="subcategoryFilter"
+            class="subcategory-section"
+        ></div>
 
-            <!-- Produk nanti muncul di sini -->
+
+        <!-- =================================================
+             TOOLBAR
+             ================================================= -->
+        <section class="catalog-toolbar">
+
+            <div class="catalog-result-title">
+                <h3>
+                    Produk RONA
+                </h3>
+
+                <p>
+                    Pilihan produk terbaru kami
+                </p>
+            </div>
+
+
+            <div class="sort-box">
+
+                <label for="sortSelect">
+                    Urutkan:
+                </label>
+
+                <select id="sortSelect">
+
+                    <option value="terbaru">
+                        Terbaru
+                    </option>
+
+                    <option value="nama-az">
+                        Nama A–Z
+                    </option>
+
+                    <option value="nama-za">
+                        Nama Z–A
+                    </option>
+
+                    <option value="harga-rendah">
+                        Harga Termurah
+                    </option>
+
+                    <option value="harga-tinggi">
+                        Harga Termahal
+                    </option>
+
+                </select>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PRODUK
+             ================================================= -->
+        <main class="product-section">
+
+            <div
+                id="productContainer"
+                class="product-container"
+            >
+
+                <!-- Produk dari products.json / GitHub -->
+
+            </div>
+
+        </main>
+
+    </section>
+
+
+    <!-- =====================================================
+         CTA
+         ===================================================== -->
+    <section class="cta-section">
+
+        <div class="cta-inner">
+
+            <div>
+
+                <span class="cta-label">
+                    RONA CREATION
+                </span>
+
+                <h2>
+                    Punya desain atau kebutuhan khusus?
+                </h2>
+
+                <p>
+                    Konsultasikan kebutuhan Anda bersama
+                    kami. Kami siap membantu mewujudkan
+                    produk yang sesuai dengan keinginan Anda.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                id="ctaWhatsappButton"
+                class="cta-button"
+            >
+                💬 Konsultasi via WhatsApp
+            </button>
 
         </div>
 
-    </main>
+    </section>
 
 
-    <!-- FOOTER -->
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
     <footer class="footer">
 
-        <h3>RONA CREATION</h3>
+        <div class="footer-inner">
 
-        <p>
-            Mahar • Undangan • Hantaran • Custom
-        </p>
+            <div class="footer-brand">
 
-        <p class="copyright">
-            © 2026 RONA CREATION
-        </p>
+                <h3>
+                    RONA CREATION
+                </h3>
+
+                <p>
+                    Mahar • Undangan • Hantaran • Custom
+                </p>
+
+                <p class="copyright">
+                    © 2026 RONA CREATION
+                </p>
+
+            </div>
+
+        </div>
 
     </footer>
 
 
+    <!-- =====================================================
+         SCRIPT
+         ===================================================== -->
     <script src="js/app.js"></script>
 
 </body>
 </html>
+```
