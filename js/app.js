@@ -122,12 +122,10 @@ function tampilkanHargaPromo(product) {
                 ${formatHarga({
                     price: hargaPromo
                 })}
-            </div>
 
-            <div class="label-promo">
+                  <div class="label-promo">
                 🔥 PROMO
             </div>
-
         </div>
     `;
 
