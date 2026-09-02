@@ -666,10 +666,219 @@ function tampilkanDetail(product) {
     const detail =
         document.createElement("div");
 
-
     detail.className =
         "detail-overlay";
 
+
+    // =====================================================
+    // KUMPULKAN 5 FOTO
+    // =====================================================
+
+    const media = [];
+
+    [
+        product.image,
+        product.image2,
+        product.image3,
+        product.image4,
+        product.image5
+    ].forEach(
+        foto => {
+
+            if (
+                foto &&
+                String(foto).trim()
+            ) {
+
+                media.push({
+                    type: "image",
+                    src: foto
+                });
+
+            }
+
+        }
+    );
+
+
+    // =====================================================
+    // TAMBAHKAN VIDEO
+    // =====================================================
+
+    if (
+        product.video &&
+        String(product.video).trim()
+    ) {
+
+        media.push({
+            type: "video",
+            src: product.video
+        });
+
+    }
+
+
+    // =====================================================
+    // MEDIA UTAMA
+    // =====================================================
+
+    const mediaUtama =
+        media.length > 0
+            ? media[0]
+            : null;
+
+
+    let mediaUtamaHTML = "";
+
+
+    if (
+        mediaUtama &&
+        mediaUtama.type === "image"
+    ) {
+
+        mediaUtamaHTML = `
+            <img
+                src="${mediaUtama.src}"
+                alt="${product.name || "Produk RONA CREATION"}"
+                class="detail-image"
+                id="detailMediaUtama"
+            >
+        `;
+
+    }
+
+    else if (
+        mediaUtama &&
+        mediaUtama.type === "video"
+    ) {
+
+        mediaUtamaHTML = `
+            <video
+                id="detailMediaUtama"
+                class="detail-image detail-video"
+                controls
+                playsinline
+            >
+                <source src="${mediaUtama.src}">
+            </video>
+        `;
+
+    }
+
+    else {
+
+        mediaUtamaHTML = `
+            <div class="detail-no-image">
+                📦
+            </div>
+        `;
+
+    }
+
+
+    // =====================================================
+    // THUMBNAIL
+    // =====================================================
+
+    let thumbnailHTML = "";
+
+
+    if (media.length > 1) {
+
+        thumbnailHTML = `
+            <div class="detail-thumbnails">
+
+                ${
+
+                    media.map(
+                        (item, index) => {
+
+                            if (
+                                item.type === "image"
+                            ) {
+
+                                return `
+                                    <button
+                                        type="button"
+                                        class="
+                                            detail-thumbnail
+                                            ${
+                                                index === 0
+                                                    ? "active"
+                                                    : ""
+                                            }
+                                        "
+                                        data-index="${index}"
+                                    >
+
+                                        <img
+                                            src="${item.src}"
+                                            alt="Foto ${
+                                                index + 1
+                                            }"
+                                        >
+
+                                    </button>
+                                `;
+
+                            }
+
+
+                            return `
+                                <button
+                                    type="button"
+                                    class="
+                                        detail-thumbnail
+                                        detail-video-thumb
+                                    "
+                                    data-index="${index}"
+                                >
+
+                                    <span>
+                                        ▶
+                                    </span>
+
+                                    <small>
+                                        VIDEO
+                                    </small>
+
+                                </button>
+                            `;
+
+                        }
+                    ).join("")
+
+                }
+
+            </div>
+        `;
+
+    }
+
+
+    // =====================================================
+    // DESKRIPSI
+    // =====================================================
+
+    const deskripsi =
+        product.description
+            ? String(
+                product.description
+            )
+            .replace(
+                /\r?\n\r?\n/g,
+                "</p><p>"
+            )
+            .replace(
+                /\r?\n/g,
+                "<br>"
+            )
+            : "Deskripsi produk belum tersedia.";
+
+
+    // =====================================================
+    // HTML DETAIL
+    // =====================================================
 
     detail.innerHTML = `
 
@@ -679,18 +888,26 @@ function tampilkanDetail(product) {
                 class="close-detail"
                 type="button"
             >
-
                 ✕
-
             </button>
 
 
-            <img
-                src="${product.image || ""}"
-                alt="${product.name || "Produk"}"
-                class="detail-image"
-            >
+            <!-- MEDIA PRODUK -->
 
+            <div class="detail-media">
+
+                <div class="detail-main-media">
+
+                    ${mediaUtamaHTML}
+
+                </div>
+
+                ${thumbnailHTML}
+
+            </div>
+
+
+            <!-- INFO PRODUK -->
 
             <div class="detail-content">
 
@@ -710,19 +927,18 @@ function tampilkanDetail(product) {
 
                 <div class="detail-price">
 
-                     ${tampilkanHargaPromo(product)}
+                    ${tampilkanHargaPromo(product)}
 
                 </div>
 
 
-                <p>
+                <div class="detail-description">
 
-                    ${
-                        product.description ||
-                        "Deskripsi produk belum tersedia."
-                    }
+                    <p>
+                        ${deskripsi}
+                    </p>
 
-                </p>
+                </div>
 
 
                 <button
@@ -775,9 +991,127 @@ function tampilkanDetail(product) {
     );
 
 
-    // =========================
+    // =====================================================
+    // THUMBNAIL MEDIA
+    // =====================================================
+
+    const thumbnailButtons =
+        detail.querySelectorAll(
+            ".detail-thumbnail"
+        );
+
+
+    thumbnailButtons.forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const index =
+                        Number(
+                            button.dataset.index
+                        );
+
+                    const item =
+                        media[index];
+
+
+                    const container =
+                        detail.querySelector(
+                            ".detail-main-media"
+                        );
+
+
+                    if (!container) {
+                        return;
+                    }
+
+
+                    // -------------------------
+                    // FOTO
+                    // -------------------------
+
+                    if (
+                        item.type === "image"
+                    ) {
+
+                        container.innerHTML = `
+
+                            <img
+                                src="${item.src}"
+                                alt="${
+                                    product.name ||
+                                    "Produk RONA CREATION"
+                                }"
+                                class="detail-image"
+                                id="detailMediaUtama"
+                            >
+
+                        `;
+
+                    }
+
+
+                    // -------------------------
+                    // VIDEO
+                    // -------------------------
+
+                    else {
+
+                        container.innerHTML = `
+
+                            <video
+                                class="
+                                    detail-image
+                                    detail-video
+                                "
+                                controls
+                                autoplay
+                                playsinline
+                                id="detailMediaUtama"
+                            >
+
+                                <source
+                                    src="${item.src}"
+                                >
+
+                            </video>
+
+                        `;
+
+                    }
+
+
+                    // -------------------------
+                    // ACTIVE THUMBNAIL
+                    // -------------------------
+
+                    thumbnailButtons.forEach(
+                        btn => {
+
+                            btn.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    button.classList.add(
+                        "active"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    // =====================================================
     // TOMBOL TUTUP
-    // =========================
+    // =====================================================
 
     const tombolTutup =
         detail.querySelector(
@@ -785,19 +1119,23 @@ function tampilkanDetail(product) {
         );
 
 
-    tombolTutup.addEventListener(
-        "click",
-        () => {
+    if (tombolTutup) {
 
-            detail.remove();
+        tombolTutup.addEventListener(
+            "click",
+            () => {
 
-        }
-    );
+                detail.remove();
+
+            }
+        );
+
+    }
 
 
-    // =========================
+    // =====================================================
     // KLIK DI LUAR POPUP
-    // =========================
+    // =====================================================
 
     detail.addEventListener(
         "click",
@@ -815,9 +1153,9 @@ function tampilkanDetail(product) {
     );
 
 
-    // =========================
+    // =====================================================
     // WHATSAPP
-    // =========================
+    // =====================================================
 
     const tombolWhatsApp =
         detail.querySelector(
@@ -831,38 +1169,81 @@ function tampilkanDetail(product) {
             "click",
             () => {
 
-const pesan = `Halo RONA CREATION 👋
+                const hargaNormal =
+                    Number(
+                        String(
+                            product.price || ""
+                        )
+                        .replace(
+                            /[^\d]/g,
+                            ""
+                        )
+                    ) || 0;
+
+
+                const hargaPromo =
+                    Number(
+                        String(
+                            product.promoPrice ??
+                            product.pricePromo ??
+                            ""
+                        )
+                        .replace(
+                            /[^\d]/g,
+                            ""
+                        )
+                    ) || 0;
+
+
+                const hargaPesan =
+                    hargaPromo > 0 &&
+                    hargaPromo < hargaNormal
+                        ?
+
+                        formatHarga({
+                            price: hargaPromo
+                        }) +
+                        " 🔥 PROMO"
+
+                        :
+
+                        formatHarga(
+                            product
+                        );
+
+
+                const pesan = `Halo RONA CREATION 👋
 
 Saya tertarik dengan produk:
 
-📦 ${product.name || "Produk RONA CREATION"}
+📦 ${
+    product.name ||
+    "Produk RONA CREATION"
+}
 
 🏷️ Kategori:
-${product.category || "-"}
+${
+    product.category ||
+    "-"
+}
 
 📂 Subkategori:
-${product.subcategory || "-"}
+${
+    product.subcategory ||
+    "-"
+}
 
 💰 Harga:
-${
-    product.promoPrice &&
-    Number(product.promoPrice) > 0 &&
-    Number(product.promoPrice) <
-    Number(
-        String(product.price || "")
-            .replace(/[^\d]/g, "")
-    )
-        ? formatHarga({
-            price: product.promoPrice
-        }) + " 🔥 PROMO"
-        : formatHarga(product)
-}
+${hargaPesan}
 
 Mohon informasi lebih lanjut mengenai produk tersebut.
 
 Terima kasih 🙏`;
+
+
                 const url =
                     `https://wa.me/${nomorWhatsApp}?text=${encodeURIComponent(pesan)}`;
+
 
                 window.open(
                     url,
@@ -875,9 +1256,9 @@ Terima kasih 🙏`;
     }
 
 
-    // =========================
+    // =====================================================
     // WEBSITE UNDANGAN
-    // =========================
+    // =====================================================
 
     const tombolWebsite =
         detail.querySelector(
