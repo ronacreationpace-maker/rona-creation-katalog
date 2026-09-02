@@ -5988,3 +5988,133 @@ textarea {
     }
 
 }
+
+/* =========================================================
+   DETAIL PRODUK - GALERI 5 FOTO + VIDEO
+   ========================================================= */
+
+.detail-media {
+    width: 100%;
+}
+
+.detail-main-media {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #fff;
+
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.detail-image {
+    display: block;
+
+    width: 100%;
+    max-width: 100%;
+
+    height: auto;
+
+    max-height: 520px;
+
+    object-fit: contain;
+}
+
+.detail-video {
+    width: 100%;
+    max-height: 520px;
+
+    background: #000;
+}
+
+.detail-thumbnails {
+    display: flex;
+    gap: 8px;
+
+    margin-top: 10px;
+
+    overflow-x: auto;
+
+    padding-bottom: 4px;
+}
+
+.detail-thumbnail {
+    width: 62px;
+    height: 62px;
+
+    flex-shrink: 0;
+
+    padding: 3px;
+
+    border: 1px solid #eee;
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    cursor: pointer;
+
+    overflow: hidden;
+}
+
+.detail-thumbnail img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 6px;
+}
+
+.detail-thumbnail.active {
+    border: 2px solid #b21f35;
+}
+
+.detail-video-thumb {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 2px;
+
+    background: #fff0f2;
+
+    color: #b21f35;
+}
+
+.detail-video-thumb span {
+    font-size: 20px;
+}
+
+.detail-video-thumb small {
+    font-size: 8px;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   DESKRIPSI PRODUK
+   ========================================================= */
+
+.detail-description {
+    color: #666;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    margin-top: 15px;
+}
+
+.detail-description p {
+    margin: 0;
+}
+
+.detail-description br {
+    line-height: 1.7;
+}
