@@ -1506,6 +1506,69 @@ if (productImage3) {
 }
 
 
+
+// ============================================================
+// EVENT FOTO 4
+// ============================================================
+
+if (productImage3) {
+
+    productImage3.addEventListener(
+        "change",
+        function() {
+
+            previewFoto(
+                productImage4.files[0],
+                imagePreview4
+            );
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// EVENT FOTO 5
+// ============================================================
+
+if (productImage5) {
+
+    productImage3.addEventListener(
+        "change",
+        function() {
+
+            previewFoto(
+                productImage5.files[0],
+                imagePreview5
+            );
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// EVENT FOTO 6
+// ============================================================
+
+if (productImage6) {
+
+    productImage3.addEventListener(
+        "change",
+        function() {
+
+            previewFoto(
+                productImage6.files[0],
+                imagePreview6
+            );
+
+        }
+    );
+
+}
+
 // ============================================================
 // EVENT VIDEO
 // ============================================================
