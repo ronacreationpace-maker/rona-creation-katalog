@@ -1520,9 +1520,9 @@ if (productImage3) {
 // EVENT FOTO 4
 // ============================================================
 
-if (productImage3) {
+if (productImage4) {
 
-    productImage3.addEventListener(
+    productImage4.addEventListener(
         "change",
         function() {
 
@@ -1543,7 +1543,7 @@ if (productImage3) {
 
 if (productImage5) {
 
-    productImage3.addEventListener(
+    productImage4.addEventListener(
         "change",
         function() {
 
@@ -1564,7 +1564,7 @@ if (productImage5) {
 
 if (productImage6) {
 
-    productImage3.addEventListener(
+    productImage4.addEventListener(
         "change",
         function() {
 
@@ -2511,7 +2511,22 @@ if (saveProductButton) {
                 productImage3
                     ? productImage3.files[0]
                     : null;
+            
+            const file4 =
+                productImage4
+                    ? productImage4.files[0]
+                    : null;
 
+            const file5 =
+                productImage5
+                    ? productImage5.files[0]
+                    : null;
+
+            const file6 =
+                productImage6
+                    ? productImage6.files[0]
+                    : null;
+            
             const videoFile =
                 productVideo
                     ? productVideo.files[0]
@@ -2895,6 +2910,17 @@ if (saveProductButton) {
                         produkLama.image3 ||
                         "";
 
+                     let gambar4 =
+                        produkLama.image4 ||
+                        "";
+
+                    let gambar5 =
+                        produkLama.image5 ||
+                        "";
+
+                    let gambar6 =
+                        produkLama.image6 ||
+                        "";
                     let video =
                         produkLama.video ||
                         "";
@@ -2945,6 +2971,48 @@ if (saveProductButton) {
                     }
 
 
+                    // FOTO 4
+
+                    if (file4) {
+
+                        saveProductButton.textContent =
+                            "⏳ Mengompres Foto 4...";
+
+                        gambar4 =
+                            await kompresFoto(
+                                file4
+                            );
+
+                    }
+
+                    // FOTO 5
+
+                    if (file5) {
+
+                        saveProductButton.textContent =
+                            "⏳ Mengompres Foto 5...";
+
+                        gambar5 =
+                            await kompresFoto(
+                                file5
+                            );
+
+                    }
+
+                     // FOTO 6
+
+                    if (file6) {
+
+                        saveProductButton.textContent =
+                            "⏳ Mengompres Foto 6...";
+
+                        gambar6 =
+                            await kompresFoto(
+                                file6
+                            );
+
+                    }
+                    
                     // VIDEO
 
                     if (videoFile) {
@@ -2988,6 +3056,15 @@ if (saveProductButton) {
                         image3:
                             gambar3,
 
+                        image4:
+                            gambar4,
+
+                        image5:
+                            gambar5,
+
+                        image6:
+                            gambar6,
+                        
                         video:
                             video,
 
@@ -3177,6 +3254,15 @@ if (saveProductButton) {
                     image3:
                         gambar3,
 
+                    image4:
+                        gambar4,
+
+                    image5:
+                        gambar5,
+
+                    image6:
+                        gambar6,
+
                     video:
                         video,
 
@@ -3338,6 +3424,18 @@ function resetFormProduk() {
         productImage3.value = "";
     }
 
+    if (productImage4) {
+        productImage4.value = "";
+    }
+
+    if (productImage5) {
+        productImage5.value = "";
+    }
+
+    if (productImage6) {
+        productImage6.value = "";
+    }
+    
     if (productVideo) {
         productVideo.value = "";
     }
@@ -3395,6 +3493,17 @@ function resetFormProduk() {
         imagePreview3.innerHTML = "";
     }
 
+    if (imagePreview4) {
+        imagePreview4.innerHTML = "";
+    }
+
+    if (imagePreview5) {
+        imagePreview5.innerHTML = "";
+    }
+
+    if (imagePreview6) {
+        imagePreview6.innerHTML = "";
+    }
     if (videoPreview) {
         videoPreview.innerHTML = "";
     }
@@ -3499,6 +3608,71 @@ function tampilkanMediaEdit(
 
     }
 
+        // FOTO 4
+
+    if (imagePreview4) {
+
+        if (product.image4) {
+
+            imagePreview4.innerHTML = `
+                <img
+                    src="${product.image4}"
+                    alt="Foto Produk 4"
+                >
+            `;
+
+        } else {
+
+            imagePreview4.innerHTML =
+                "";
+
+        }
+
+    }
+
+        // FOTO 5
+
+    if (imagePreview5) {
+
+        if (product.image5) {
+
+            imagePreview5.innerHTML = `
+                <img
+                    src="${product.image5}"
+                    alt="Foto Produk 5"
+                >
+            `;
+
+        } else {
+
+            imagePreview5.innerHTML =
+                "";
+
+        }
+
+    }
+
+        // FOTO 6
+
+    if (imagePreview6) {
+
+        if (product.image6) {
+
+            imagePreview6.innerHTML = `
+                <img
+                    src="${product.image6}"
+                    alt="Foto Produk 6"
+                >
+            `;
+
+        } else {
+
+            imagePreview6.innerHTML =
+                "";
+
+        }
+
+    }
 
     // VIDEO
 
@@ -3700,7 +3874,11 @@ if (
                 [
                     product.image,
                     product.image2,
-                    product.image3
+                    product.image3,
+                    product.image4,
+                    product.image5,
+                    product.image6
+                    
                 ]
                     .filter(Boolean)
                     .length;
@@ -3901,6 +4079,21 @@ if (productPricePromo) {
 
                     if (productImage3) {
                         productImage3.value =
+                            "";
+                    }
+
+                    if (productImage4) {
+                        productImage4.value =
+                            "";
+                    }
+
+                    if (productImage5) {
+                        productImage5.value =
+                            "";
+                    }
+
+                    if (productImage6) {
+                        productImage6.value =
                             "";
                     }
 
@@ -4312,6 +4505,107 @@ async function kompresProdukLama() {
 
             }
 
+// FOTO 4
+
+            if (
+                product.image4 &&
+                product.image4.startsWith(
+                    "data:image"
+                )
+            ) {
+
+                const response =
+                    await fetch(
+                        product.image4
+                    );
+
+                const blob =
+                    await response.blob();
+
+                const file =
+                    new File(
+                        [blob],
+                        `produk-${product.id}-4.jpg`,
+                        {
+                            type:
+                                "image/jpeg"
+                        }
+                    );
+
+                produkUpdate.image4 =
+                    await kompresFoto(
+                        file
+                    );
+
+            }
+
+            // FOTO 5
+
+            if (
+                product.image5 &&
+                product.image5.startsWith(
+                    "data:image"
+                )
+            ) {
+
+                const response =
+                    await fetch(
+                        product.image5
+                    );
+
+                const blob =
+                    await response.blob();
+
+                const file =
+                    new File(
+                        [blob],
+                        `produk-${product.id}-5.jpg`,
+                        {
+                            type:
+                                "image/jpeg"
+                        }
+                    );
+
+                produkUpdate.image5 =
+                    await kompresFoto(
+                        file
+                    );
+
+            }
+
+            // FOTO 6
+
+            if (
+                product.image6 &&
+                product.image6.startsWith(
+                    "data:image"
+                )
+            ) {
+ 
+                const response =
+                    await fetch(
+                        product.image6
+                    );
+
+                const blob =
+                    await response.blob();
+
+                const file =
+                    new File(
+                        [blob],
+                        `produk-${product.id}-6.jpg`,
+                        {
+                            type:
+                                "image/jpeg"
+                        }
+                    );
+
+                produkUpdate.image6 =
+                    await kompresFoto(
+                        file
+                    );
+
+            }
             produkBaru.push(
                 produkUpdate
             );
