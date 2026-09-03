@@ -61,6 +61,15 @@ const imagePreview2 =
 const imagePreview3 =
     document.getElementById("imagePreview3");
 
+const imagePreview4 =
+    document.getElementById("imagePreview4");
+
+const imagePreview5 =
+    document.getElementById("imagePreview5");
+
+const imagePreview6 =
+    document.getElementById("imagePreview6");
+
 const videoPreview =
     document.getElementById("videoPreview");
 
