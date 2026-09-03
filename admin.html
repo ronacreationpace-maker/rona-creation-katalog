@@ -114,7 +114,9 @@
             <div class="media-upload-grid">
 
 
-                <!-- FOTO 1 -->
+                <!-- =================================================
+                     FOTO 1
+                ================================================== -->
 
                 <div class="media-upload-item">
 
@@ -153,7 +155,9 @@
 
 
 
-                <!-- FOTO 2 -->
+                <!-- =================================================
+                     FOTO 2
+                ================================================== -->
 
                 <div class="media-upload-item">
 
@@ -192,7 +196,9 @@
 
 
 
-                <!-- FOTO 3 -->
+                <!-- =================================================
+                     FOTO 3
+                ================================================== -->
 
                 <div class="media-upload-item">
 
@@ -228,116 +234,131 @@
                     ></div>
 
                 </div>
-<!-- FOTO 4 -->
-
-<div class="media-upload-item">
-
-    <label for="productImage4">
-
-        Foto 4
-
-        <span class="optional">
-            Opsional
-        </span>
-
-    </label>
-
-    <div class="upload-box">
-
-        <input
-            type="file"
-            id="productImage4"
-            accept="image/*"
-        >
-
-        <p>
-            📷 Pilih foto keempat
-        </p>
-
-    </div>
-
-    <div
-        id="imagePreview4"
-        class="single-image-preview"
-    ></div>
-
-</div>
 
 
 
-<!-- FOTO 5 -->
+                <!-- =================================================
+                     FOTO 4
+                ================================================== -->
 
-<div class="media-upload-item">
+                <div class="media-upload-item">
 
-    <label for="productImage5">
+                    <label for="productImage4">
 
-        Foto 5
+                        Foto 4
 
-        <span class="optional">
-            Opsional
-        </span>
+                        <span class="optional">
+                            Opsional
+                        </span>
 
-    </label>
-
-    <div class="upload-box">
-
-        <input
-            type="file"
-            id="productImage5"
-            accept="image/*"
-        >
-
-        <p>
-            📷 Pilih foto kelima
-        </p>
-
-    </div>
-
-    <div
-        id="imagePreview5"
-        class="single-image-preview"
-    ></div>
-
-</div>
+                    </label>
 
 
+                    <div class="upload-box">
 
-<!-- FOTO 6 -->
+                        <input
+                            type="file"
+                            id="productImage4"
+                            accept="image/*"
+                        >
 
-<div class="media-upload-item">
+                        <p>
+                            📷 Pilih foto keempat
+                        </p>
 
-    <label for="productImage6">
+                    </div>
 
-        Foto 6
 
-        <span class="optional">
-            Opsional
-        </span>
+                    <div
+                        id="imagePreview4"
+                        class="single-image-preview"
+                    ></div>
 
-    </label>
-
-    <div class="upload-box">
-
-        <input
-            type="file"
-            id="productImage6"
-            accept="image/*"
-        >
-
-        <p>
-            📷 Pilih foto keenam
-        </p>
-
-    </div>
-
-    <div
-        id="imagePreview6"
-        class="single-image-preview"
-    ></div>
-
-</div>
                 </div>
-                
+
+
+
+                <!-- =================================================
+                     FOTO 5
+                ================================================== -->
+
+                <div class="media-upload-item">
+
+                    <label for="productImage5">
+
+                        Foto 5
+
+                        <span class="optional">
+                            Opsional
+                        </span>
+
+                    </label>
+
+
+                    <div class="upload-box">
+
+                        <input
+                            type="file"
+                            id="productImage5"
+                            accept="image/*"
+                        >
+
+                        <p>
+                            📷 Pilih foto kelima
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        id="imagePreview5"
+                        class="single-image-preview"
+                    ></div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     FOTO 6
+                ================================================== -->
+
+                <div class="media-upload-item">
+
+                    <label for="productImage6">
+
+                        Foto 6
+
+                        <span class="optional">
+                            Opsional
+                        </span>
+
+                    </label>
+
+
+                    <div class="upload-box">
+
+                        <input
+                            type="file"
+                            id="productImage6"
+                            accept="image/*"
+                        >
+
+                        <p>
+                            📷 Pilih foto keenam
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        id="imagePreview6"
+                        class="single-image-preview"
+                    ></div>
+
+                </div>
+
+
             </div>
 
 
@@ -422,6 +443,7 @@
             <label for="productName">
                 Nama Produk
             </label>
+
 
             <input
                 type="text"
@@ -549,7 +571,7 @@
         <div class="form-group">
 
             <label for="productPrice">
-                Harga
+                💰 Harga Normal
             </label>
 
 
@@ -560,20 +582,28 @@
                 inputmode="numeric"
                 autocomplete="off"
             >
-            <label for="productPricePromo">
+
+
+            <label
+                for="productPricePromo"
+                style="margin-top:10px;"
+            >
                 🔥 Harga Promo
             </label>
+
 
             <input
                 type="text"
                 id="productPricePromo"
-                placeholder="Contoh: 125000"
+                placeholder="Contoh: 125.000"
                 inputmode="numeric"
+                autocomplete="off"
             >
 
+
             <small>
-                Masukkan harga dalam angka.
-                Contoh: 150000
+                Harga promo harus lebih rendah dari harga normal.
+                Harga promo tidak akan berubah otomatis.
             </small>
 
         </div>
@@ -706,8 +736,6 @@
 
 
 
-        <!-- DAFTAR KATEGORI -->
-
         <div
             id="adminCategoryList"
             class="admin-category-list"
@@ -750,8 +778,6 @@
             "
         >
 
-            <!-- BACKUP -->
-
             <button
                 type="button"
                 id="backupProductButton"
@@ -760,8 +786,6 @@
                 💾 Backup Produk
             </button>
 
-
-            <!-- RESTORE -->
 
             <button
                 type="button"
@@ -780,8 +804,6 @@
             >
 
 
-            <!-- EXPORT -->
-
             <button
                 type="button"
                 id="exportProductsButton"
@@ -789,8 +811,6 @@
                 📤 Export products.json
             </button>
 
-
-            <!-- KOMPRES -->
 
             <button
                 type="button"
@@ -811,8 +831,6 @@
 
     <section class="admin-card">
 
-
-        <!-- HEADER PRODUK -->
 
         <div class="product-list-header">
 
@@ -864,8 +882,6 @@
         <div class="admin-statistics">
 
 
-            <!-- TOTAL PRODUK -->
-
             <div class="admin-stat-card">
 
                 <div class="admin-stat-icon">
@@ -890,8 +906,6 @@
 
 
 
-            <!-- PRODUK DENGAN FOTO -->
-
             <div class="admin-stat-card">
 
                 <div class="admin-stat-icon">
@@ -915,8 +929,6 @@
             </div>
 
 
-
-            <!-- JUMLAH KATEGORI -->
 
             <div class="admin-stat-card">
 
@@ -996,4 +1008,3 @@
 </body>
 
 </html>
-```
