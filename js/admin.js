@@ -3674,7 +3674,13 @@ if (exportProductsButton) {
 
 
 /* =========================================================
-   TAMBAH KATEGORI
+   KELOLA KATEGORI
+   TAMBAH / EDIT / HAPUS KATEGORI & SUBKATEGORI
+   ========================================================= */
+
+
+/* =========================================================
+   TAMBAH KATEGORI / SUBKATEGORI
    ========================================================= */
 
 if (addCategoryButton) {
@@ -3704,29 +3710,50 @@ if (addCategoryButton) {
             }
 
 
+            /* =================================================
+               CEK KATEGORI BARU
+               ================================================= */
+
             if (
                 !kategoriData[kategori]
             ) {
 
                 kategoriData[kategori] =
                     [];
+
             }
 
 
-            if (
-                subkategori &&
-                !kategoriData[kategori]
-                    .includes(
-                        subkategori
-                    )
-            ) {
+            /* =================================================
+               TAMBAH SUBKATEGORI
+               ================================================= */
+
+            if (subkategori) {
+
+                if (
+                    kategoriData[kategori]
+                        .includes(subkategori)
+                ) {
+
+                    alert(
+                        "⚠️ Subkategori tersebut sudah ada."
+                    );
+
+                    return;
+                }
+
 
                 kategoriData[kategori]
                     .push(
                         subkategori
                     );
+
             }
 
+
+            /* =================================================
+               SIMPAN
+               ================================================= */
 
             simpanKategori();
 
@@ -3739,6 +3766,7 @@ if (addCategoryButton) {
 
                 newCategory.value =
                     "";
+
             }
 
 
@@ -3746,14 +3774,658 @@ if (addCategoryButton) {
 
                 newSubcategory.value =
                     "";
+
             }
 
 
             alert(
                 "✅ Kategori berhasil disimpan."
             );
+
         }
     );
+
+}
+
+
+/* =========================================================
+   EDIT KATEGORI
+   ========================================================= */
+
+function editKategori(
+    namaLama
+) {
+
+    const namaBaru =
+        prompt(
+            "✏️ Edit nama kategori:",
+            namaLama
+        );
+
+
+    if (
+        namaBaru === null
+    ) {
+
+        return;
+
+    }
+
+
+    const hasil =
+        namaBaru.trim();
+
+
+    if (!hasil) {
+
+        alert(
+            "❌ Nama kategori tidak boleh kosong."
+        );
+
+        return;
+    }
+
+
+    if (
+        hasil === namaLama
+    ) {
+
+        return;
+    }
+
+
+    if (
+        kategoriData[hasil]
+    ) {
+
+        alert(
+            "❌ Kategori dengan nama tersebut sudah ada."
+        );
+
+        return;
+    }
+
+
+    /* =================================================
+       SIMPAN SUBKATEGORI LAMA
+       ================================================= */
+
+    kategoriData[hasil] =
+        kategoriData[namaLama] ||
+        [];
+
+
+    delete kategoriData[namaLama];
+
+
+    /* =================================================
+       UPDATE PRODUK YANG MEMAKAI KATEGORI LAMA
+       ================================================= */
+
+    let jumlahProduk =
+        0;
+
+
+    adminProducts.forEach(
+        function (product) {
+
+            if (
+                String(
+                    product.category ||
+                    ""
+                ) ===
+                String(namaLama)
+            ) {
+
+                product.category =
+                    hasil;
+
+                jumlahProduk++;
+
+            }
+
+        }
+    );
+
+
+    simpanKategori();
+
+    simpanProdukLocal();
+
+
+    renderKategoriSelect();
+
+    tampilkanDaftarKategori();
+
+    tampilkanProdukAdmin();
+
+
+    /* =================================================
+       KIRIM PERUBAHAN PRODUK KE GITHUB
+       ================================================= */
+
+    if (
+        jumlahProduk > 0
+    ) {
+
+        simpanKeGitHub()
+            .then(
+                function (berhasil) {
+
+                    if (berhasil) {
+
+                        console.log(
+                            "✅ Perubahan kategori dan produk berhasil dikirim ke GitHub."
+                        );
+
+                    } else {
+
+                        console.warn(
+                            "⚠️ Kategori berubah di perangkat, tetapi gagal mengirim produk ke GitHub."
+                        );
+
+                    }
+
+                }
+            );
+
+    }
+
+
+    alert(
+        "✅ Kategori berhasil diubah."
+    );
+
+}
+
+
+/* =========================================================
+   HAPUS KATEGORI
+   ========================================================= */
+
+function hapusKategori(
+    namaKategori
+) {
+
+    const jumlahProduk =
+        adminProducts.filter(
+            function (product) {
+
+                return String(
+                    product.category ||
+                    ""
+                ) ===
+                String(
+                    namaKategori
+                );
+
+            }
+        ).length;
+
+
+    let pesan =
+        "⚠️ Hapus kategori:\n\n" +
+        namaKategori +
+        "\n\n";
+
+
+    if (
+        jumlahProduk > 0
+    ) {
+
+        pesan +=
+            "Kategori ini sedang dipakai oleh " +
+            jumlahProduk +
+            " produk.\n\n" +
+            "Jika dihapus, produk tersebut akan tetap ada tetapi kategorinya menjadi kosong.\n\n";
+
+    }
+
+
+    pesan +=
+        "Yakin ingin menghapus?";
+
+
+    const yakin =
+        confirm(
+            pesan
+        );
+
+
+    if (!yakin) {
+
+        return;
+
+    }
+
+
+    /* =================================================
+       KOSONGKAN KATEGORI PRODUK
+       ================================================= */
+
+    if (
+        jumlahProduk > 0
+    ) {
+
+        adminProducts.forEach(
+            function (product) {
+
+                if (
+                    String(
+                        product.category ||
+                        ""
+                    ) ===
+                    String(
+                        namaKategori
+                    )
+                ) {
+
+                    product.category =
+                        "";
+
+                    product.subcategory =
+                        "";
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =================================================
+       HAPUS KATEGORI
+       ================================================= */
+
+    delete kategoriData[
+        namaKategori
+    ];
+
+
+    simpanKategori();
+
+    simpanProdukLocal();
+
+
+    renderKategoriSelect();
+
+    tampilkanDaftarKategori();
+
+    tampilkanProdukAdmin();
+
+
+    /* =================================================
+       SINKRONISASI GITHUB
+       ================================================= */
+
+    if (
+        jumlahProduk > 0
+    ) {
+
+        simpanKeGitHub();
+
+    }
+
+
+    alert(
+        "✅ Kategori berhasil dihapus."
+    );
+
+}
+
+
+/* =========================================================
+   EDIT SUBKATEGORI
+   ========================================================= */
+
+function editSubkategori(
+    namaKategori,
+    namaSubkategori
+) {
+
+    const namaBaru =
+        prompt(
+            "✏️ Edit nama subkategori:",
+            namaSubkategori
+        );
+
+
+    if (
+        namaBaru === null
+    ) {
+
+        return;
+
+    }
+
+
+    const hasil =
+        namaBaru.trim();
+
+
+    if (!hasil) {
+
+        alert(
+            "❌ Nama subkategori tidak boleh kosong."
+        );
+
+        return;
+    }
+
+
+    if (
+        hasil === namaSubkategori
+    ) {
+
+        return;
+    }
+
+
+    if (
+        !kategoriData[namaKategori]
+    ) {
+
+        alert(
+            "❌ Kategori tidak ditemukan."
+        );
+
+        return;
+    }
+
+
+    if (
+        kategoriData[namaKategori]
+            .includes(hasil)
+    ) {
+
+        alert(
+            "❌ Subkategori dengan nama tersebut sudah ada."
+        );
+
+        return;
+    }
+
+
+    /* =================================================
+       GANTI NAMA SUBKATEGORI
+       ================================================= */
+
+    const index =
+        kategoriData[namaKategori]
+            .indexOf(
+                namaSubkategori
+            );
+
+
+    if (
+        index === -1
+    ) {
+
+        alert(
+            "❌ Subkategori tidak ditemukan."
+        );
+
+        return;
+    }
+
+
+    kategoriData[namaKategori]
+        [index] =
+        hasil;
+
+
+    /* =================================================
+       UPDATE PRODUK
+       ================================================= */
+
+    let jumlahProduk =
+        0;
+
+
+    adminProducts.forEach(
+        function (product) {
+
+            if (
+                String(
+                    product.category ||
+                    ""
+                ) ===
+                String(
+                    namaKategori
+                ) &&
+                String(
+                    product.subcategory ||
+                    ""
+                ) ===
+                String(
+                    namaSubkategori
+                )
+            ) {
+
+                product.subcategory =
+                    hasil;
+
+                jumlahProduk++;
+
+            }
+
+        }
+    );
+
+
+    simpanKategori();
+
+    simpanProdukLocal();
+
+
+    renderKategoriSelect();
+
+    tampilkanDaftarKategori();
+
+    tampilkanProdukAdmin();
+
+
+    /* =================================================
+       SINKRONISASI GITHUB
+       ================================================= */
+
+    if (
+        jumlahProduk > 0
+    ) {
+
+        simpanKeGitHub()
+            .then(
+                function (berhasil) {
+
+                    if (berhasil) {
+
+                        console.log(
+                            "✅ Perubahan subkategori berhasil dikirim ke GitHub."
+                        );
+
+                    }
+
+                }
+            );
+
+    }
+
+
+    alert(
+        "✅ Subkategori berhasil diubah."
+    );
+
+}
+
+
+/* =========================================================
+   HAPUS SUBKATEGORI
+   ========================================================= */
+
+function hapusSubkategori(
+    namaKategori,
+    namaSubkategori
+) {
+
+    if (
+        !kategoriData[namaKategori]
+    ) {
+
+        alert(
+            "❌ Kategori tidak ditemukan."
+        );
+
+        return;
+    }
+
+
+    const jumlahProduk =
+        adminProducts.filter(
+            function (product) {
+
+                return (
+                    String(
+                        product.category ||
+                        ""
+                    ) ===
+                    String(
+                        namaKategori
+                    )
+                    &&
+                    String(
+                        product.subcategory ||
+                        ""
+                    ) ===
+                    String(
+                        namaSubkategori
+                    )
+                );
+
+            }
+        ).length;
+
+
+    let pesan =
+        "⚠️ Hapus subkategori:\n\n" +
+        namaSubkategori +
+        "\n\n";
+
+
+    if (
+        jumlahProduk > 0
+    ) {
+
+        pesan +=
+            "Subkategori ini sedang dipakai oleh " +
+            jumlahProduk +
+            " produk.\n\n" +
+            "Jika dihapus, subkategori produk tersebut akan dikosongkan.\n\n";
+
+    }
+
+
+    pesan +=
+        "Yakin ingin menghapus?";
+
+
+    const yakin =
+        confirm(
+            pesan
+        );
+
+
+    if (!yakin) {
+
+        return;
+
+    }
+
+
+    /* =================================================
+       HAPUS DARI DATA KATEGORI
+       ================================================= */
+
+    kategoriData[namaKategori] =
+        kategoriData[namaKategori]
+            .filter(
+                function (sub) {
+
+                    return sub !==
+                        namaSubkategori;
+
+                }
+            );
+
+
+    /* =================================================
+       UPDATE PRODUK
+       ================================================= */
+
+    if (
+        jumlahProduk > 0
+    ) {
+
+        adminProducts.forEach(
+            function (product) {
+
+                if (
+                    String(
+                        product.category ||
+                        ""
+                    ) ===
+                    String(
+                        namaKategori
+                    ) &&
+                    String(
+                        product.subcategory ||
+                        ""
+                    ) ===
+                    String(
+                        namaSubkategori
+                    )
+                ) {
+
+                    product.subcategory =
+                        "";
+
+                }
+
+            }
+        );
+
+    }
+
+
+    simpanKategori();
+
+    simpanProdukLocal();
+
+
+    renderKategoriSelect();
+
+    tampilkanDaftarKategori();
+
+    tampilkanProdukAdmin();
+
+
+    /* =================================================
+       SINKRONISASI GITHUB
+       ================================================= */
+
+    if (
+        jumlahProduk > 0
+    ) {
+
+        simpanKeGitHub();
+
+    }
+
+
+    alert(
+        "✅ Subkategori berhasil dihapus."
+    );
+
 }
 
 
@@ -3764,7 +4436,9 @@ if (addCategoryButton) {
 function tampilkanDaftarKategori() {
 
     if (!adminCategoryList) {
+
         return;
+
     }
 
 
@@ -3772,9 +4446,35 @@ function tampilkanDaftarKategori() {
         "";
 
 
-    Object.keys(
-        kategoriData
-    ).forEach(
+    const daftarKategori =
+        Object.keys(
+            kategoriData
+        );
+
+
+    if (
+        daftarKategori.length === 0
+    ) {
+
+        adminCategoryList.innerHTML =
+            `
+            <div style="
+                padding:15px;
+                text-align:center;
+                color:#777;
+                background:#f8f8f8;
+                border-radius:10px;
+            ">
+                Belum ada kategori.
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    daftarKategori.forEach(
         function (kategori) {
 
             const div =
@@ -3784,52 +4484,367 @@ function tampilkanDaftarKategori() {
 
 
             div.style.marginBottom =
+                "15px";
+
+            div.style.padding =
                 "12px";
 
+            div.style.border =
+                "1px solid #eee";
 
-            const sub =
-                kategoriData[kategori]
-                    .map(
-                        function (item) {
+            div.style.borderRadius =
+                "12px";
 
-                            return `
-                                <span style="
-                                    display:inline-block;
-                                    margin:3px;
-                                    padding:4px 8px;
-                                    border-radius:20px;
-                                    background:#f1f1f1;
-                                    font-size:12px;
-                                ">
-                                    ${escapeHTML(item)}
-                                </span>
-                            `;
-                        }
-                    )
-                    .join("");
+            div.style.background =
+                "#fff";
 
 
-            div.innerHTML =
-                `
-                <strong>
-                    ${escapeHTML(kategori)}
-                </strong>
+            /* =================================================
+               HEADER KATEGORI
+               ================================================= */
 
-                <div style="
-                    margin-top:5px;
-                ">
-                    ${sub}
-                </div>
-                `;
+            const header =
+                document.createElement(
+                    "div"
+                );
+
+
+            header.style.display =
+                "flex";
+
+            header.style.alignItems =
+                "center";
+
+            header.style.justifyContent =
+                "space-between";
+
+            header.style.gap =
+                "10px";
+
+
+            const namaKategori =
+                document.createElement(
+                    "strong"
+                );
+
+
+            namaKategori.textContent =
+                "📁 " +
+                kategori;
+
+
+            namaKategori.style.fontSize =
+                "15px";
+
+
+            const tombolKategori =
+                document.createElement(
+                    "div"
+                );
+
+
+            tombolKategori.style.display =
+                "flex";
+
+            tombolKategori.style.gap =
+                "5px";
+
+
+            /* =================================================
+               TOMBOL EDIT KATEGORI
+               ================================================= */
+
+            const tombolEditKategori =
+                document.createElement(
+                    "button"
+                );
+
+
+            tombolEditKategori.type =
+                "button";
+
+            tombolEditKategori.textContent =
+                "✏️";
+
+            tombolEditKategori.title =
+                "Edit kategori";
+
+
+            tombolEditKategori.onclick =
+                function () {
+
+                    editKategori(
+                        kategori
+                    );
+
+                };
+
+
+            /* =================================================
+               TOMBOL HAPUS KATEGORI
+               ================================================= */
+
+            const tombolHapusKategori =
+                document.createElement(
+                    "button"
+                );
+
+
+            tombolHapusKategori.type =
+                "button";
+
+            tombolHapusKategori.textContent =
+                "🗑️";
+
+            tombolHapusKategori.title =
+                "Hapus kategori";
+
+
+            tombolHapusKategori.onclick =
+                function () {
+
+                    hapusKategori(
+                        kategori
+                    );
+
+                };
+
+
+            tombolKategori.appendChild(
+                tombolEditKategori
+            );
+
+            tombolKategori.appendChild(
+                tombolHapusKategori
+            );
+
+
+            header.appendChild(
+                namaKategori
+            );
+
+            header.appendChild(
+                tombolKategori
+            );
+
+
+            div.appendChild(
+                header
+            );
+
+
+            /* =================================================
+               DAFTAR SUBKATEGORI
+               ================================================= */
+
+            const daftarSub =
+                document.createElement(
+                    "div"
+                );
+
+
+            daftarSub.style.marginTop =
+                "10px";
+
+
+            const daftar =
+                kategoriData[kategori] ||
+                [];
+
+
+            if (
+                daftar.length === 0
+            ) {
+
+                const kosong =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                kosong.textContent =
+                    "Belum ada subkategori.";
+
+                kosong.style.fontSize =
+                    "12px";
+
+                kosong.style.color =
+                    "#999";
+
+                kosong.style.padding =
+                    "5px 0 5px 8px";
+
+
+                daftarSub.appendChild(
+                    kosong
+                );
+
+            }
+
+
+            daftar.forEach(
+                function (subkategori) {
+
+                    const baris =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    baris.style.display =
+                        "flex";
+
+                    baris.style.alignItems =
+                        "center";
+
+                    baris.style.justifyContent =
+                        "space-between";
+
+                    baris.style.gap =
+                        "8px";
+
+                    baris.style.marginBottom =
+                        "5px";
+
+                    baris.style.padding =
+                        "6px 8px";
+
+                    baris.style.background =
+                        "#f7f7f7";
+
+                    baris.style.borderRadius =
+                        "8px";
+
+
+                    const namaSub =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    namaSub.textContent =
+                        "• " +
+                        subkategori;
+
+
+                    namaSub.style.fontSize =
+                        "13px";
+
+
+                    const tombolSub =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    tombolSub.style.display =
+                        "flex";
+
+                    tombolSub.style.gap =
+                        "4px";
+
+
+                    /* =================================================
+                       EDIT SUBKATEGORI
+                       ================================================= */
+
+                    const tombolEditSub =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    tombolEditSub.type =
+                        "button";
+
+                    tombolEditSub.textContent =
+                        "✏️";
+
+                    tombolEditSub.title =
+                        "Edit subkategori";
+
+
+                    tombolEditSub.onclick =
+                        function () {
+
+                            editSubkategori(
+                                kategori,
+                                subkategori
+                            );
+
+                        };
+
+
+                    /* =================================================
+                       HAPUS SUBKATEGORI
+                       ================================================= */
+
+                    const tombolHapusSub =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    tombolHapusSub.type =
+                        "button";
+
+                    tombolHapusSub.textContent =
+                        "🗑️";
+
+                    tombolHapusSub.title =
+                        "Hapus subkategori";
+
+
+                    tombolHapusSub.onclick =
+                        function () {
+
+                            hapusSubkategori(
+                                kategori,
+                                subkategori
+                            );
+
+                        };
+
+
+                    tombolSub.appendChild(
+                        tombolEditSub
+                    );
+
+                    tombolSub.appendChild(
+                        tombolHapusSub
+                    );
+
+
+                    baris.appendChild(
+                        namaSub
+                    );
+
+                    baris.appendChild(
+                        tombolSub
+                    );
+
+
+                    daftarSub.appendChild(
+                        baris
+                    );
+
+                }
+            );
+
+
+            div.appendChild(
+                daftarSub
+            );
 
 
             adminCategoryList.appendChild(
                 div
             );
+
         }
     );
-}
 
+}
 
 /* =========================================================
    LOAD PRODUCTS.JSON
