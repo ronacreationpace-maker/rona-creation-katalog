@@ -4428,7 +4428,352 @@ function hapusSubkategori(
 
 }
 
-// ============================================================ // TAMPILKAN DAFTAR KATEGORI // ============================================================ function tampilkanDaftarKategori() { if (!adminCategoryList) { return; } adminCategoryList.innerHTML = ""; const semuaKategori = Object.keys( subkategoriAdmin ); if (!semuaKategori.length) { adminCategoryList.innerHTML = <div class="empty-product"> Belum ada kategori. </div> ; return; } semuaKategori.forEach( function(kategori) { const box = document.createElement("div"); box.className = "admin-category-item"; const judul = document.createElement("h3"); judul.textContent = kategori; box.appendChild( judul ); const daftar = Array.isArray( subkategoriAdmin[kategori] ) ? subkategoriAdmin[kategori] : []; if (!daftar.length) { const kosong = document.createElement("p"); kosong.textContent = "Belum ada subkategori."; box.appendChild( kosong ); } daftar.forEach( function( subkategori, index ) { const baris = document.createElement("div"); baris.className = "admin-subcategory-item"; const nama = document.createElement("span"); nama.textContent = subkategori; const tombolBox = document.createElement("div"); const tombolEdit = document.createElement("button"); tombolEdit.type = "button"; tombolEdit.textContent = "✏️"; tombolEdit.className = "edit-subcategory-button"; const tombolHapus = document.createElement("button"); tombolHapus.type = "button"; tombolHapus.textContent = "🗑️"; tombolHapus.className = "delete-subcategory-button"; tombolBox.appendChild( tombolEdit ); tombolBox.appendChild( tombolHapus ); baris.appendChild( nama ); baris.appendChild( tombolBox ); // EDIT SUBKATEGORI tombolEdit.addEventListener( "click", function() { const namaBaru = prompt( "Edit subkategori:", subkategori ); if ( namaBaru === null ) { return; } const hasil = namaBaru.trim(); if (!hasil) { alert( "Nama subkategori tidak boleh kosong." ); return; } const duplikat = subkategoriAdmin[ kategori ].some( function( item, i ) { return ( i !== index && item .toLowerCase() === hasil .toLowerCase() ); } ); if (duplikat) { alert( "Subkategori tersebut sudah ada." ); return; } subkategoriAdmin[ kategori ][index] = hasil; simpanKategori(); tampilkanDaftarKategori(); tampilkanSubkategoriAdmin(); } ); // HAPUS SUBKATEGORI tombolHapus.addEventListener( "click", function() { const yakin = confirm( 'Hapus subkategori "' + subkategori + '"?' ); if (!yakin) { return; } subkategoriAdmin[ kategori ].splice( index, 1 ); simpanKategori(); tampilkanDaftarKategori(); tampilkanSubkategoriAdmin(); } ); box.appendChild( baris ); } ); adminCategoryList.appendChild( box ); } ); }
+/* =========================================================
+TAMPILKAN DAFTAR KATEGORI
+========================================================= */
+
+function tampilkanDaftarKategori() {
+
+```
+if (!adminCategoryList) {
+    return;
+}
+
+adminCategoryList.innerHTML = "";
+
+const semuaKategori =
+    Object.keys(kategoriData || {});
+
+
+/* =====================================================
+   JIKA BELUM ADA KATEGORI
+   ===================================================== */
+
+if (!semuaKategori.length) {
+
+    adminCategoryList.innerHTML = `
+        <div style="
+            padding:15px;
+            text-align:center;
+            color:#777;
+        ">
+            Belum ada kategori.
+        </div>
+    `;
+
+    return;
+}
+
+
+/* =====================================================
+   TAMPILKAN SEMUA KATEGORI
+   ===================================================== */
+
+semuaKategori.forEach(function (kategori) {
+
+    const box =
+        document.createElement("div");
+
+    box.style.marginBottom =
+        "15px";
+
+    box.style.padding =
+        "12px";
+
+    box.style.border =
+        "1px solid #e5e5e5";
+
+    box.style.borderRadius =
+        "10px";
+
+
+    /* =================================================
+       HEADER KATEGORI
+       ================================================= */
+
+    const header =
+        document.createElement("div");
+
+    header.style.display =
+        "flex";
+
+    header.style.alignItems =
+        "center";
+
+    header.style.justifyContent =
+        "space-between";
+
+    header.style.gap =
+        "10px";
+
+
+    const namaKategori =
+        document.createElement("strong");
+
+    namaKategori.textContent =
+        kategori;
+
+
+    /* =================================================
+       TOMBOL KATEGORI
+       ================================================= */
+
+    const tombolKategori =
+        document.createElement("div");
+
+    tombolKategori.style.display =
+        "flex";
+
+    tombolKategori.style.gap =
+        "5px";
+
+
+    const tombolEdit =
+        document.createElement("button");
+
+    tombolEdit.type =
+        "button";
+
+    tombolEdit.textContent =
+        "✏️";
+
+    tombolEdit.title =
+        "Edit kategori";
+
+    tombolEdit.addEventListener(
+        "click",
+        function () {
+
+            editKategori(kategori);
+
+        }
+    );
+
+
+    const tombolHapus =
+        document.createElement("button");
+
+    tombolHapus.type =
+        "button";
+
+    tombolHapus.textContent =
+        "🗑️";
+
+    tombolHapus.title =
+        "Hapus kategori";
+
+    tombolHapus.addEventListener(
+        "click",
+        function () {
+
+            hapusKategori(kategori);
+
+        }
+    );
+
+
+    tombolKategori.appendChild(
+        tombolEdit
+    );
+
+    tombolKategori.appendChild(
+        tombolHapus
+    );
+
+
+    header.appendChild(
+        namaKategori
+    );
+
+    header.appendChild(
+        tombolKategori
+    );
+
+
+    box.appendChild(
+        header
+    );
+
+
+    /* =================================================
+       DAFTAR SUBKATEGORI
+       ================================================= */
+
+    const daftar =
+        Array.isArray(
+            kategoriData[kategori]
+        )
+            ? kategoriData[kategori]
+            : [];
+
+
+    const subContainer =
+        document.createElement("div");
+
+    subContainer.style.marginTop =
+        "10px";
+
+
+    if (!daftar.length) {
+
+        const kosong =
+            document.createElement("div");
+
+        kosong.textContent =
+            "Belum ada subkategori.";
+
+        kosong.style.color =
+            "#999";
+
+        kosong.style.fontSize =
+            "13px";
+
+        subContainer.appendChild(
+            kosong
+        );
+
+    } else {
+
+        daftar.forEach(
+            function (
+                subkategori
+            ) {
+
+                const baris =
+                    document.createElement("div");
+
+                baris.style.display =
+                    "flex";
+
+                baris.style.alignItems =
+                    "center";
+
+                baris.style.justifyContent =
+                    "space-between";
+
+                baris.style.gap =
+                    "8px";
+
+                baris.style.marginBottom =
+                    "6px";
+
+                baris.style.padding =
+                    "6px 8px";
+
+                baris.style.background =
+                    "#f7f7f7";
+
+                baris.style.borderRadius =
+                    "7px";
+
+
+                const namaSub =
+                    document.createElement("span");
+
+                namaSub.textContent =
+                    subkategori;
+
+
+                const tombolSub =
+                    document.createElement("div");
+
+                tombolSub.style.display =
+                    "flex";
+
+                tombolSub.style.gap =
+                    "4px";
+
+
+                const editSub =
+                    document.createElement("button");
+
+                editSub.type =
+                    "button";
+
+                editSub.textContent =
+                    "✏️";
+
+                editSub.title =
+                    "Edit subkategori";
+
+                editSub.addEventListener(
+                    "click",
+                    function () {
+
+                        editSubkategori(
+                            kategori,
+                            subkategori
+                        );
+
+                    }
+                );
+
+
+                const hapusSub =
+                    document.createElement("button");
+
+                hapusSub.type =
+                    "button";
+
+                hapusSub.textContent =
+                    "🗑️";
+
+                hapusSub.title =
+                    "Hapus subkategori";
+
+                hapusSub.addEventListener(
+                    "click",
+                    function () {
+
+                        hapusSubkategori(
+                            kategori,
+                            subkategori
+                        );
+
+                    }
+                );
+
+
+                tombolSub.appendChild(
+                    editSub
+                );
+
+                tombolSub.appendChild(
+                    hapusSub
+                );
+
+
+                baris.appendChild(
+                    namaSub
+                );
+
+                baris.appendChild(
+                    tombolSub
+                );
+
+
+                subContainer.appendChild(
+                    baris
+                );
+
+            }
+        );
+    }
+
+
+    box.appendChild(
+        subContainer
+    );
+
+
+    adminCategoryList.appendChild(
+        box
+    );
+
+});
+```
+
+}
 
 
 /* =========================================================
@@ -4616,63 +4961,6 @@ console.log(
 console.log(
     "=========================================="
 );
-
-
-/* =========================================================
-   DAFTAR KATEGORI ADMIN
-   ========================================================= */
-
-function tampilkanDaftarKategori() {
-
-    if (!adminCategoryList) {
-        return;
-    }
-
-    adminCategoryList.innerHTML = "";
-
-    Object.keys(kategoriData).forEach(function (kategori) {
-
-        const div = document.createElement("div");
-
-        div.style.marginBottom = "12px";
-
-        const sub = (kategoriData[kategori] || [])
-            .map(function (item) {
-
-                return `
-                    <span style="
-                        display:inline-block;
-                        margin:3px;
-                        padding:4px 8px;
-                        border-radius:20px;
-                        background:#f1f1f1;
-                        font-size:12px;
-                    ">
-                        ${escapeHTML(item)}
-                    </span>
-                `;
-
-            })
-            .join("");
-
-        div.innerHTML = `
-            <strong>
-                ${escapeHTML(kategori)}
-            </strong>
-
-            <div style="
-                margin-top:5px;
-            ">
-                ${sub}
-            </div>
-        `;
-
-        adminCategoryList.appendChild(div);
-
-    });
-}
-
-
 
 /* =========================================================
    INISIALISASI
