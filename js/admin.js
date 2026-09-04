@@ -2624,23 +2624,14 @@ function tampilkanProdukAdmin(
         return;
     }
 
+    adminProductList.innerHTML = "";
 
-    adminProductList.innerHTML =
-        "";
-
-
-    if (!data.length) {
+    if (!data || !data.length) {
 
         adminProductList.innerHTML =
-            `
-            <div style="
-                padding:20px;
-                text-align:center;
-                color:#777;
-            ">
-                Belum ada produk.
-            </div>
-            `;
+            '<div style="padding:20px;text-align:center;color:#777;">' +
+            'Belum ada produk.' +
+            '</div>';
 
         updateStatistik();
 
@@ -2652,14 +2643,15 @@ function tampilkanProdukAdmin(
         function (product) {
 
             const item =
-                document.createElement(
-                    "div"
-                );
-
+                document.createElement("div");
 
             item.className =
                 "admin-product-item";
 
+
+            /* =================================================
+               JUMLAH FOTO
+               ================================================= */
 
             const jumlahFoto =
                 [
@@ -2674,11 +2666,14 @@ function tampilkanProdukAdmin(
                 .length;
 
 
+            /* =================================================
+               HARGA
+               ================================================= */
+
             const hargaNormal =
                 formatRupiah(
                     product.price
                 );
-
 
             const hargaPromo =
                 formatRupiah(
@@ -2686,8 +2681,7 @@ function tampilkanProdukAdmin(
                 );
 
 
-            let hargaHTML =
-                "";
+            let hargaHTML = "";
 
 
             if (
@@ -2697,36 +2691,45 @@ function tampilkanProdukAdmin(
             ) {
 
                 hargaHTML =
-                    `
-                    <div>
-                        <span style="
-                            text-decoration:line-through;
-                            color:#999;
-                        ">
-                            Rp ${hargaNormal}
-                        </span>
+                    '<div>' +
 
-                        <br>
+                    '<span style="' +
+                    'text-decoration:line-through;' +
+                    'color:#999;' +
+                    '">' +
 
-                        <strong style="
-                            color:#d60000;
-                            font-size:17px;
-                        ">
-                            Rp ${hargaPromo}
-                        </strong>
-                    </div>
-                    `;
+                    'Rp ' +
+                    hargaNormal +
+
+                    '</span>' +
+
+                    '<br>' +
+
+                    '<strong style="' +
+                    'color:#d60000;' +
+                    'font-size:17px;' +
+                    '">' +
+
+                    'Rp ' +
+                    hargaPromo +
+
+                    '</strong>' +
+
+                    '</div>';
 
             } else {
 
                 hargaHTML =
-                    `
-                    <strong>
-                        Rp ${hargaNormal}
-                    </strong>
-                    `;
+                    '<strong>' +
+                    'Rp ' +
+                    hargaNormal +
+                    '</strong>';
             }
 
+
+            /* =================================================
+               FOTO PERTAMA
+               ================================================= */
 
             const fotoPertama =
                 product.image ||
@@ -2738,146 +2741,181 @@ function tampilkanProdukAdmin(
                 "";
 
 
-            let mediaHTML =
-                "";
+            let mediaHTML = "";
 
 
             if (fotoPertama) {
 
                 mediaHTML =
-                    `
-                    <img
-                        src="${fotoPertama}"
-                        alt="${escapeHTML(
-                            product.name ||
-                            ""
-                        )}"
-                        style="
-                            width:80px;
-                            height:80px;
-                            object-fit:cover;
-                            border-radius:10px;
-                        "
-                    >
-                    `;
+                    '<img ' +
+                    'src="' +
+                    escapeHTML(fotoPertama) +
+                    '" ' +
+                    'alt="' +
+                    escapeHTML(
+                        product.name || ""
+                    ) +
+                    '" ' +
+                    'style="' +
+                    'width:80px;' +
+                    'height:80px;' +
+                    'object-fit:cover;' +
+                    'border-radius:10px;' +
+                    '">' +
+                    '';
 
             } else {
 
                 mediaHTML =
-                    `
-                    <div style="
-                        width:80px;
-                        height:80px;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                        background:#f1f1f1;
-                        border-radius:10px;
-                        font-size:12px;
-                        color:#999;
-                    ">
-                        Tanpa Foto
-                    </div>
-                    `;
+                    '<div style="' +
+                    'width:80px;' +
+                    'height:80px;' +
+                    'display:flex;' +
+                    'align-items:center;' +
+                    'justify-content:center;' +
+                    'background:#f1f1f1;' +
+                    'border-radius:10px;' +
+                    'font-size:12px;' +
+                    'color:#999;' +
+                    '">' +
+
+                    'Tanpa Foto' +
+
+                    '</div>';
             }
 
 
+            /* =================================================
+               ID AMAN
+               ================================================= */
+
+            const idProduk =
+                String(
+                    product.id
+                )
+                .replace(
+                    /'/g,
+                    "\\'"
+                );
+
+
+            /* =================================================
+               HTML PRODUK
+               ================================================= */
+
             item.innerHTML =
-                `
-                <div style="
-                    display:flex;
-                    gap:12px;
-                    align-items:center;
-                ">
+                '<div style="' +
+                'display:flex;' +
+                'gap:12px;' +
+                'align-items:center;' +
+                '">' +
 
-                    ${mediaHTML}
+                    mediaHTML +
 
-                    <div style="
-                        flex:1;
-                        min-width:0;
-                    ">
+                    '<div style="' +
+                    'flex:1;' +
+                    'min-width:0;' +
+                    '">' +
 
-                        <div style="
-                            font-weight:700;
-                            margin-bottom:4px;
-                        ">
-                            ${escapeHTML(
-                                product.name ||
-                                ""
-                            )}
-                        </div>
+                        '<div style="' +
+                        'font-weight:700;' +
+                        'margin-bottom:4px;' +
+                        '">' +
 
-                        <div style="
-                            font-size:13px;
-                            color:#777;
-                            margin-bottom:5px;
-                        ">
-                            ${escapeHTML(
-                                product.category ||
-                                ""
-                            )}
-                            -
-                            ${escapeHTML(
-                                product.subcategory ||
-                                ""
-                            )}
-                        </div>
+                            escapeHTML(
+                                product.name || ""
+                            ) +
 
-                        ${hargaHTML}
+                        '</div>' +
 
-                        <div style="
-                            font-size:12px;
-                            color:#777;
-                            margin-top:4px;
-                        ">
-                            📷 ${jumlahFoto} Foto
-                            ${product.video
-                                ? " • 🎥 Video"
-                                : ""}
-                        </div>
 
-                    </div>
+                        '<div style="' +
+                        'font-size:13px;' +
+                        'color:#777;' +
+                        'margin-bottom:5px;' +
+                        '">' +
 
-                    <div style="
-                        display:flex;
-                        gap:5px;
-                        flex-wrap:wrap;
-                    ">
+                            escapeHTML(
+                                product.category || ""
+                            ) +
 
-                        <button
-                            type="button"
-                            onclick="editProduk('${String(
-                                product.id
-                            ).replace(/'/g, "\\'")}')"
-                        >
-                            ✏️
-                        </button>
+                            ' - ' +
 
-                        <button
-                            type="button"
-                            onclick="hapusProduk('${String(
-                                product.id
-                            ).replace(/'/g, "\\'")}')"
-                        >
-                            🗑️
-                        </button>
+                            escapeHTML(
+                                product.subcategory || ""
+                            ) +
 
-                    </div>
+                        '</div>' +
 
-                </div>
-                `;
+
+                        hargaHTML +
+
+
+                        '<div style="' +
+                        'font-size:12px;' +
+                        'color:#777;' +
+                        'margin-top:4px;' +
+                        '">' +
+
+                            '📷 ' +
+                            jumlahFoto +
+                            ' Foto' +
+
+                            (
+                                product.video
+                                    ? ' • 🎥 Video'
+                                    : ''
+                            ) +
+
+                        '</div>' +
+
+                    '</div>' +
+
+
+                    '<div style="' +
+                    'display:flex;' +
+                    'gap:5px;' +
+                    'flex-wrap:wrap;' +
+                    '">' +
+
+                        '<button ' +
+                        'type="button" ' +
+                        'onclick="editProduk(\'' +
+                        idProduk +
+                        '\')" ' +
+                        '>' +
+
+                        '✏️' +
+
+                        '</button>' +
+
+
+                        '<button ' +
+                        'type="button" ' +
+                        'onclick="hapusProduk(\'' +
+                        idProduk +
+                        '\')" ' +
+                        '>' +
+
+                        '🗑️' +
+
+                        '</button>' +
+
+                    '</div>' +
+
+                '</div>';
 
 
             adminProductList.appendChild(
                 item
             );
+
         }
     );
 
 
     updateStatistik();
 }
-
 
 /* =========================================================
    ESCAPE HTML
@@ -3671,13 +3709,6 @@ if (exportProductsButton) {
         }
     );
 }
-
-
-/* =========================================================
-   KELOLA KATEGORI
-   TAMBAH / EDIT / HAPUS KATEGORI & SUBKATEGORI
-   ========================================================= */
-
 
 /* =========================================================
    TAMBAH KATEGORI / SUBKATEGORI
