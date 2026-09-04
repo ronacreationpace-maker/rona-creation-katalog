@@ -4451,15 +4451,24 @@ const semuaKategori =
 
 if (!semuaKategori.length) {
 
-    adminCategoryList.innerHTML = `
-        <div style="
-            padding:15px;
-            text-align:center;
-            color:#777;
-        ">
-            Belum ada kategori.
-        </div>
-    `;
+    const kosong =
+        document.createElement("div");
+
+    kosong.textContent =
+        "Belum ada kategori.";
+
+    kosong.style.padding =
+        "15px";
+
+    kosong.style.textAlign =
+        "center";
+
+    kosong.style.color =
+        "#777";
+
+    adminCategoryList.appendChild(
+        kosong
+    );
 
     return;
 }
