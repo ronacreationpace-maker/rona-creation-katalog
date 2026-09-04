@@ -4619,6 +4619,62 @@ console.log(
 
 
 /* =========================================================
+   DAFTAR KATEGORI ADMIN
+   ========================================================= */
+
+function tampilkanDaftarKategori() {
+
+    if (!adminCategoryList) {
+        return;
+    }
+
+    adminCategoryList.innerHTML = "";
+
+    Object.keys(kategoriData).forEach(function (kategori) {
+
+        const div = document.createElement("div");
+
+        div.style.marginBottom = "12px";
+
+        const sub = (kategoriData[kategori] || [])
+            .map(function (item) {
+
+                return `
+                    <span style="
+                        display:inline-block;
+                        margin:3px;
+                        padding:4px 8px;
+                        border-radius:20px;
+                        background:#f1f1f1;
+                        font-size:12px;
+                    ">
+                        ${escapeHTML(item)}
+                    </span>
+                `;
+
+            })
+            .join("");
+
+        div.innerHTML = `
+            <strong>
+                ${escapeHTML(kategori)}
+            </strong>
+
+            <div style="
+                margin-top:5px;
+            ">
+                ${sub}
+            </div>
+        `;
+
+        adminCategoryList.appendChild(div);
+
+    });
+}
+
+
+
+/* =========================================================
    INISIALISASI
    ========================================================= */
 
