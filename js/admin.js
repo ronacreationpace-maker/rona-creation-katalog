@@ -4434,7 +4434,6 @@ TAMPILKAN DAFTAR KATEGORI
 
 function tampilkanDaftarKategori() {
 
-```
 if (!adminCategoryList) {
     return;
 }
@@ -4780,7 +4779,7 @@ semuaKategori.forEach(function (kategori) {
     );
 
 });
-```
+
 
 }
 
