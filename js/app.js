@@ -154,44 +154,113 @@ let subkategoriAktif = "Semua";
 let urutanAktif = "terbaru";
 
 
-// =========================
-// DATA SUBKATEGORI
-// =========================
+/* =========================================================
+   KATEGORI DINAMIS DARI DATA PRODUK
+   ========================================================= */
 
-const subkategoriProduk = {
+function tampilkanKategoriKatalog() {
 
-    "Mahar": [
-        "Mahar Akrilik",
-        "Mahar Jawa",
-        "Mahar Custom"
-    ],
+    const container =
+        document.getElementById("categoryButtons");
 
-    "Undangan": [
-        "Undangan Blangko",
-        "Undangan Custom",
-        "Undangan Website Online"
-    ],
+    if (!container) return;
 
-    "Hantaran": [
-        "Hantaran Akrilik",
-        "Hantaran Rotan",
-        "Hantaran Box Mika"
-    ],
+    // Ambil kategori unik dari produk
+    const daftarKategori = [
+        ...new Set(
+            products
+                .map(product =>
+                    String(product.category || "").trim()
+                )
+                .filter(Boolean)
+        )
+    ].sort((a, b) => a.localeCompare(b, "id"));
 
-    "Pigura & Cetak Foto": [
-        "Pigura",
-        "Cetak Foto",
-        "Pigura Custom"
-    ],
+    container.innerHTML = "";
 
-    "Lainnya": [
-        "Yasin",
-        "Banner",
-        "Stiker",
-        "Buket"
-    ]
+    // Tombol SEMUA
+    const tombolSemua =
+        document.createElement("button");
 
-};
+    tombolSemua.type = "button";
+    tombolSemua.className = "category";
+    tombolSemua.textContent = "Semua";
+
+    container.appendChild(tombolSemua);
+
+    // Tambahkan kategori dari produk
+    daftarKategori.forEach(kategori => {
+
+        const tombol =
+            document.createElement("button");
+
+        tombol.type = "button";
+        tombol.className = "category";
+        tombol.textContent = kategori;
+
+        container.appendChild(tombol);
+
+    });
+
+    // Aktifkan kategori yang sedang dipilih
+    function perbaruiKategoriAktif() {
+
+        container
+            .querySelectorAll(".category")
+            .forEach(button => {
+
+                button.classList.toggle(
+                    "active",
+                    button.textContent.trim() === kategoriAktif
+                );
+
+            });
+
+    }
+
+    // Klik tombol kategori
+    container
+        .querySelectorAll(".category")
+        .forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                kategoriAktif =
+                    button.textContent.trim();
+
+                subkategoriAktif = "Semua";
+
+                perbaruiKategoriAktif();
+
+                tampilkanSubkategoriKatalog(
+                    kategoriAktif
+                );
+
+                tampilkanProdukTerfilter();
+
+            });
+
+        });
+
+    // Jika kategori aktif tidak ada lagi,
+    // kembalikan ke Semua
+    if (
+        kategoriAktif !== "Semua" &&
+        !daftarKategori.includes(kategoriAktif)
+    ) {
+
+        kategoriAktif = "Semua";
+        subkategoriAktif = "Semua";
+
+    }
+
+    perbaruiKategoriAktif();
+
+    tampilkanSubkategoriKatalog(
+        kategoriAktif
+    );
+
+}
 
 
 // =========================
@@ -364,7 +433,10 @@ async function loadProducts() {
         );
 
 
-        tampilkanProdukTerfilter();
+    tampilkanKategoriKatalog();
+
+     tampilkanProdukTerfilter();
+
 
     }
 
@@ -1608,102 +1680,104 @@ if (searchInput) {
 }
 
 
-// =========================
-// FILTER KATEGORI
-// =========================
-
-const categoryButtons =
-    document.querySelectorAll(
-        ".category"
-    );
-
-
-categoryButtons.forEach(
-    button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-
-                // =========================
-                // ACTIVE KATEGORI
-                // =========================
-
-                categoryButtons.forEach(
-                    btn => {
-
-                        btn.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-                button.classList.add(
-                    "active"
-                );
-
-
-                // =========================
-                // SIMPAN KATEGORI
-                // =========================
-
-                kategoriAktif =
-                    button.textContent.trim();
-
-
-                // =========================
-                // RESET SUBKATEGORI
-                // =========================
-
-                subkategoriAktif =
-                    "Semua";
-
-
-                // =========================
-                // TAMPILKAN SUBKATEGORI
-                // =========================
-
-                tampilkanSubkategoriKatalog(
-                    kategoriAktif
-                );
-
-
-                // =========================
-                // FILTER PRODUK
-                // =========================
-
-                tampilkanProdukTerfilter();
-
-            }
-        );
-
-    }
-);
 
 
 // =========================
 // SUBKATEGORI
 // =========================
 
-function tampilkanSubkategoriKatalog(
-    kategori
-) {
+
+/* =========================================================
+   SUBKATEGORI DINAMIS
+   ========================================================= */
+
+function tampilkanSubkategoriKatalog(kategori) {
 
     const container =
-        document.getElementById(
-            "subcategoryFilter"
-        );
+        document.getElementById("subcategoryFilter");
 
+    if (!container) return;
 
-    if (!container) {
+    container.innerHTML = "";
 
+    if (!kategori || kategori === "Semua") {
         return;
-
     }
 
+    // Ambil subkategori berdasarkan kategori produk
+    const daftar = [
+        ...new Set(
+            products
+                .filter(product =>
+                    String(product.category || "").trim() === kategori
+                )
+                .map(product =>
+                    String(product.subcategory || "").trim()
+                )
+                .filter(Boolean)
+        )
+    ].sort((a, b) => a.localeCompare(b, "id"));
+
+    // Jika tidak ada subkategori
+    if (daftar.length === 0) return;
+
+    // Tombol SEMUA SUBKATEGORI
+    const tombolSemua =
+        document.createElement("button");
+
+    tombolSemua.type = "button";
+    tombolSemua.className = "subcategory-button active";
+    tombolSemua.textContent = `Semua ${kategori}`;
+
+    container.appendChild(tombolSemua);
+
+    tombolSemua.addEventListener("click", () => {
+
+        subkategoriAktif = "Semua";
+
+        container
+            .querySelectorAll(".subcategory-button")
+            .forEach(button =>
+                button.classList.remove("active")
+            );
+
+        tombolSemua.classList.add("active");
+
+        tampilkanProdukTerfilter();
+
+    });
+
+    // Tombol subkategori produk
+    daftar.forEach(subkategori => {
+
+        const tombol =
+            document.createElement("button");
+
+        tombol.type = "button";
+        tombol.className = "subcategory-button";
+        tombol.textContent = subkategori;
+
+        container.appendChild(tombol);
+
+        tombol.addEventListener("click", () => {
+
+            subkategoriAktif = subkategori;
+
+            container
+                .querySelectorAll(".subcategory-button")
+                .forEach(button =>
+                    button.classList.remove("active")
+                );
+
+            tombol.classList.add("active");
+
+            tampilkanProdukTerfilter();
+
+        });
+
+    });
+
+}
 
     container.innerHTML = "";
 
