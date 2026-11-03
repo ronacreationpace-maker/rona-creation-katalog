@@ -1,3 +1,4 @@
+let kategoriOnline = {};
 "use strict";
 
 // =========================
@@ -444,6 +445,38 @@ async function loadProducts() {
     }
 
 }
+
+
+async function muatKategoriOnline() {
+
+    try {
+
+        const response = await fetch(
+            "https://raw.githubusercontent.com/ronacreationpace-maker/rona-creation-katalog/main/categories.json?t=" + Date.now()
+        );
+
+        if (!response.ok) {
+            throw new Error("Gagal membaca categories.json");
+        }
+
+        kategoriOnline = await response.json();
+
+        // Perbarui kategori katalog
+        tampilkanKategoriKatalog();
+
+    } catch (error) {
+
+        console.log("Kategori online belum tersedia:", error);
+
+        kategoriOnline =
+            JSON.parse(
+                localStorage.getItem("ronaKategori")
+            ) || {};
+
+        tampilkanKategoriKatalog();
+    }
+}
+
 
 // =========================
 // TAMPILKAN PRODUK
@@ -1689,14 +1722,8 @@ if (searchInput) {
 
 
 
-
-// =========================
-// SUBKATEGORI
-// =========================
-
-
 /* =========================================================
-   SUBKATEGORI DINAMIS
+   SUBKATEGORI DINAMIS DARI ADMIN
    ========================================================= */
 
 function tampilkanSubkategoriKatalog(kategori) {
@@ -1712,30 +1739,22 @@ function tampilkanSubkategoriKatalog(kategori) {
         return;
     }
 
-    // Ambil subkategori berdasarkan kategori produk
-    const daftar = [
-        ...new Set(
-            products
-                .filter(product =>
-                    String(product.category || "").trim() === kategori
-                )
-                .map(product =>
-                    String(product.subcategory || "").trim()
-                )
-                .filter(Boolean)
-        )
-    ].sort((a, b) => a.localeCompare(b, "id"));
+    // Ambil subkategori dari kategori Admin
+    const daftar =
+        kategoriOnline[kategori] || [];
 
-    // Jika tidak ada subkategori
-    if (daftar.length === 0) return;
+    if (!daftar.length) return;
 
-    // Tombol SEMUA SUBKATEGORI
+    // Tombol semua subkategori
     const tombolSemua =
         document.createElement("button");
 
     tombolSemua.type = "button";
-    tombolSemua.className = "subcategory-button active";
-    tombolSemua.textContent = `Semua ${kategori}`;
+    tombolSemua.className =
+        "subcategory-button active";
+
+    tombolSemua.textContent =
+        `Semua ${kategori}`;
 
     container.appendChild(tombolSemua);
 
@@ -1752,17 +1771,18 @@ function tampilkanSubkategoriKatalog(kategori) {
         tombolSemua.classList.add("active");
 
         tampilkanProdukTerfilter();
-
     });
 
-    // Tombol subkategori produk
+    // Tombol setiap subkategori
     daftar.forEach(subkategori => {
 
         const tombol =
             document.createElement("button");
 
         tombol.type = "button";
-        tombol.className = "subcategory-button";
+        tombol.className =
+            "subcategory-button";
+
         tombol.textContent = subkategori;
 
         container.appendChild(tombol);
@@ -1780,11 +1800,9 @@ function tampilkanSubkategoriKatalog(kategori) {
             tombol.classList.add("active");
 
             tampilkanProdukTerfilter();
-
         });
 
     });
-
 }
 
 
@@ -2303,3 +2321,5 @@ if (
     jalankanPromoHarian();
 
 }
+
+muatKategoriOnline();
