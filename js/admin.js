@@ -1031,7 +1031,7 @@ function kompresFoto(file) {
                         function () {
 
                             const maxSize =
-                                1000;
+                               700;
 
                             let width =
                                 img.width;
@@ -1107,7 +1107,7 @@ function kompresFoto(file) {
                             const hasil =
                                 canvas.toDataURL(
                                     "image/jpeg",
-                                    0.75
+                                   0.55
                                 );
 
                            cacheKompresFoto.set(file, hasil);
