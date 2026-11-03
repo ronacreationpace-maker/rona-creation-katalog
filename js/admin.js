@@ -178,6 +178,7 @@ let editingProductId = null;
 
 let kategoriData = {};
 
+const cacheKompresFoto = new WeakMap();
 
 /* =========================================================
    KATEGORI DEFAULT
@@ -920,103 +921,76 @@ function previewFoto(
 
 
 /* =========================================================
-   EVENT FOTO 1-6
+   KOMPRES OTOMATIS SAAT FOTO DIPILIH
    ========================================================= */
 
-if (productImage) {
+async function prosesPilihFoto(input, previewElement) {
 
-    productImage.addEventListener(
-        "change",
-        function () {
+    if (!input || !previewElement) return;
 
-            previewFoto(
-                productImage.files[0],
-                imagePreview
-            );
+    const file = input.files[0];
 
-        }
-    );
+    previewElement.innerHTML = "";
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+        previewElement.textContent = "File bukan gambar.";
+        return;
+    }
+
+    previewElement.textContent = "⏳ Mengompres foto...";
+
+    try {
+
+        const hasil = await kompresFoto(file);
+
+        previewElement.innerHTML = "";
+
+        const img = document.createElement("img");
+
+        img.src = hasil;
+        img.style.maxWidth = "100%";
+        img.style.maxHeight = "220px";
+        img.style.objectFit = "contain";
+        img.style.borderRadius = "10px";
+
+        previewElement.appendChild(img);
+
+        const info = document.createElement("small");
+        info.textContent = "✓ Foto berhasil dikompres.";
+
+        previewElement.appendChild(info);
+
+    } catch (error) {
+
+        console.error("Kompres foto gagal:", error);
+
+        previewElement.textContent =
+            "❌ Gagal mengompres foto.";
+
+    }
 }
 
 
-if (productImage2) {
+// Pasang event untuk 6 foto
+[
+    [productImage, imagePreview],
+    [productImage2, imagePreview2],
+    [productImage3, imagePreview3],
+    [productImage4, imagePreview4],
+    [productImage5, imagePreview5],
+    [productImage6, imagePreview6]
 
-    productImage2.addEventListener(
-        "change",
-        function () {
+].forEach(([input, preview]) => {
 
-            previewFoto(
-                productImage2.files[0],
-                imagePreview2
-            );
+    if (!input) return;
 
-        }
-    );
-}
+    input.addEventListener("change", () => {
+        prosesPilihFoto(input, preview);
+    });
 
-
-if (productImage3) {
-
-    productImage3.addEventListener(
-        "change",
-        function () {
-
-            previewFoto(
-                productImage3.files[0],
-                imagePreview3
-            );
-
-        }
-    );
-}
-
-
-if (productImage4) {
-
-    productImage4.addEventListener(
-        "change",
-        function () {
-
-            previewFoto(
-                productImage4.files[0],
-                imagePreview4
-            );
-
-        }
-    );
-}
-
-
-if (productImage5) {
-
-    productImage5.addEventListener(
-        "change",
-        function () {
-
-            previewFoto(
-                productImage5.files[0],
-                imagePreview5
-            );
-
-        }
-    );
-}
-
-
-if (productImage6) {
-
-    productImage6.addEventListener(
-        "change",
-        function () {
-
-            previewFoto(
-                productImage6.files[0],
-                imagePreview6
-            );
-
-        }
-    );
-}
+});
 
 
 /* =========================================================
@@ -1035,6 +1009,12 @@ function kompresFoto(file) {
                 return;
             }
 
+           if (cacheKompresFoto.has(file)) {
+
+    resolve(cacheKompresFoto.get(file));
+
+    return;
+}
 
             const reader =
                 new FileReader();
@@ -1130,7 +1110,7 @@ function kompresFoto(file) {
                                     0.75
                                 );
 
-
+                           cacheKompresFoto.set(file, hasil);
                             resolve(hasil);
                         };
 
