@@ -387,7 +387,10 @@ async function loadProducts() {
             products.length
         );
 
+        // TAMPILKAN KATEGORI DINAMIS
+        tampilkanKategoriKatalog();
 
+        // TAMPILKAN PRODUK
         tampilkanProdukTerfilter();
 
 
@@ -1829,6 +1832,8 @@ function sinkronisasiProduk() {
 
     }
 
+
+    tampilkanKategoriKatalog();
 
     tampilkanProdukTerfilter();
 
