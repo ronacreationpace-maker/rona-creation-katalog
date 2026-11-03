@@ -5061,7 +5061,6 @@ textarea {
     padding: 20px;
 }
 
-
 /* =========================================================
    MODAL
    ========================================================= */
@@ -5069,14 +5068,18 @@ textarea {
 .detail-modal {
     max-width: 560px;
 
+    max-height: 92vh;
+
     border-radius: 22px;
 
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    -webkit-overflow-scrolling: touch;
 
     box-shadow:
         0 25px 70px rgba(0,0,0,.28);
 }
-
 
 /* =========================================================
    FOTO DETAIL
