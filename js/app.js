@@ -156,7 +156,7 @@ let urutanAktif = "terbaru";
 
 
 /* =========================================================
-   KATEGORI DINAMIS DARI DATA PRODUK
+   KATEGORI DINAMIS DARI ADMIN
    ========================================================= */
 
 function tampilkanKategoriKatalog() {
@@ -166,15 +166,23 @@ function tampilkanKategoriKatalog() {
 
     if (!container) return;
 
-    // Ambil kategori unik dari produk
+    // Ambil kategori dari Admin
+    const kategoriAdmin =
+        Object.keys(kategoriOnline || {});
+
+    // Kategori produk lama tetap dipertahankan
+    const kategoriProduk =
+        products
+            .map(product =>
+                String(product.category || "").trim()
+            )
+            .filter(Boolean);
+
     const daftarKategori = [
-        ...new Set(
-            products
-                .map(product =>
-                    String(product.category || "").trim()
-                )
-                .filter(Boolean)
-        )
+        ...new Set([
+            ...kategoriAdmin,
+            ...kategoriProduk
+        ])
     ].sort((a, b) => a.localeCompare(b, "id"));
 
     container.innerHTML = "";
@@ -189,7 +197,7 @@ function tampilkanKategoriKatalog() {
 
     container.appendChild(tombolSemua);
 
-    // Tambahkan kategori dari produk
+    // Tombol kategori
     daftarKategori.forEach(kategori => {
 
         const tombol =
@@ -203,7 +211,7 @@ function tampilkanKategoriKatalog() {
 
     });
 
-    // Aktifkan kategori yang sedang dipilih
+    // Kategori aktif
     function perbaruiKategoriAktif() {
 
         container
@@ -219,7 +227,7 @@ function tampilkanKategoriKatalog() {
 
     }
 
-    // Klik tombol kategori
+    // Klik kategori
     container
         .querySelectorAll(".category")
         .forEach(button => {
@@ -243,8 +251,7 @@ function tampilkanKategoriKatalog() {
 
         });
 
-    // Jika kategori aktif tidak ada lagi,
-    // kembalikan ke Semua
+    // Validasi kategori aktif
     if (
         kategoriAktif !== "Semua" &&
         !daftarKategori.includes(kategoriAktif)
@@ -262,6 +269,7 @@ function tampilkanKategoriKatalog() {
     );
 
 }
+
 
 
 // =========================
