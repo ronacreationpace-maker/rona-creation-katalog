@@ -1422,11 +1422,16 @@ function tampilkanProdukTerfilter() {
                 // KATEGORI
                 // =========================
 
-                const cocokKategori =
-                    kategoriAktif === "Semua" ||
+const cocokKategori =
+    kategoriAktif === "Semua" ||
 
-                    product.category ===
-                    kategoriAktif;
+    String(
+        product.category || ""
+    ).trim() ===
+
+    String(
+        kategoriAktif || ""
+    ).trim();
 
 
                 // =========================
@@ -1776,177 +1781,6 @@ function tampilkanSubkategoriKatalog(kategori) {
         });
 
     });
-
-}
-
-    container.innerHTML = "";
-
-
-    // =========================
-    // SEMUA
-    // =========================
-
-    if (
-        !kategori ||
-        kategori === "Semua"
-    ) {
-
-        return;
-
-    }
-
-
-    const daftar =
-        subkategoriProduk[
-            kategori
-        ] || [];
-
-
-    if (
-        daftar.length === 0
-    ) {
-
-        return;
-
-    }
-
-
-    // =========================
-    // TOMBOL SEMUA
-    // =========================
-
-    const tombolSemua =
-        document.createElement(
-            "button"
-        );
-
-
-    tombolSemua.type =
-        "button";
-
-
-    tombolSemua.className =
-        "subcategory-button active";
-
-
-    tombolSemua.textContent =
-        `Semua ${kategori}`;
-
-
-    tombolSemua.dataset.subcategory =
-        "Semua";
-
-
-    container.appendChild(
-        tombolSemua
-    );
-
-
-    tombolSemua.addEventListener(
-        "click",
-        () => {
-
-            subkategoriAktif =
-                "Semua";
-
-
-            container
-                .querySelectorAll(
-                    ".subcategory-button"
-                )
-                .forEach(
-                    btn => {
-
-                        btn.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-            tombolSemua.classList.add(
-                "active"
-            );
-
-
-            tampilkanProdukTerfilter();
-
-        }
-    );
-
-
-    // =========================
-    // SUBKATEGORI
-    // =========================
-
-    daftar.forEach(
-        subkategori => {
-
-
-            const tombol =
-                document.createElement(
-                    "button"
-                );
-
-
-            tombol.type =
-                "button";
-
-
-            tombol.className =
-                "subcategory-button";
-
-
-            tombol.textContent =
-                subkategori;
-
-
-            tombol.dataset.subcategory =
-                subkategori;
-
-
-            container.appendChild(
-                tombol
-            );
-
-
-            tombol.addEventListener(
-                "click",
-                () => {
-
-
-                    subkategoriAktif =
-                        subkategori;
-
-
-                    container
-                        .querySelectorAll(
-                            ".subcategory-button"
-                        )
-                        .forEach(
-                            btn => {
-
-                                btn.classList.remove(
-                                    "active"
-                                );
-
-                            }
-                        );
-
-
-                    tombol.classList.add(
-                        "active"
-                    );
-
-
-                    tampilkanProdukTerfilter();
-
-                }
-            );
-
-        }
-    );
 
 }
 
