@@ -604,18 +604,56 @@ function muatKategori() {
 }
 
 
+
 /* =========================================================
    SIMPAN KATEGORI
    ========================================================= */
 
-function simpanKategori() {
+async function simpanKategori() {
 
+    // Simpan lokal
     localStorage.setItem(
         "ronaKategori",
-        JSON.stringify(
-            kategoriData
-        )
+        JSON.stringify(kategoriData)
     );
+
+    try {
+
+        const response = await fetch(
+            "https://rona-katalog-api.ronacreation-pace.workers.dev",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Admin-Key": adminKey
+                },
+                body: JSON.stringify({
+                    categories: kategoriData
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(
+                result.error || "Gagal menyimpan kategori online."
+            );
+        }
+
+        console.log("Kategori berhasil disimpan online.");
+
+    } catch (error) {
+
+        console.error(
+            "Gagal menyimpan kategori online:",
+            error
+        );
+
+        alert(
+            "Kategori tersimpan lokal, tetapi gagal tersimpan online."
+        );
+    }
 }
 
 
