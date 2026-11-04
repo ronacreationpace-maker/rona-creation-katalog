@@ -6635,3 +6635,237 @@ body:has(.admin-container) .header .tagline { color:rgba(255,255,255,.78); }
  .admin-fold summary span { width:100%; margin-left:0; }
  .admin-fold-content { padding:8px; }
 }
+
+/* =========================================================
+   KATALOG CUSTOMER — TATA LETAK LEBIH RAPI & RESPONSIF
+   Override khusus katalog; style Admin tidak diubah.
+   ========================================================= */
+.catalog-section {
+    padding: 58px 22px 54px;
+    background: linear-gradient(180deg, #fffaf9 0%, #fff 100%);
+}
+.catalog-heading,
+.search-section,
+.category-wrapper,
+.subcategory-section,
+.catalog-toolbar,
+.product-section {
+    max-width: 1160px;
+}
+.catalog-heading {
+    margin-bottom: 24px;
+}
+.catalog-heading > div {
+    padding-left: 15px;
+    border-left: 4px solid #a51d34;
+}
+.catalog-heading h2 {
+    color: #681326;
+    font-size: clamp(28px, 3vw, 36px);
+    letter-spacing: -.5px;
+}
+.catalog-heading p {
+    margin-top: 5px;
+    color: #777;
+    line-height: 1.6;
+}
+.search-section {
+    margin-bottom: 25px;
+    gap: 10px;
+}
+#searchInput {
+    min-height: 46px;
+    border-radius: 12px;
+    box-shadow: 0 3px 14px rgba(70, 10, 25, .045);
+}
+.share-catalog-button {
+    min-height: 46px;
+    border-radius: 12px;
+    padding: 0 18px;
+}
+.category-wrapper {
+    margin-bottom: 18px;
+}
+.section-label {
+    color: #681326;
+    font-size: 12px;
+    letter-spacing: .3px;
+}
+.category-section {
+    gap: 8px;
+    padding: 4px 2px 9px;
+}
+.category {
+    padding: 9px 16px;
+    border-radius: 9px;
+    font-size: 12px;
+    border-color: #ead8dc;
+}
+.category.active {
+    background: #86152a;
+    border-color: #86152a;
+    box-shadow: 0 4px 11px rgba(134, 21, 42, .16);
+}
+.subcategory-section {
+    margin-bottom: 22px;
+}
+.subcategory-button {
+    border-radius: 8px;
+    padding: 7px 13px;
+}
+.catalog-toolbar {
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0e3e5;
+}
+.catalog-result-title h3 {
+    color: #40101d;
+    font-size: 17px;
+}
+.catalog-result-title p {
+    color: #888;
+}
+#sortSelect {
+    min-height: 40px;
+    border-radius: 9px;
+}
+.product-container {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+.product-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #eee3e5;
+    border-radius: 13px;
+    box-shadow: 0 3px 13px rgba(65, 12, 25, .045);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+.product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 22px rgba(65, 12, 25, .09);
+}
+.product-image-wrapper {
+    aspect-ratio: 1 / 1.08;
+    background: #f8f6f5;
+}
+.product-image {
+    object-fit: cover;
+}
+.product-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 13px 13px;
+}
+.product-category {
+    align-self: flex-start;
+    margin-bottom: 7px;
+    border-radius: 5px;
+}
+.product-name {
+    min-height: 2.65em;
+    margin-bottom: 5px;
+    color: #30262a;
+    font-size: 14px;
+    line-height: 1.35;
+}
+.product-subcategory {
+    margin-bottom: 8px;
+}
+.product-price,
+.product-price-promo {
+    margin-top: auto;
+    padding-top: 4px;
+    margin-bottom: 10px;
+}
+.harga-promo {
+    color: #a51d34;
+    font-size: 17px;
+}
+.detail-button {
+    min-height: 37px;
+    border-radius: 8px;
+    background: #86152a;
+    letter-spacing: .1px;
+}
+.detail-button:hover {
+    background: #681326;
+}
+.product-no-image {
+    min-height: 0;
+}
+@media (max-width: 900px) {
+    .product-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 13px;
+    }
+}
+@media (max-width: 768px) {
+    .catalog-section {
+        padding: 42px 14px 38px;
+    }
+    .catalog-heading {
+        margin-bottom: 18px;
+    }
+    .catalog-heading > div {
+        padding-left: 11px;
+    }
+    .catalog-heading h2 {
+        font-size: 27px;
+    }
+    .search-section {
+        gap: 8px;
+        margin-bottom: 19px;
+    }
+    .share-catalog-button {
+        min-height: 42px;
+    }
+    .catalog-toolbar {
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+    .catalog-result-title h3 {
+        font-size: 16px;
+    }
+    .product-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+    .product-image-wrapper {
+        aspect-ratio: 1 / 1.05;
+    }
+    .product-info {
+        padding: 9px 9px 10px;
+    }
+    .product-name {
+        min-height: 2.7em;
+        font-size: 12px;
+    }
+    .harga-promo {
+        font-size: 15px;
+    }
+    .detail-button {
+        min-height: 34px;
+        font-size: 11px;
+    }
+}
+@media (max-width: 380px) {
+    .catalog-section {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .product-container {
+        gap: 8px;
+    }
+    .product-info {
+        padding: 8px;
+    }
+    .product-name {
+        font-size: 11px;
+    }
+    .category {
+        padding: 8px 12px;
+    }
+}
