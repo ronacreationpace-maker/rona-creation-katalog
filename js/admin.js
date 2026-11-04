@@ -964,12 +964,10 @@ async function prosesPilihFoto(input, previewElement) {
 
         const info = document.createElement("small");
         info.style.display = "block";
-        info.style.whiteSpace = "pre-line";
         info.textContent =
-            "✅ LAPORAN FOTO\n" +
-            "Sebelum: " + formatUkuranFoto(file.size) + "\n" +
-            "Sesudah: " + formatUkuranFoto(ukuranSesudah) + "\n" +
-            "Hemat: " + formatUkuranFoto(hemat) + " (" + persen + "%)";
+            "✅ Berhasil dikompres: " +
+            formatUkuranFoto(file.size) + " → " +
+            formatUkuranFoto(ukuranSesudah);
         previewElement.appendChild(info);
     } catch (error) {
         console.error("Kompres foto gagal:", error);
