@@ -486,6 +486,23 @@ function simpanProdukLocal() {
                 adminProducts
             );
 
+        const ukuran =
+            new Blob([data]).size /
+            (1024 * 1024);
+
+        /*
+         * LocalStorage browser memiliki kuota terbatas.
+         * Jika data besar, jangan paksa simpan lokal.
+         * Data utama tetap dikirim dan disimpan melalui GitHub Worker.
+         */
+        if (ukuran > MAX_STORAGE_MB) {
+            console.warn(
+                "Data produk " + ukuran.toFixed(2) +
+                " MB. Lewati localStorage; gunakan GitHub sebagai penyimpanan utama."
+            );
+            return false;
+        }
+
         localStorage.setItem(
             "ronaProducts",
             data
@@ -495,13 +512,9 @@ function simpanProdukLocal() {
 
     } catch (error) {
 
-        console.error(
-            "Gagal menyimpan localStorage:",
+        console.warn(
+            "Penyimpanan lokal dilewati. Data akan mengandalkan GitHub:",
             error
-        );
-
-        alert(
-            "❌ Gagal menyimpan produk di perangkat."
         );
 
         return false;
@@ -510,7 +523,7 @@ function simpanProdukLocal() {
 
 
 /* =========================================================
-   CEK STORAGE
+   CEK UKURAN DATA PRODUK
    ========================================================= */
 
 function ukuranStorageMB(data) {
@@ -526,35 +539,23 @@ function ukuranStorageMB(data) {
 }
 
 
+/*
+ * Ukuran di atas 4 MB tidak lagi memblokir proses simpan.
+ * Batas 4 MB hanya berlaku untuk cache localStorage.
+ */
 function storageMasihAman(data) {
 
     const ukuran =
         ukuranStorageMB(data);
 
     console.log(
-        "Ukuran ronaProducts:",
+        "Ukuran data produk:",
         ukuran.toFixed(2),
-        "MB"
+        "MB",
+        ukuran > MAX_STORAGE_MB
+            ? "(akan disimpan melalui GitHub, bukan localStorage)"
+            : "(aman untuk localStorage)"
     );
-
-    if (
-        ukuran >
-        MAX_STORAGE_MB
-    ) {
-
-        alert(
-            "⚠️ Penyimpanan terlalu besar.\n\n" +
-            "Ukuran saat ini: " +
-            ukuran.toFixed(2) +
-            " MB\n\n" +
-            "Batas aman: " +
-            MAX_STORAGE_MB +
-            " MB\n\n" +
-            "Silakan kompres foto terlebih dahulu."
-        );
-
-        return false;
-    }
 
     return true;
 }
