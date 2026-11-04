@@ -6869,3 +6869,199 @@ body:has(.admin-container) .header .tagline { color:rgba(255,255,255,.78); }
         padding: 8px 12px;
     }
 }
+
+/* =========================================================
+   DETAIL PRODUK CUSTOMER — LAYOUT PREMIUM & NYAMAN
+   ========================================================= */
+.detail-overlay {
+    padding: 22px;
+    background: rgba(31, 8, 15, .68);
+    backdrop-filter: blur(3px);
+}
+.detail-modal {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    align-items: stretch;
+    width: min(920px, 100%);
+    max-width: 920px;
+    max-height: 90vh;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.65);
+    border-radius: 18px;
+    background: #fff;
+}
+.detail-media {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px;
+    background: #fbf7f6;
+    border-right: 1px solid #f0e5e6;
+}
+.detail-main-media {
+    min-height: 300px;
+    max-height: 62vh;
+    border: 1px solid #f0e7e7;
+    border-radius: 12px;
+    background: #fff;
+}
+.detail-main-media .detail-image {
+    width: 100%;
+    height: min(62vh, 520px);
+    max-height: 520px;
+    object-fit: contain;
+}
+.detail-main-media .detail-video {
+    height: auto;
+    min-height: 240px;
+    object-fit: contain;
+}
+.detail-thumbnails {
+    gap: 9px;
+    margin-top: 13px;
+    padding: 2px 2px 7px;
+}
+.detail-thumbnail {
+    width: 66px;
+    height: 66px;
+    border-radius: 9px;
+    border-color: #eadcde;
+}
+.detail-thumbnail.active {
+    border: 2px solid #86152a;
+    box-shadow: 0 0 0 2px rgba(134,21,42,.08);
+}
+.detail-content {
+    min-width: 0;
+    overflow-y: auto;
+    padding: 34px 30px 28px;
+}
+.close-detail {
+    top: 12px;
+    right: 12px;
+    width: 34px;
+    height: 34px;
+    background: #fff;
+    color: #681326;
+    border: 1px solid #f0e3e5;
+    box-shadow: 0 3px 12px rgba(45,10,20,.10);
+}
+.detail-category {
+    display: inline-block;
+    margin: 0 35px 10px 0;
+    padding: 5px 9px;
+    border-radius: 6px;
+    background: #fff1f3;
+    color: #86152a;
+    font-size: 10px;
+    letter-spacing: .6px;
+}
+.detail-content h2 {
+    margin-bottom: 12px;
+    color: #32151d;
+    font-size: clamp(21px, 2.3vw, 27px);
+    line-height: 1.25;
+}
+.detail-price {
+    margin: 0 0 17px;
+    padding: 13px 14px;
+    border: 1px solid #f0e1e3;
+    border-radius: 10px;
+    background: #fffafa;
+}
+.detail-price .product-price,
+.detail-price .product-price-promo {
+    margin: 0;
+}
+.detail-price .harga-promo {
+    color: #9b1730;
+    font-size: 22px;
+}
+.detail-description {
+    margin: 0 0 22px;
+    padding-top: 17px;
+    border-top: 1px solid #f0e8e9;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.75;
+    overflow-wrap: anywhere;
+}
+.detail-description p {
+    margin: 0;
+}
+.whatsapp-button,
+.website-button {
+    min-height: 46px;
+    border-radius: 9px;
+    font-size: 13px;
+}
+.website-button {
+    background: #86152a;
+}
+@media (max-width: 700px) {
+    .detail-overlay {
+        align-items: center;
+        padding: 9px;
+    }
+    .detail-modal {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 520px;
+        max-height: 94vh;
+        overflow-y: auto;
+        border-radius: 15px;
+    }
+    .detail-media {
+        padding: 13px 13px 10px;
+        border-right: 0;
+        border-bottom: 1px solid #f0e5e6;
+    }
+    .detail-main-media {
+        min-height: 0;
+        max-height: 44vh;
+    }
+    .detail-main-media .detail-image {
+        height: auto;
+        max-height: 44vh;
+        min-height: 180px;
+        object-fit: contain;
+    }
+    .detail-main-media .detail-video {
+        min-height: 180px;
+    }
+    .detail-thumbnails {
+        margin-top: 9px;
+        gap: 7px;
+    }
+    .detail-thumbnail {
+        width: 55px;
+        height: 55px;
+    }
+    .detail-content {
+        overflow: visible;
+        padding: 19px 17px 18px;
+    }
+    .detail-content h2 {
+        font-size: 20px;
+        padding-right: 24px;
+    }
+    .detail-price {
+        padding: 11px 12px;
+    }
+    .detail-price .harga-promo {
+        font-size: 20px;
+    }
+    .detail-description {
+        margin-bottom: 17px;
+        padding-top: 13px;
+        font-size: 13px;
+    }
+    .close-detail {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        z-index: 5;
+    }
+}
