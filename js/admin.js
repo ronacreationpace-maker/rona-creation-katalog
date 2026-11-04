@@ -994,160 +994,61 @@ async function prosesPilihFoto(input, previewElement) {
 
 
 /* =========================================================
-   KOMPRES FOTO
+   KOMPRES FOTO - KUALITAS SEIMBANG
    ========================================================= */
 
 function kompresFoto(file) {
-
-    return new Promise(
-        function (resolve, reject) {
-
-            if (!file) {
-
-                resolve("");
-
-                return;
-            }
-
-           if (cacheKompresFoto.has(file)) {
-
-    resolve(cacheKompresFoto.get(file));
-
-    return;
-}
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                function (event) {
-
-                    const img =
-                        new Image();
-
-
-                    img.onload =
-                        function () {
-
-                            const maxSize =
-                               500;
-
-                            let width =
-                                img.width;
-
-                            let height =
-                                img.height;
-
-
-                            if (
-                                width >
-                                    maxSize ||
-                                height >
-                                    maxSize
-                            ) {
-
-                                if (
-                                    width >
-                                    height
-                                ) {
-
-                                    height =
-                                        Math.round(
-                                            height *
-                                            maxSize /
-                                            width
-                                        );
-
-                                    width =
-                                        maxSize;
-
-                                } else {
-
-                                    width =
-                                        Math.round(
-                                            width *
-                                            maxSize /
-                                            height
-                                        );
-
-                                    height =
-                                        maxSize;
-                                }
-                            }
-
-
-                            const canvas =
-                                document.createElement(
-                                    "canvas"
-                                );
-
-                            canvas.width =
-                                width;
-
-                            canvas.height =
-                                height;
-
-
-                            const ctx =
-                                canvas.getContext(
-                                    "2d"
-                                );
-
-
-                            ctx.drawImage(
-                                img,
-                                0,
-                                0,
-                                width,
-                                height
-                            );
-
-
-                            const hasil =
-                                canvas.toDataURL(
-                                    "image/jpeg",
-                                   0.45
-                                );
-
-                           cacheKompresFoto.set(file, hasil);
-                            resolve(hasil);
-                        };
-
-
-                    img.onerror =
-                        function () {
-
-                            reject(
-                                new Error(
-                                    "Gagal membaca gambar."
-                                )
-                            );
-                        };
-
-
-                    img.src =
-                        event.target.result;
-                };
-
-
-            reader.onerror =
-                function () {
-
-                    reject(
-                        new Error(
-                            "Gagal membaca file."
-                        )
-                    );
-                };
-
-
-            reader.readAsDataURL(file);
-
+    return new Promise(function (resolve, reject) {
+        if (!file) return resolve("");
+        if (cacheKompresFoto.has(file) {
+            return resolve(cacheKompresFoto.get(file));
         }
-    );
-}
 
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const img = new Image();
+            img.onload = function () {
+                try {
+                    // Resolusi maksimal 1400 px agar foto tetap cukup tajam.
+                    const batas = 1400;
+                    const rasio = Math.min(1, batas / Math.max(img.width, img.height));
+                    const width = Math.max(1, Math.round(img.width * rasio));
+                    const height = Math.max(1, Math.round(img.height * rasio));
+
+                    const canvas = document.createElement("canvas");
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext("2d");
+                    if (!ctx) throw new Error("Canvas tidak tersedia.");
+
+                    // Latar putih untuk gambar transparan sebelum menjadi JPEG.
+                    ctx.fillStyle = "#ffffff";
+                    ctx.fillRect(0, 0, width, height);
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // 78%: kompresi seimbang (sebelumnya hanya 45%).
+                    const hasil = canvas.toDataURL("image/jpeg", 0.78);
+                    if (!hasil || hasil === "data:,") {
+                        throw new Error("Browser gagal membuat hasil kompresi.");
+                    }
+
+                    cacheKompresFoto.set(file, hasil);
+                    resolve(hasil);
+                } catch (error) {
+                    reject(error);
+                }
+            };
+            img.onerror = function () {
+                reject(new Error("Gagal membaca gambar."));
+            };
+            img.src = event.target.result;
+        };
+        reader.onerror = function () {
+            reject(new Error("Gagal membaca file."));
+        };
+        reader.readAsDataURL(file);
+    });
+}
 
 /* =========================================================
    VIDEO → BASE64
@@ -3568,18 +3469,8 @@ async function kompresProdukLama() {
         }
 
 
-        if (
-            !storageMasihAman(
-                adminProducts
-            )
-        ) {
-
-            return;
-        }
-
-
-        simpanProdukLocal();
-
+        // Jangan hentikan pengiriman GitHub hanya karena localStorage penuh.
+        const lokalBerhasil = simpanProdukLocal();
 
         const berhasil =
             await simpanKeGitHub();
@@ -3588,19 +3479,15 @@ async function kompresProdukLama() {
         tampilkanProdukAdmin();
 
 
-        if (berhasil) {
-
-            alert(
-                "✅ Kompresi selesai.\n\n" +
-                jumlah +
-                " foto berhasil diproses dan perubahan dikirim ke GitHub."
-            );
-
+        if (berhasil && lokalBerhasil) {
+            alert("✅ Kompresi selesai.\n\n" + jumlah +
+                " foto diproses dan tersimpan di perangkat serta GitHub.");
+        } else if (berhasil) {
+            alert("✅ Kompresi berhasil dikirim ke GitHub.\n\nNamun localStorage perangkat penuh; data online sudah diperbarui.");
+        } else if (lokalBerhasil) {
+            alert("⚠️ Foto telah dikompres dan tersimpan di perangkat, tetapi gagal dikirim ke GitHub.");
         } else {
-
-            alert(
-                "⚠️ Kompresi selesai dan tersimpan di perangkat, tetapi gagal dikirim ke GitHub."
-            );
+            alert("⚠️ Foto telah diproses, tetapi penyimpanan perangkat penuh dan pengiriman GitHub gagal. Jangan tutup halaman dulu.");
         }
 
 
