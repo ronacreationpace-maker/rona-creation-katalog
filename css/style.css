@@ -6355,3 +6355,118 @@ textarea {
     }
 
 }
+
+
+/* =========================================================
+   ADMIN RONA — TAMPILAN RINGKAS & NYAMAN (OVERRIDE)
+   ========================================================= */
+body:has(.admin-container) {
+    background:#f5f6f8;
+    color:#252525;
+}
+body:has(.admin-container) .header {
+    background:linear-gradient(115deg,#86152a,#b21f35);
+    color:#fff;
+    border:0;
+    box-shadow:0 4px 16px rgba(90,0,20,.12);
+    padding:15px 24px;
+}
+body:has(.admin-container) .header .logo,
+body:has(.admin-container) .header .logo span { color:#fff; }
+body:has(.admin-container) .header .tagline { color:rgba(255,255,255,.78); }
+.admin-container {
+    max-width:1080px !important;
+    width:calc(100% - 32px) !important;
+    margin:24px auto 50px !important;
+}
+.admin-header {
+    background:#fff;
+    border:1px solid #ececef;
+    border-radius:14px;
+    padding:20px 24px;
+    margin-bottom:18px;
+    align-items:center;
+}
+.admin-header h1 { font-size:25px !important; color:#28232a; }
+.admin-header p { font-size:13px !important; color:#777; }
+.back-button { border-radius:9px !important; padding:10px 15px !important; }
+.admin-card {
+    background:#fff !important;
+    border:1px solid #e9e9ed !important;
+    border-radius:14px !important;
+    padding:22px !important;
+    margin-bottom:18px !important;
+    box-shadow:0 4px 18px rgba(25,20,30,.035) !important;
+}
+.admin-card h2 {
+    font-size:18px !important;
+    color:#8f172c !important;
+    border-bottom:1px solid #f0e7e9;
+    padding-bottom:13px;
+    margin-bottom:18px !important;
+}
+.form-group { margin-bottom:17px !important; }
+.form-group label { font-size:13px !important; font-weight:700 !important; color:#39343a; margin-bottom:7px !important; }
+.form-group input:not([type=file]), .form-group select, .form-group textarea {
+    background:#fff !important;
+    border:1px solid #dfe1e6 !important;
+    border-radius:9px !important;
+    padding:11px 12px !important;
+    font-size:14px !important;
+    min-height:43px;
+    transition:border .15s,box-shadow .15s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color:#b21f35 !important;
+    box-shadow:0 0 0 3px rgba(178,31,53,.09) !important;
+    outline:0;
+}
+.form-group textarea { min-height:110px; }
+.media-upload-grid {
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:12px !important;
+}
+.media-upload-item {
+    min-width:0;
+    border:1px solid #ececf0;
+    border-radius:11px;
+    padding:11px;
+    background:#fafafa;
+}
+.media-upload-item > label { display:flex; align-items:center; justify-content:space-between; gap:5px; }
+.upload-box {
+    border:1px dashed #d9c3c8 !important;
+    border-radius:9px !important;
+    background:#fff8f9 !important;
+    padding:12px !important;
+    min-height:78px;
+    text-align:center;
+}
+.upload-box p { font-size:12px !important; color:#8f172c !important; margin:5px 0 !important; }
+.upload-box small { font-size:10px !important; color:#777; }
+.single-image-preview { margin-top:8px; }
+.single-image-preview img { width:100%; max-height:180px; object-fit:contain; border-radius:8px; background:#fff; }
+#imageSizeInfo, .image-compression-report, [id^="imageCompressionInfo"] { font-size:12px !important; }
+.video-preview { margin-top:10px; }
+.video-preview video { max-width:100%; border-radius:9px; }
+.admin-form-buttons { position:sticky; bottom:10px; z-index:5; background:rgba(255,255,255,.96); padding:12px; border:1px solid #eee; border-radius:12px; box-shadow:0 5px 20px rgba(0,0,0,.08); }
+.admin-form-buttons button { border-radius:9px !important; min-height:42px; padding:10px 18px !important; font-weight:700; }
+.admin-product-list { gap:10px !important; }
+.admin-product-item { border:1px solid #e9e9ed !important; border-radius:12px !important; background:#fff !important; padding:12px !important; }
+.admin-product-actions button { border-radius:8px !important; }
+@media(max-width:700px) {
+    body:has(.admin-container) .header { padding:12px 16px; }
+    .admin-container { width:calc(100% - 20px) !important; margin:12px auto 30px !important; }
+    .admin-header { padding:15px !important; flex-direction:column; align-items:flex-start !important; gap:12px; }
+    .admin-header h1 { font-size:21px !important; }
+    .admin-card { padding:14px !important; }
+    .media-upload-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:8px !important; }
+    .media-upload-item { padding:8px; }
+    .upload-box { padding:8px !important; }
+    .admin-form-buttons { bottom:5px; }
+}
+@media(max-width:420px) {
+    .media-upload-grid { grid-template-columns:1fr !important; }
+    .media-upload-item { display:grid; grid-template-columns:1fr; }
+}
