@@ -1351,47 +1351,22 @@ function tampilkanDetail(product) {
                 const hargaPesan =
                     hargaPromo > 0 &&
                     hargaPromo < hargaNormal
-                        ?
-
-                        formatHarga({
-                            price: hargaPromo
-                        }) +
-                        " 🔥 PROMO"
-
-                        :
-
-                        formatHarga(
-                            product
-                        );
+                        ? formatHarga({ price: hargaPromo }) + " (Promo)"
+                        : formatHarga(product);
 
 
-                const pesan = `Halo RONA CREATION 👋
+                const pesan = `Halo RONA CREATION,
 
-Saya tertarik dengan produk:
+Saya ingin bertanya mengenai produk berikut:
 
-📦 ${
-    product.name ||
-    "Produk RONA CREATION"
-}
+Nama Produk: ${product.name || "Produk RONA CREATION"}
+Kategori: ${product.category || "-"}
+Subkategori: ${product.subcategory || "-"}
+Harga: ${hargaPesan}
 
-🏷️ Kategori:
-${
-    product.category ||
-    "-"
-}
+Apakah produk ini masih tersedia? Mohon informasi lebih lanjut mengenai detail produk dan pemesanannya.
 
-📂 Subkategori:
-${
-    product.subcategory ||
-    "-"
-}
-
-💰 Harga:
-${hargaPesan}
-
-Mohon informasi lebih lanjut mengenai produk tersebut.
-
-Terima kasih 🙏`;
+Terima kasih.`;
 
 
                 const url =
