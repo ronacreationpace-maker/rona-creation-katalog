@@ -1519,6 +1519,13 @@ function editProduk(id) {
     editingProductId =
         product.id;
 
+    // Buka bagian media dan detail otomatis saat mode edit.
+    const foldMedia = document.getElementById("foldMedia");
+    const foldDetail = document.getElementById("foldDetail");
+
+    if (foldMedia) foldMedia.open = true;
+    if (foldDetail) foldDetail.open = true;
+
 
     if (productName) {
 
