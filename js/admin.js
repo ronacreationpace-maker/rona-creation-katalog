@@ -1054,64 +1054,77 @@ function kompresFoto(file) {
 }
 
 /* =========================================================
-   VIDEO → BASE64
+   VIDEO → RE-ENCODE WEBM VIA MEDIARECORDER
    ========================================================= */
 
+const cacheKompresVideo = new WeakMap();
+
 function bacaVideo(file) {
+    return new Promise((resolve, reject) => {
+        if (!file) return resolve("");
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.onerror = () => reject(new Error("Gagal membaca video."));
+        reader.readAsDataURL(file);
+    });
+}
 
-    return new Promise(
-        function (resolve, reject) {
+async function kompresVideo(file, onProgress) {
+    if (!file) return "";
+    if (cacheKompresVideo.has(file)) return cacheKompresVideo.get(file);
 
-            if (!file) {
+    if (!window.MediaRecorder || !HTMLVideoElement.prototype.captureStream) {
+        throw new Error("Browser ini belum mendukung kompres video otomatis. Gunakan Chrome terbaru.");
+    }
 
-                resolve("");
+    const url = URL.createObjectURL(file);
+    const video = document.createElement("video");
+    video.src = url;
+    video.muted = true;
+    video.playsInline = true;
+    video.preload = "auto";
 
-                return;
-            }
+    try {
+        await new Promise((resolve, reject) => {
+            video.onloadedmetadata = resolve;
+            video.onerror = () => reject(new Error("Video tidak dapat dibuka."));
+        });
 
+        const stream = video.captureStream();
+        const mime = ["video/webm;codecs=vp9","video/webm;codecs=vp8","video/webm"]
+            .find(type => MediaRecorder.isTypeSupported(type));
+        if (!mime) throw new Error("Format WebM tidak didukung browser.");
 
-            if (
-                file.size >
-                MAX_VIDEO_SIZE
-            ) {
+        const recorder = new MediaRecorder(stream, {
+            mimeType: mime,
+            videoBitsPerSecond: 450000
+        });
+        const chunks = [];
+        recorder.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+        const selesai = new Promise((resolve, reject) => {
+            recorder.onstop = () => resolve(new Blob(chunks, {type:"video/webm"}));
+            recorder.onerror = () => reject(new Error("Encoding video gagal."));
+        });
 
-                reject(
-                    new Error(
-                        "Ukuran video maksimal 2 MB."
-                    )
-                );
+        recorder.start(500);
+        await video.play();
+        await new Promise(resolve => {
+            video.onended = resolve;
+            video.onerror = resolve;
+        });
+        recorder.stop();
+        const blob = await selesai;
+        stream.getTracks().forEach(track => track.stop());
+        if (!blob.size) throw new Error("Hasil kompres video kosong.");
 
-                return;
-            }
-
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                function (event) {
-
-                    resolve(
-                        event.target.result
-                    );
-                };
-
-
-            reader.onerror =
-                function () {
-
-                    reject(
-                        new Error(
-                            "Gagal membaca video."
-                        )
-                    );
-                };
-
-
-            reader.readAsDataURL(file);
-        }
-    );
+        const hasil = await bacaVideo(new File([blob], "video.webm", {type:"video/webm"}));
+        cacheKompresVideo.set(file, hasil);
+        return hasil;
+    } finally {
+        URL.revokeObjectURL(url);
+        video.pause();
+        video.removeAttribute("src");
+    }
 }
 
 
@@ -1145,51 +1158,33 @@ if (productVideo) {
             }
 
 
-            if (
-                file.size >
-                MAX_VIDEO_SIZE
-            ) {
-
-                videoPreview.innerHTML =
-                    `<span style="color:red;">
-                        ❌ Video terlalu besar.
-                        Maksimal 2 MB.
-                    </span>`;
-
-                return;
-            }
-
-
-            const url =
-                URL.createObjectURL(
-                    file
-                );
-
-
-            const video =
-                document.createElement(
-                    "video"
-                );
-
-            video.src =
-                url;
-
-            video.controls =
-                true;
-
-            video.style.maxWidth =
-                "100%";
-
-            video.style.maxHeight =
-                "250px";
-
-            video.style.borderRadius =
-                "10px";
-
-
-            videoPreview.appendChild(
-                video
-            );
+            videoPreview.textContent = "⏳ Mengompres video...";
+            kompresVideo(file, () => {})
+                .then(async hasil => {
+                    const blob = await fetch(hasil).then(res => res.blob());
+                    const url = URL.createObjectURL(blob);
+                    videoPreview.innerHTML = "";
+                    const video = document.createElement("video");
+                    video.src = url;
+                    video.controls = true;
+                    video.style.maxWidth = "100%";
+                    video.style.maxHeight = "250px";
+                    video.style.borderRadius = "10px";
+                    videoPreview.appendChild(video);
+                    const info = document.createElement("small");
+                    info.style.display = "block";
+                    info.textContent = "✅ Video dikompres: " +
+                        (file.size / 1048576).toFixed(2) + " MB → " +
+                        (blob.size / 1048576).toFixed(2) + " MB";
+                    videoPreview.appendChild(info);
+                    if (blob.size > MAX_VIDEO_SIZE) {
+                        info.textContent += " ⚠️ Hasil masih di atas batas 2 MB.";
+                    }
+                })
+                .catch(error => {
+                    videoPreview.textContent = "❌ Kompres video gagal: " + error.message;
+                    console.error(error);
+                });
         }
     );
 }
@@ -1882,20 +1877,6 @@ if (saveProductButton) {
                         : null;
 
 
-                if (
-                    fileVideo &&
-                    fileVideo.size >
-                        MAX_VIDEO_SIZE
-                ) {
-
-                    alert(
-                        "❌ Ukuran video maksimal 2 MB."
-                    );
-
-                    return;
-                }
-
-
                 /* -------------------------------------------------
                    CEK DUPLIKAT
                    ------------------------------------------------- */
@@ -2072,9 +2053,7 @@ if (saveProductButton) {
                             "⏳ Memproses Video...";
 
                         video =
-                            await bacaVideo(
-                                fileVideo
-                            );
+                            await kompresVideo(fileVideo);
                     }
 
 
@@ -2311,9 +2290,7 @@ if (saveProductButton) {
                         "⏳ Memproses Video...";
 
                     video =
-                        await bacaVideo(
-                            fileVideo
-                        );
+                        await kompresVideo(fileVideo);
                 }
 
 
