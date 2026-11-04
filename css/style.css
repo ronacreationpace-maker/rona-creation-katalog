@@ -6587,3 +6587,19 @@ body:has(.admin-container) .header .tagline { color:rgba(255,255,255,.78); }
  .admin-quick-nav a { padding:8px 10px; font-size:11px; }
  #bagianMedia,#bagianDetail { padding:9px; }
 }
+
+/* Batch photo picker */
+.batch-photo-upload {
+ display:flex; flex-direction:column; align-items:flex-start; gap:7px;
+ padding:14px; margin:0 0 14px;
+ border:1px solid #f0dce1; background:#fff7f8; border-radius:11px;
+}
+.batch-photo-upload input[type=file] { position:absolute; width:1px;height:1px;opacity:0;overflow:hidden; }
+.batch-photo-button {
+ display:inline-flex !important; align-items:center; justify-content:center;
+ padding:11px 16px !important; border-radius:9px !important;
+ background:#a51d34 !important; color:#fff !important;
+ font-size:13px !important; font-weight:700 !important; cursor:pointer;
+}
+.batch-photo-button:hover { background:#86152a !important; }
+.batch-photo-upload small { color:#777; font-size:11px; }
