@@ -6603,3 +6603,35 @@ body:has(.admin-container) .header .tagline { color:rgba(255,255,255,.78); }
 }
 .batch-photo-button:hover { background:#86152a !important; }
 .batch-photo-upload small { color:#777; font-size:11px; }
+
+/* Admin collapsible sections */
+.admin-fold {
+ border:1px solid #e8e8ed;
+ border-radius:12px;
+ background:#fff;
+ margin:12px 0 16px;
+ overflow:hidden;
+}
+.admin-fold summary {
+ list-style:none;
+ cursor:pointer;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:12px;
+ padding:14px 16px;
+ background:#fff8f9;
+ color:#8f172c;
+ font-size:14px;
+ font-weight:800;
+}
+.admin-fold summary::-webkit-details-marker { display:none; }
+.admin-fold summary::after { content:"＋"; font-size:19px; line-height:1; }
+.admin-fold[open] summary::after { content:"−"; }
+.admin-fold summary span { margin-left:auto; color:#8a8589; font-size:11px; font-weight:500; }
+.admin-fold-content { padding:12px; }
+@media(max-width:600px) {
+ .admin-fold summary { padding:12px; font-size:13px; flex-wrap:wrap; }
+ .admin-fold summary span { width:100%; margin-left:0; }
+ .admin-fold-content { padding:8px; }
+}
