@@ -7575,3 +7575,136 @@ body:has(.admin-container) .header .tagline { color:rgba(255,255,255,.78); }
         max-height: 420px;
     }
 }
+
+
+/* =========================================================
+   COUNTDOWN PROMO — RONA RED PREMIUM
+   ========================================================= */
+.daily-promo {
+    width: 100%;
+    padding: 18px 20px 0;
+    margin: 0 auto 24px;
+    background: #fff;
+}
+
+.promo-inner {
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 17px 26px;
+    border: 0;
+    border-radius: 14px;
+    background: linear-gradient(110deg, #641326 0%, #8f172c 58%, #aa263e 100%);
+    box-shadow: 0 8px 22px rgba(104, 19, 38, .15);
+    text-align: left;
+}
+
+.promo-title {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    white-space: nowrap;
+}
+
+.promo-countdown {
+    gap: 7px;
+}
+
+.countdown-box {
+    min-width: 62px;
+    padding: 7px 10px 6px;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 9px;
+    background: rgba(255,255,255,.12);
+    box-shadow: none;
+    text-align: center;
+    backdrop-filter: blur(4px);
+}
+
+.countdown-box strong {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.countdown-box span {
+    margin-top: 5px;
+    color: rgba(255,255,255,.78);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: .7px;
+    text-transform: uppercase;
+}
+
+.countdown-separator {
+    color: rgba(255,255,255,.8);
+    font-size: 20px;
+}
+
+@media (max-width: 600px) {
+    .daily-promo {
+        padding: 12px 12px 0;
+        margin-bottom: 18px;
+    }
+
+    .promo-inner {
+        flex-direction: column;
+        gap: 11px;
+        padding: 14px 10px;
+        border-radius: 12px;
+    }
+
+    .promo-title {
+        font-size: 13px;
+        letter-spacing: .4px;
+    }
+
+    .promo-countdown {
+        width: 100%;
+        gap: 5px;
+    }
+
+    .countdown-box {
+        min-width: 0;
+        flex: 1 1 0;
+        max-width: 72px;
+        padding: 7px 5px 6px;
+        border-radius: 8px;
+    }
+
+    .countdown-box strong {
+        font-size: 20px;
+    }
+
+    .countdown-box span {
+        font-size: 8px;
+        letter-spacing: .5px;
+    }
+
+    .countdown-separator {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 360px) {
+    .daily-promo {
+        padding-right: 9px;
+        padding-left: 9px;
+    }
+
+    .promo-inner {
+        padding-right: 7px;
+        padding-left: 7px;
+    }
+
+    .countdown-box {
+        padding-right: 3px;
+        padding-left: 3px;
+    }
+}
