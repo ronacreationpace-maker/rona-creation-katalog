@@ -7438,3 +7438,26 @@ body:has(.admin-container) .header .tagline { color:rgba(255,255,255,.78); }
         flex: 0 0 auto;
     }
 }
+
+
+/* JUMLAH HASIL PRODUK */
+.product-count {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    margin-top: 7px;
+    padding: 4px 9px;
+    border: 1px solid #f0dce1;
+    border-radius: 20px;
+    background: #fff5f6;
+    color: #8b263b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1px;
+}
+@media (max-width: 600px) {
+    .product-count {
+        margin-top: 6px;
+        font-size: 10px;
+    }
+}
