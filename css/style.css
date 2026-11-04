@@ -6560,3 +6560,30 @@ body:has(.admin-container) .header .tagline { color:rgba(255,255,255,.78); }
  .admin-product-actions button { flex:1; }
  .admin-data-buttons button { flex:1 1 100%; }
 }
+
+/* Navigasi cepat Admin */
+.admin-quick-nav {
+ position:sticky; top:8px; z-index:8;
+ display:flex; gap:8px; overflow-x:auto;
+ padding:9px; margin:0 0 14px;
+ background:rgba(255,255,255,.94);
+ border:1px solid #ececef; border-radius:12px;
+ box-shadow:0 4px 14px rgba(20,15,20,.05);
+ scrollbar-width:thin;
+}
+.admin-quick-nav a {
+ flex:0 0 auto; text-decoration:none;
+ color:#8f172c; background:#fff5f6;
+ border:1px solid #f0dce1; border-radius:8px;
+ padding:8px 11px; font-size:12px; font-weight:700;
+}
+.admin-quick-nav a:hover { background:#8f172c;color:#fff; }
+#bagianMedia,#bagianDetail { scroll-margin-top:75px; }
+#kelolaKategori,#dataProduk,#formProduk { scroll-margin-top:75px; }
+#bagianMedia { padding:12px; background:#fbfbfc; border:1px solid #eee; border-radius:12px; margin-bottom:18px; }
+#bagianDetail { padding:12px; background:#fff; border:1px solid #eee; border-radius:12px; margin-bottom:12px; }
+@media(max-width:600px) {
+ .admin-quick-nav { top:4px; margin-bottom:10px; }
+ .admin-quick-nav a { padding:8px 10px; font-size:11px; }
+ #bagianMedia,#bagianDetail { padding:9px; }
+}
