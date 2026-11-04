@@ -3343,179 +3343,104 @@ if (restoreProductInput) {
    KOMPRES SEMUA FOTO LAMA
    ========================================================= */
 
+function ukuranFotoData(dataUrl) {
+    if (!dataUrl || !dataUrl.startsWith("data:image")) return 0;
+    const bagian = dataUrl.split(",")[1] || "";
+    return Math.floor(bagian.length * 3 / 4) -
+        (bagian.endsWith("==") ? 2 : bagian.endsWith("=") ? 1 : 0);
+}
+
+function totalUkuranFotoProduk(products) {
+    const fields = ["image", "image2", "image3", "image4", "image5", "image6"];
+    return products.reduce((total, product) =>
+        total + fields.reduce((subtotal, field) =>
+            subtotal + ukuranFotoData(product[field]), 0), 0);
+}
+
 async function kompresProdukLama() {
-
     if (!adminProducts.length) {
-
-        alert(
-            "Belum ada produk."
-        );
-
+        alert("Belum ada produk.");
         return;
     }
 
-
-    const yakin =
-        confirm(
-            "Kompres semua foto produk?\n\nFoto 1-6 akan diproses ulang agar ukuran penyimpanan lebih kecil."
-        );
-
-
-    if (!yakin) {
-        return;
-    }
-
+    const yakin = confirm("Kompres semua foto produk?\n\nFoto 1-6 akan diproses ulang.");
+    if (!yakin) return;
 
     if (compressProductsButton) {
-
-        compressProductsButton.disabled =
-            true;
-
-        compressProductsButton.textContent =
-            "⏳ Mengompres...";
+        compressProductsButton.disabled = true;
+        compressProductsButton.textContent = "⏳ Mengompres...";
     }
 
+    const ukuranSebelum = totalUkuranFotoProduk(adminProducts);
+    let jumlahBerhasil = 0;
+    let jumlahGagal = 0;
 
     try {
+        const fields = ["image", "image2", "image3", "image4", "image5", "image6"];
 
-        let jumlah =
-            0;
-
-
-        for (
-            let i = 0;
-            i < adminProducts.length;
-            i++
-        ) {
-
-            const product =
-                adminProducts[i];
-
-
-            const daftarFoto =
-                [
-                    "image",
-                    "image2",
-                    "image3",
-                    "image4",
-                    "image5",
-                    "image6"
-                ];
-
-
-            for (
-                const field
-                of daftarFoto
-            ) {
-
-                const src =
-                    product[field];
-
-
-                if (
-                    !src ||
-                    !src.startsWith(
-                        "data:image"
-                    )
-                ) {
-
-                    continue;
-                }
-
+        for (const product of adminProducts) {
+            for (const field of fields) {
+                const src = product[field];
+                if (!src || !src.startsWith("data:image")) continue;
 
                 try {
-
-                    const blob =
-                        await fetch(
-                            src
-                        ).then(
-                            function (res) {
-                                return res.blob();
-                            }
-                        );
-
-
-                    const file =
-                        new File(
-                            [
-                                blob
-                            ],
-                            field +
-                            ".jpg",
-                            {
-                                type:
-                                    "image/jpeg"
-                            }
-                        );
-
-
-                    product[field] =
-                        await kompresFoto(
-                            file
-                        );
-
-
-                    jumlah++;
-
+                    const blob = await fetch(src).then(res => res.blob());
+                    const file = new File([blob], field + ".jpg", { type: "image/jpeg" });
+                    const hasil = await kompresFoto(file);
+                    if (hasil && hasil.startsWith("data:image")) {
+                        product[field] = hasil;
+                        jumlahBerhasil++;
+                    } else {
+                        jumlahGagal++;
+                    }
                 } catch (error) {
-
-                    console.warn(
-                        "Gagal kompres:",
-                        field,
-                        error
-                    );
+                    jumlahGagal++;
+                    console.warn("Gagal kompres foto:", field, error);
                 }
             }
         }
 
+        const ukuranSesudah = totalUkuranFotoProduk(adminProducts);
+        const hematByte = Math.max(0, ukuranSebelum - ukuranSesudah);
+        const hematPersen = ukuranSebelum > 0
+            ? (hematByte / ukuranSebelum * 100).toFixed(1)
+            : "0.0";
 
-        // Jangan hentikan pengiriman GitHub hanya karena localStorage penuh.
         const lokalBerhasil = simpanProdukLocal();
-
-        const berhasil =
-            await simpanKeGitHub();
-
-
+        const githubBerhasil = await simpanKeGitHub();
         tampilkanProdukAdmin();
 
-
-        if (berhasil && lokalBerhasil) {
-            alert("✅ Kompresi selesai.\n\n" + jumlah +
-                " foto diproses dan tersimpan di perangkat serta GitHub.");
-        } else if (berhasil) {
-            alert("✅ Kompresi berhasil dikirim ke GitHub.\n\nNamun localStorage perangkat penuh; data online sudah diperbarui.");
+        const formatMB = byte => (byte / (1024 * 1024)).toFixed(2) + " MB";
+        let statusSimpan = "";
+        if (githubBerhasil && lokalBerhasil) {
+            statusSimpan = "✅ Tersimpan di perangkat dan GitHub.";
+        } else if (githubBerhasil) {
+            statusSimpan = "⚠️ GitHub berhasil; penyimpanan perangkat gagal/penuh.";
         } else if (lokalBerhasil) {
-            alert("⚠️ Foto telah dikompres dan tersimpan di perangkat, tetapi gagal dikirim ke GitHub.");
+            statusSimpan = "⚠️ Tersimpan di perangkat, tetapi GitHub gagal.";
         } else {
-            alert("⚠️ Foto telah diproses, tetapi penyimpanan perangkat penuh dan pengiriman GitHub gagal. Jangan tutup halaman dulu.");
+            statusSimpan = "❌ Penyimpanan perangkat dan GitHub gagal.";
         }
 
-
-    } catch (error) {
-
-        console.error(
-            "Kompres error:",
-            error
-        );
-
-
         alert(
-            "❌ Gagal melakukan kompresi."
+            "📊 LAPORAN KOMPRES FOTO\n\n" +
+            "Foto berhasil diproses: " + jumlahBerhasil + "\n" +
+            "Foto gagal: " + jumlahGagal + "\n\n" +
+            "Ukuran sebelum: " + formatMB(ukuranSebelum) + "\n" +
+            "Ukuran sesudah: " + formatMB(ukuranSesudah) + "\n" +
+            "Penghematan: " + formatMB(hematByte) + " (" + hematPersen + "%)\n\n" +
+            statusSimpan
         );
-
+    } catch (error) {
+        console.error("Kompres error:", error);
+        alert("❌ Proses kompres gagal. Periksa Console untuk detail.");
     } finally {
-
         if (compressProductsButton) {
-
-            compressProductsButton.disabled =
-                false;
-
-            compressProductsButton.textContent =
-                "🗜️ Kompres Foto";
+            compressProductsButton.disabled = false;
+            compressProductsButton.textContent = "🗜️ Kompres Foto";
         }
     }
 }
-
 
 if (compressProductsButton) {
 
