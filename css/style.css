@@ -7065,3 +7065,63 @@ body:has(.admin-container) .header .tagline { color:rgba(255,255,255,.78); }
         z-index: 5;
     }
 }
+
+/* =========================================================
+   HERO & KEUNGGULAN — FINISHING PREMIUM
+   ========================================================= */
+.hero { min-height: 540px; background: radial-gradient(circle at 78% 48%, rgba(255,255,255,.16), transparent 29%), linear-gradient(120deg, #681326 0%, #8f172c 54%, #aa233b 100%); }
+.hero-inner { min-height: 540px; grid-template-columns: 1.08fr .92fr; gap: 54px; }
+.hero-content { max-width: 670px; padding: 35px 0; }
+.hero-label { margin-bottom: 20px; padding: 8px 15px; background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.35); letter-spacing: 1.4px; }
+.hero h1 { max-width: 690px; margin-bottom: 18px; font-size: clamp(38px, 4.5vw, 57px); line-height: 1.08; letter-spacing: -1.1px; }
+.hero p { max-width: 510px; margin-bottom: 27px; font-size: 15px; line-height: 1.75; }
+.hero-button { min-height: 48px; padding: 0 23px; border-radius: 9px; }
+.hero-button.primary { color: #78162a; box-shadow: 0 7px 18px rgba(30,0,8,.12); }
+.hero-button.secondary { border-color: rgba(255,255,255,.7); }
+.hero-visual { min-height: 390px; }
+.hero-product-frame { display: flex; align-items: center; justify-content: center; width: min(100%, 350px); height: 390px; min-height: 0; padding: 17px; border: 8px solid rgba(255,255,255,.92); border-radius: 18px; background: #fff; box-shadow: 0 22px 55px rgba(35,0,10,.24); transform: rotate(1.5deg); }
+.hero-product-frame img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 5px; }
+.hero-decoration-one { width: 290px; height: 290px; border: 1px solid rgba(255,255,255,.22); }
+.hero-decoration-two { width: 370px; height: 370px; border: 1px solid rgba(255,255,255,.12); }
+.benefit-section { padding: 58px 22px; background: #fff; }
+.benefit-inner { grid-template-columns: .85fr 1.15fr; gap: 48px; }
+.benefit-heading span { margin-bottom: 10px; color: #a51d34; font-weight: 700; letter-spacing: 2px; }
+.benefit-heading h2 { margin-bottom: 13px; color: #40101d; font-size: clamp(26px, 2.7vw, 34px); line-height: 1.18; }
+.benefit-heading p { font-size: 14px; line-height: 1.7; }
+.benefit-grid { gap: 12px; }
+.benefit-card { min-height: 102px; align-items: center; padding: 17px; border-color: #f0e2e4; border-radius: 12px; background: #fffafa; }
+.benefit-icon { width: 42px; height: 42px; border-radius: 11px; background: #fbecef; color: #86152a; }
+.benefit-card h3 { margin-bottom: 5px; color: #40101d; font-size: 14px; }
+.benefit-card p { font-size: 12px; line-height: 1.55; }
+@media (max-width: 768px) {
+ .hero { min-height: 0; }
+ .hero-inner { min-height: 0; padding: 48px 0 38px; gap: 27px; }
+ .hero-content { padding: 0; text-align: center; }
+ .hero-label { margin-bottom: 14px; }
+ .hero h1 { margin: 0 auto 14px; font-size: clamp(31px, 8vw, 39px); line-height: 1.12; letter-spacing: -.6px; }
+ .hero p { margin: 0 auto 20px; max-width: 520px; font-size: 13px; line-height: 1.65; }
+ .hero-buttons { justify-content: center; gap: 9px; }
+ .hero-button { min-height: 44px; padding: 0 16px; font-size: 12px; }
+ .hero-visual { min-height: 0; padding: 4px 0 12px; }
+ .hero-product-frame { width: min(72vw, 270px); height: 270px; padding: 12px; border-width: 6px; border-radius: 15px; }
+ .hero-decoration-one { width: 210px; height: 210px; }
+ .hero-decoration-two { width: 270px; height: 270px; }
+ .benefit-section { padding: 40px 15px; }
+ .benefit-inner { grid-template-columns: 1fr; gap: 22px; }
+ .benefit-heading { text-align: center; }
+ .benefit-heading h2 { font-size: 27px; }
+ .benefit-heading p { margin: 0 auto; font-size: 13px; }
+ .benefit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+ .benefit-card { min-height: 112px; align-items: flex-start; flex-direction: column; gap: 9px; padding: 13px; }
+ .benefit-icon { width: 36px; height: 36px; font-size: 16px; }
+ .benefit-card h3 { font-size: 12px; }
+ .benefit-card p { font-size: 10px; }
+}
+@media (max-width: 380px) {
+ .hero-inner { width: calc(100% - 24px); }
+ .hero h1 { font-size: 30px; }
+ .hero-buttons { flex-direction: column; }
+ .hero-button { width: 100%; }
+ .benefit-grid { gap: 7px; }
+ .benefit-card { padding: 10px; }
+}
