@@ -1613,10 +1613,14 @@ function editProduk(id) {
     }
 
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    const formProduk = document.getElementById("formProduk");
+
+    if (formProduk) {
+        formProduk.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
 }
 
 
