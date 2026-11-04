@@ -996,6 +996,43 @@ async function prosesPilihFoto(input, previewElement) {
 });
 
 
+
+/* =========================================================
+   PILIH BANYAK FOTO SEKALIGUS
+   ========================================================= */
+const productImagesBatch = document.getElementById("productImagesBatch");
+if (productImagesBatch) {
+    productImagesBatch.addEventListener("change", async function () {
+        const files = Array.from(this.files || []);
+        if (!files.length) return;
+        if (files.length > 6) {
+            alert("Maksimal pilih 6 foto sekaligus. Silakan pilih ulang.");
+            this.value = "";
+            return;
+        }
+        const slots = [
+            [productImage, imagePreview], [productImage2, imagePreview2],
+            [productImage3, imagePreview3], [productImage4, imagePreview4],
+            [productImage5, imagePreview5], [productImage6, imagePreview6]
+        ];
+        // Isi ulang slot dari Foto 1 berdasarkan urutan pilihan di galeri.
+        slots.forEach(([input, preview]) => {
+            if (!input) return;
+            input.value = "";
+            if (preview) preview.innerHTML = "";
+        });
+        files.forEach((file, index) => {
+            const input = slots[index]?.[0];
+            if (!input) return;
+            const transfer = new DataTransfer();
+            transfer.items.add(file);
+            input.files = transfer.files;
+            input.dispatchEvent(new Event("change", { bubbles: true }));
+        });
+        this.value = "";
+    });
+}
+
 /* =========================================================
    KOMPRES FOTO - KUALITAS SEIMBANG
    ========================================================= */
