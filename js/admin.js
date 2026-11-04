@@ -179,6 +179,8 @@ let editingProductId = null;
 let kategoriData = {};
 
 const cacheKompresFoto = new WeakMap();
+// Menyimpan hasil kompres yang benar-benar ditampilkan pada preview per kolom upload.
+const hasilKompresFotoInput = new WeakMap();
 
 /* =========================================================
    KATEGORI DEFAULT
@@ -932,6 +934,7 @@ function pasangTombolHapusFoto(input, previewElement) {
     tombol.style.cssText = "display:block;margin:10px 0 4px;padding:8px 12px;border:0;border-radius:8px;background:#8f1d2c;color:#fff;font-size:13px;font-weight:600;cursor:pointer;";
     tombol.addEventListener("click", function () {
         input.value = "";
+        hasilKompresFotoInput.delete(input);
         previewElement.innerHTML = "";
         previewElement.textContent = "Foto dihapus. Silakan pilih foto lain jika diperlukan.";
     });
@@ -948,6 +951,7 @@ async function prosesPilihFoto(input, previewElement) {
     if (!input || !previewElement) return;
 
     const file = input.files[0];
+    hasilKompresFotoInput.delete(input);
     previewElement.innerHTML = "";
     if (!file) return;
 
@@ -965,6 +969,7 @@ async function prosesPilihFoto(input, previewElement) {
 
     try {
         const hasil = await kompresFoto(file);
+        hasilKompresFotoInput.set(input, { file, data: hasil });
         const ukuranSesudah = ukuranFotoData(hasil);
         const hemat = Math.max(0, file.size - ukuranSesudah);
         const persen = file.size > 0
@@ -1015,6 +1020,19 @@ async function prosesPilihFoto(input, previewElement) {
 
 });
 
+
+
+/* Ambil hasil kompres yang sama persis dengan preview upload. */
+async function ambilHasilFotoKompres(input, file) {
+    if (!file) return "";
+    const tersimpan = input ? hasilKompresFotoInput.get(input) : null;
+    if (tersimpan && tersimpan.file === file && tersimpan.data) {
+        return tersimpan.data;
+    }
+    const hasil = await kompresFoto(file);
+    if (input) hasilKompresFotoInput.set(input, { file, data: hasil });
+    return hasil;
+}
 
 
 /* =========================================================
@@ -2057,8 +2075,8 @@ if (saveProductButton) {
                             "⏳ Mengompres Foto 1...";
 
                         gambar1 =
-                            await kompresFoto(
-                                file1
+                            await ambilHasilFotoKompres(
+                                productImage, file1
                             );
                     }
 
@@ -2069,8 +2087,8 @@ if (saveProductButton) {
                             "⏳ Mengompres Foto 2...";
 
                         gambar2 =
-                            await kompresFoto(
-                                file2
+                            await ambilHasilFotoKompres(
+                                productImage2, file2
                             );
                     }
 
@@ -2081,8 +2099,8 @@ if (saveProductButton) {
                             "⏳ Mengompres Foto 3...";
 
                         gambar3 =
-                            await kompresFoto(
-                                file3
+                            await ambilHasilFotoKompres(
+                                productImage3, file3
                             );
                     }
 
@@ -2093,8 +2111,8 @@ if (saveProductButton) {
                             "⏳ Mengompres Foto 4...";
 
                         gambar4 =
-                            await kompresFoto(
-                                file4
+                            await ambilHasilFotoKompres(
+                                productImage4, file4
                             );
                     }
 
@@ -2105,8 +2123,8 @@ if (saveProductButton) {
                             "⏳ Mengompres Foto 5...";
 
                         gambar5 =
-                            await kompresFoto(
-                                file5
+                            await ambilHasilFotoKompres(
+                                productImage5, file5
                             );
                     }
 
@@ -2117,8 +2135,8 @@ if (saveProductButton) {
                             "⏳ Mengompres Foto 6...";
 
                         gambar6 =
-                            await kompresFoto(
-                                file6
+                            await ambilHasilFotoKompres(
+                                productImage6, file6
                             );
                     }
 
@@ -2274,8 +2292,8 @@ if (saveProductButton) {
                         "⏳ Mengompres Foto 1...";
 
                     gambar1 =
-                        await kompresFoto(
-                            file1
+                        await ambilHasilFotoKompres(
+                            productImage, file1
                         );
                 }
 
@@ -2290,8 +2308,8 @@ if (saveProductButton) {
                         "⏳ Mengompres Foto 2...";
 
                     gambar2 =
-                        await kompresFoto(
-                            file2
+                        await ambilHasilFotoKompres(
+                            productImage2, file2
                         );
                 }
 
@@ -2306,8 +2324,8 @@ if (saveProductButton) {
                         "⏳ Mengompres Foto 3...";
 
                     gambar3 =
-                        await kompresFoto(
-                            file3
+                        await ambilHasilFotoKompres(
+                            productImage3, file3
                         );
                 }
 
@@ -2322,8 +2340,8 @@ if (saveProductButton) {
                         "⏳ Mengompres Foto 4...";
 
                     gambar4 =
-                        await kompresFoto(
-                            file4
+                        await ambilHasilFotoKompres(
+                            productImage4, file4
                         );
                 }
 
@@ -2338,8 +2356,8 @@ if (saveProductButton) {
                         "⏳ Mengompres Foto 5...";
 
                     gambar5 =
-                        await kompresFoto(
-                            file5
+                        await ambilHasilFotoKompres(
+                            productImage5, file5
                         );
                 }
 
@@ -2354,8 +2372,8 @@ if (saveProductButton) {
                         "⏳ Mengompres Foto 6...";
 
                     gambar6 =
-                        await kompresFoto(
-                            file6
+                        await ambilHasilFotoKompres(
+                            productImage6, file6
                         );
                 }
 
@@ -4813,15 +4831,10 @@ function tampilkanUkuranFoto(file) {
     }
 
 
-    const ukuranMB =
-        file.size /
-        (1024 * 1024);
-
-
+    const ukuranMB = file.size / (1024 * 1024);
     imageSizeInfo.textContent =
-        "Ukuran asli: " +
-        ukuranMB.toFixed(2) +
-        " MB • Setelah kompresi akan lebih kecil.";
+        "Ukuran foto asli: " + ukuranMB.toFixed(2) +
+        " MB. Ukuran tersimpan mengikuti hasil kompres pada preview setiap foto.";
 }
 
 
