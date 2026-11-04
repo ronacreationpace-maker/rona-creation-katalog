@@ -929,9 +929,7 @@ async function prosesPilihFoto(input, previewElement) {
     if (!input || !previewElement) return;
 
     const file = input.files[0];
-
     previewElement.innerHTML = "";
-
     if (!file) return;
 
     if (!file.type.startsWith("image/")) {
@@ -939,36 +937,43 @@ async function prosesPilihFoto(input, previewElement) {
         return;
     }
 
+    const formatUkuranFoto = byte =>
+        byte >= 1024 * 1024
+            ? (byte / (1024 * 1024)).toFixed(2) + " MB"
+            : (byte / 1024).toFixed(1) + " KB";
+
     previewElement.textContent = "⏳ Mengompres foto...";
 
     try {
-
         const hasil = await kompresFoto(file);
+        const ukuranSesudah = ukuranFotoData(hasil);
+        const hemat = Math.max(0, file.size - ukuranSesudah);
+        const persen = file.size > 0
+            ? (hemat / file.size * 100).toFixed(1)
+            : "0.0";
 
         previewElement.innerHTML = "";
 
         const img = document.createElement("img");
-
         img.src = hasil;
         img.style.maxWidth = "100%";
         img.style.maxHeight = "220px";
         img.style.objectFit = "contain";
         img.style.borderRadius = "10px";
-
         previewElement.appendChild(img);
 
         const info = document.createElement("small");
-        info.textContent = "✓ Foto berhasil dikompres.";
-
+        info.style.display = "block";
+        info.style.whiteSpace = "pre-line";
+        info.textContent =
+            "✅ LAPORAN FOTO\n" +
+            "Sebelum: " + formatUkuranFoto(file.size) + "\n" +
+            "Sesudah: " + formatUkuranFoto(ukuranSesudah) + "\n" +
+            "Hemat: " + formatUkuranFoto(hemat) + " (" + persen + "%)";
         previewElement.appendChild(info);
-
     } catch (error) {
-
         console.error("Kompres foto gagal:", error);
-
-        previewElement.textContent =
-            "❌ Gagal mengompres foto.";
-
+        previewElement.textContent = "❌ Gagal mengompres foto.";
     }
 }
 
