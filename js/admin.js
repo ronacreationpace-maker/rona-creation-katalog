@@ -921,6 +921,25 @@ function previewFoto(
 
 
 /* =========================================================
+   TOMBOL HAPUS FOTO PILIHAN
+   ========================================================= */
+
+function pasangTombolHapusFoto(input, previewElement) {
+    const tombol = document.createElement("button");
+    tombol.type = "button";
+    tombol.textContent = "🗑️ Hapus foto ini";
+    tombol.className = "hapus-foto-upload";
+    tombol.style.cssText = "display:block;margin:10px 0 4px;padding:8px 12px;border:0;border-radius:8px;background:#8f1d2c;color:#fff;font-size:13px;font-weight:600;cursor:pointer;";
+    tombol.addEventListener("click", function () {
+        input.value = "";
+        previewElement.innerHTML = "";
+        previewElement.textContent = "Foto dihapus. Silakan pilih foto lain jika diperlukan.";
+    });
+    previewElement.appendChild(tombol);
+}
+
+
+/* =========================================================
    KOMPRES OTOMATIS SAAT FOTO DIPILIH
    ========================================================= */
 
@@ -969,6 +988,7 @@ async function prosesPilihFoto(input, previewElement) {
             formatUkuranFoto(file.size) + " → " +
             formatUkuranFoto(ukuranSesudah);
         previewElement.appendChild(info);
+        pasangTombolHapusFoto(input, previewElement);
     } catch (error) {
         console.error("Kompres foto gagal:", error);
         previewElement.textContent = "❌ Gagal mengompres foto.";
