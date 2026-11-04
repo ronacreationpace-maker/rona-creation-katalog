@@ -551,9 +551,46 @@ function tampilkanProduk(data) {
                     kategori yang berbeda.
                 </span>
 
+                <button
+                    type="button"
+                    id="resetCatalogFilters"
+                    class="reset-catalog-filters"
+                >
+                    Tampilkan Semua Produk
+                </button>
+
             </div>
 
         `;
+
+
+        const resetButton =
+            document.getElementById("resetCatalogFilters");
+
+        if (resetButton) {
+            resetButton.addEventListener("click", () => {
+                kataPencarian = "";
+                kategoriAktif = "Semua";
+                subkategoriAktif = "Semua";
+                urutanAktif = "terbaru";
+
+                if (searchInput) searchInput.value = "";
+                if (sortSelect) sortSelect.value = "terbaru";
+
+                tampilkanKategoriKatalog();
+                tampilkanProdukTerfilter();
+
+                const catalogSection =
+                    document.getElementById("katalog");
+
+                if (catalogSection) {
+                    catalogSection.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }
+            });
+        }
 
         return;
 
