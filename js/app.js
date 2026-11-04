@@ -1666,6 +1666,20 @@ const cocokKategori =
     );
 
 
+    // INFORMASI JUMLAH HASIL PRODUK
+    const productCount =
+        document.getElementById("productCount");
+
+    if (productCount) {
+        const totalProduk = products.length;
+        const jumlahHasil = hasil.length;
+
+        productCount.textContent =
+            jumlahHasil === totalProduk
+                ? `Menampilkan ${jumlahHasil} produk`
+                : `Menampilkan ${jumlahHasil} dari ${totalProduk} produk`;
+    }
+
     tampilkanProduk(
         hasil
     );
