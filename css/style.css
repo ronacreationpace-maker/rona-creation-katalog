@@ -7461,3 +7461,30 @@ body:has(.admin-container) .header .tagline { color:rgba(255,255,255,.78); }
         font-size: 10px;
     }
 }
+
+
+/* TOMBOL PEMULIHAN SAAT PRODUK TIDAK DITEMUKAN */
+.reset-catalog-filters {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    margin-top: 18px;
+    padding: 0 19px;
+    border: 1px solid #8f1930;
+    border-radius: 10px;
+    background: #8f1930;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+}
+.reset-catalog-filters:hover {
+    background: #701225;
+    transform: translateY(-1px);
+}
+.reset-catalog-filters:focus-visible {
+    outline: 3px solid rgba(143, 25, 48, .2);
+    outline-offset: 3px;
+}
