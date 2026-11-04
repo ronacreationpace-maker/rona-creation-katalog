@@ -7293,3 +7293,148 @@ body:has(.admin-container) .header .tagline { color:rgba(255,255,255,.78); }
     .product-name { font-size: 11px; }
     .harga-promo { font-size: 14px; }
 }
+
+
+/* =========================================================
+   PENCARIAN & FILTER KATALOG — RAPI DAN MUDAH DIGUNAKAN
+   ========================================================= */
+.search-section {
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+.search-box {
+    min-width: 0;
+}
+#searchInput {
+    min-height: 50px;
+    padding-left: 48px;
+    border: 1px solid #ead9dc;
+    border-radius: 13px;
+    background: #fff;
+    color: #3b2028;
+    font-size: 14px;
+}
+#searchInput::placeholder {
+    color: #a79a9d;
+}
+#searchInput:focus {
+    border-color: #a51d35;
+    box-shadow: 0 0 0 3px rgba(165, 29, 53, .09);
+}
+.search-icon {
+    left: 17px;
+    color: #9b5361;
+}
+.share-catalog-button {
+    min-height: 50px;
+    padding: 0 19px;
+    border-radius: 13px;
+    box-shadow: 0 5px 14px rgba(134, 21, 42, .13);
+}
+.category-wrapper {
+    padding: 15px 16px 12px;
+    margin-bottom: 14px;
+    border: 1px solid #f0e2e4;
+    border-radius: 14px;
+    background: #fff;
+}
+.section-label {
+    margin-bottom: 11px;
+    color: #681326;
+    font-size: 12px;
+    font-weight: 700;
+}
+.category-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+}
+.category {
+    min-height: 36px;
+    padding: 8px 15px;
+    border: 1px solid #ead8dc;
+    border-radius: 9px;
+    background: #fff;
+    color: #68434b;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background .18s ease, color .18s ease, border-color .18s ease;
+}
+.category:hover {
+    border-color: #b21f35;
+    color: #94192c;
+}
+.category.active {
+    background: #86152a;
+    border-color: #86152a;
+    color: #fff;
+}
+.subcategory-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 0 0 20px;
+    padding: 0 2px;
+}
+.subcategory-button {
+    min-height: 32px;
+    padding: 6px 12px;
+    border: 1px solid #eadde0;
+    border-radius: 8px;
+    background: #fff;
+    color: #77515a;
+    font-size: 11px;
+    font-weight: 600;
+}
+.subcategory-button.active {
+    border-color: #d7aab3;
+    background: #fff0f2;
+    color: #86152a;
+}
+@media (max-width: 600px) {
+    .search-section {
+        flex-direction: column;
+        gap: 9px;
+        margin-bottom: 17px;
+    }
+    #searchInput,
+    .share-catalog-button {
+        min-height: 45px;
+    }
+    .share-catalog-button {
+        width: 100%;
+    }
+    .category-wrapper {
+        padding: 12px 11px 10px;
+        border-radius: 12px;
+    }
+    .category-section {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 1px 1px 7px;
+        margin-right: -2px;
+        scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+    }
+    .category {
+        flex: 0 0 auto;
+        min-height: 35px;
+        padding: 8px 13px;
+    }
+    .subcategory-section {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 2px 1px 8px;
+        margin-bottom: 16px;
+        scrollbar-width: thin;
+        -webkit-overflow-scrolling: touch;
+    }
+    .subcategory-button {
+        flex: 0 0 auto;
+    }
+}
