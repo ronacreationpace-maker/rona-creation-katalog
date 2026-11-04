@@ -1000,7 +1000,7 @@ async function prosesPilihFoto(input, previewElement) {
 function kompresFoto(file) {
     return new Promise(function (resolve, reject) {
         if (!file) return resolve("");
-        if (cacheKompresFoto.has(file) {
+        if (cacheKompresFoto.has(file)) {
             return resolve(cacheKompresFoto.get(file));
         }
 
