@@ -1269,6 +1269,9 @@ function resetFormProduk() {
     editingProductId =
         null;
 
+    const judulFormProduk = document.getElementById("judulFormProduk");
+    if (judulFormProduk) judulFormProduk.textContent = "➕ Tambah Produk";
+
 
     if (productName) {
         productName.value =
@@ -1518,6 +1521,9 @@ function editProduk(id) {
 
     editingProductId =
         product.id;
+
+    const judulFormProduk = document.getElementById("judulFormProduk");
+    if (judulFormProduk) judulFormProduk.textContent = "✏️ Edit Produk";
 
     // Buka bagian media dan detail otomatis saat mode edit.
     const foldMedia = document.getElementById("foldMedia");
