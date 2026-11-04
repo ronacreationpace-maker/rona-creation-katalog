@@ -1095,9 +1095,15 @@ async function kompresVideo(file, onProgress) {
             .find(type => MediaRecorder.isTypeSupported(type));
         if (!mime) throw new Error("Format WebM tidak didukung browser.");
 
+        // Target hasil sekitar 1,7 MB; bitrate menyesuaikan durasi video.
+        const targetBytes = 1.7 * 1024 * 1024;
+        const durasi = Math.max(1, video.duration || 1);
+        const bitrateTarget = Math.floor((targetBytes * 8) / durasi);
+        const videoBitrate = Math.max(60000, Math.min(400000, bitrateTarget));
+
         const recorder = new MediaRecorder(stream, {
             mimeType: mime,
-            videoBitsPerSecond: 450000
+            videoBitsPerSecond: videoBitrate
         });
         const chunks = [];
         recorder.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
